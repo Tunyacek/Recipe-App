@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [greeting, setGreeting] = useState(null);
+  const [greeting, setGreeting] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -15,10 +15,8 @@ function App() {
         setIsLoading(true);
         const res = await axios.get(url);
         setGreeting(res.data);
-        console.log(res.data);
       } catch (error) {
         setError("Nastala chyba");
-        console.log(error);
       } finally {
         setIsLoading(false);
       }
@@ -28,11 +26,7 @@ function App() {
 
   if (isLoading) return <p>Nahravam...</p>;
   if (error) return <p>{error}</p>;
-  return (
-    <>
-      <p>{greeting}</p>
-    </>
-  );
+  return <p>{greeting}</p>;
 }
 
 export default App;
