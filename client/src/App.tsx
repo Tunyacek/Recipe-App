@@ -1,26 +1,38 @@
-import  { useState, useEffect } from 'react';
-import axios from 'axios';
-import './App.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import "./App.css";
 
 function App() {
-  const [ greeting, setGreeting] = useState(null);
+  const [greeting, setGreeting] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const url = import.meta.env.VITE_BE_URL;
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api')
-      .then(response => {
-        setGreeting(response.data);
-        console.log(response.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    async function greetGuest() {
+      try {
+        setIsLoading(true);
+        const res = await axios.get(url);
+        setGreeting(res.data);
+        console.log(res.data);
+      } catch (error) {
+        setError("Nastala chyba");
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    greetGuest();
   }, []);
 
+  if (isLoading) return <p>Nahravam...</p>;
+  if (error) return <p>{error}</p>;
   return (
     <>
-      {greeting ? (<p>{greeting}</p>) : (<p>Wait a second... who are you?</p>)}
+      <p>{greeting}</p>
     </>
   );
 }
 
-export default App
+export default App;
