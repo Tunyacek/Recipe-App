@@ -11,27 +11,34 @@ datasource db {
 }
 
 model Recipe {
-  id           String     @id @default(cuid())
+  id           String           @id @default(cuid())
   title        String
   summary      String
   ingredients  String
   instructions String
   rating       Rating
-  categories   Category[]
-  created_at   DateTime   @default(now())
-  updated_at   DateTime   @updatedAt
+  categories   RecipeCategory[]
+  created_at   DateTime         @default(now())
+  updated_at   DateTime         @updatedAt
   image_url    String
   prep_time    Int
   cook_time    Int
 }
 
 model Category {
-  id         String   @id @default(cuid())
+  id         String           @id @default(cuid())
   title      String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  Recipe     Recipe?  @relation(fields: [recipeId], references: [id])
-  recipeId   String?
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+  recipes    RecipeCategory[]
+}
+
+model RecipeCategory {
+  id         String   @id @default(cuid())
+  recipe     Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId   String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
 }
 
 enum Rating {
