@@ -1,0 +1,19 @@
+{
+  "name": "recipe-app",
+  "version": "1.0.0",
+  "description": "App for recipes",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tunyacek/Recipe-App.git"
+  },
+  "author": "Nikola Berankova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tunyacek/Recipe-App/issues"
+  },
+  "homepage": "https://github.com/Tunyacek/Recipe-App#readme"
+}
