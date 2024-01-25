@@ -10,7 +10,6 @@ const getAllRecipes = async (req: Request, res: Response) => {
 const getRecipeById = async (req: Request , res: Response ) => {
     const recipeResult = recipeService.getRecipeById(req.params.id)
     return res.json({recipeResult})
-    
 }
 
 const createRecipe = async (req: Request, res: Response) => {
