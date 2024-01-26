@@ -10,12 +10,12 @@ const getRecipeById = async (id: string) => {
     return  recipeRepository.getRecipeById(id)
 }
 
-const createRecipe = async (req: Request) => {
-    return recipeRepository.createRecipe(req.body)
+const createRecipe = async (recipe: any) => {
+    return recipeRepository.createRecipe(recipe)
 }
 
-const updateRecipe =async (req:Request) => {
-    return recipeRepository.updateRecipe(req.body)
+const updateRecipe =async (recipe: any) => {
+    return recipeRepository.updateRecipe(recipe)
 }
 
 const deleteRecipe = async (id: string) => {

@@ -12,8 +12,8 @@ const getRecipeById = async (id: string) => {
   return recipeById
 };
 
-const createRecipe = async (req: Request)  => {
-  const { title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } = req.body;
+const createRecipe = async (recipe: any)  => {
+  const { title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } = recipe;
   const createdRecipe = await prisma.recipe.create({
     data: {
       title,
@@ -29,11 +29,11 @@ const createRecipe = async (req: Request)  => {
   return createdRecipe
 }
 
-const updateRecipe = async (req: Request) => {
-  const { title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } = req.body;
+const updateRecipe = async (recipe: any) => {
+  const { id, title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } = recipe;
   const updatedRecipe = await prisma.recipe.update ({
     where: {
-      id: req.body.params
+      id: id
     },
     data: {
       title,
