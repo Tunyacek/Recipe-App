@@ -1,29 +1,14 @@
-import express, { Express,} from "express";
+import express, { Router } from "express";
 import { recipeControlller } from "../controllers/recipe.controller";
-import cors from "cors";
 
-const app: Express = express();
+export const recipeRouter: Router = express.Router();
 
-app.use(cors({ origin: process.env.FE_URL }));
+recipeRouter.get("/", recipeControlller.getAllRecipes);
 
-const getAllRecipesRouter = express.Router()
-const getRecipeByIdRouter = express.Router()
-const createRecipeRouter = express.Router()
-const updateRecipeRouter = express.Router()
-const deleteRecipeRouter = express.Router()
+recipeRouter.get("/:id", recipeControlller.getRecipeById);
 
+recipeRouter.post("/", recipeControlller.createRecipe);
 
+recipeRouter.patch("/:id", recipeControlller.updateRecipe);
 
-
-getAllRecipesRouter.get("/recipes", recipeControlller.getAllRecipes);
-
-getRecipeByIdRouter.get("/recipes/:id", recipeControlller.getRecipeById);
-
-createRecipeRouter.post("/recipes", recipeControlller.createRecipe);
-
-updateRecipeRouter.patch("/recipes/:id", recipeControlller.updateRecipe);
-
-deleteRecipeRouter.delete("/recipes/:id", recipeControlller.deleteRecipe);
-
-
-export  const recipeRouter = {getAllRecipesRouter, getRecipeByIdRouter, createRecipeRouter, updateRecipeRouter, deleteRecipeRouter }
+recipeRouter.delete("/:id", recipeControlller.deleteRecipe);
