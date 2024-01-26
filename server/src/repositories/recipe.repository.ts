@@ -1,6 +1,4 @@
 import { prisma } from "../lib/prisma";
-import { Request } from "express";
-
 
 const getAllRecipes = async () => {
  const allRecipes = await prisma.recipe.findMany()
