@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from "express";
-import  recipeRouter  from "./routers/recipe.router";
+import { recipeRouter } from "./routers/recipe.router";
 import 'dotenv/config';
 import cors from "cors";
 

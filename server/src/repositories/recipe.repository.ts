@@ -30,10 +30,10 @@ const createRecipe = async (recipe: any)  => {
 }
 
 const updateRecipe = async (recipe: any) => {
-  const { title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } = recipe;
+  const { id, title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } = recipe;
   const updatedRecipe = await prisma.recipe.update ({
     where: {
-      id: recipe
+      id: id
     },
     data: {
       title,
