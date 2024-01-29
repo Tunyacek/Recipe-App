@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+client/.eslintrc.js
+client/.eslintrc.cjs
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
