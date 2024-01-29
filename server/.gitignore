@@ -1,5 +1,3 @@
 .env
 node_modules
 dist
-server/.eslintrc.js
-server/prettier.config.js
