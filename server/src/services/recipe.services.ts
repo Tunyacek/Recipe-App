@@ -1,25 +1,24 @@
 import { recipeRepository } from "../repositories/recipe.repository";
-import { Request } from "express";
 
 
 const getAllRecipes = async () => {
-    return recipeRepository.getAllRecipes()
+    return await recipeRepository.getAllRecipes()
 }
 
 const getRecipeById = async (id: string) => {
-    return  recipeRepository.getRecipeById(id)
+    return await recipeRepository.getRecipeById(id)
 }
 
 const createRecipe = async (recipe: any) => {
-    return recipeRepository.createRecipe(recipe)
+    return await recipeRepository.createRecipe(recipe)
 }
 
-const updateRecipe =async (recipe: any) => {
-    return recipeRepository.updateRecipe(recipe)
+const updateRecipe = async (recipe: any) => {
+    return await recipeRepository.updateRecipe(recipe)
 }
 
 const deleteRecipe = async (id: string) => {
-    return  recipeRepository.deleteRecipe(id)
+    return await recipeRepository.deleteRecipe(id)
     }
 
 export const recipeService = {getAllRecipes, getRecipeById, createRecipe, updateRecipe, deleteRecipe}

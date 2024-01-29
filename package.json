@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "App for recipes",
   "main": "index.js",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tunyacek/Recipe-App.git"
@@ -15,5 +13,13 @@
   "bugs": {
     "url": "https://github.com/Tunyacek/Recipe-App/issues"
   },
-  "homepage": "https://github.com/Tunyacek/Recipe-App#readme"
+  "homepage": "https://github.com/Tunyacek/Recipe-App#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
+  }
 }
