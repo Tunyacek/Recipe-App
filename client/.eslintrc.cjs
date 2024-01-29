@@ -5,6 +5,7 @@ module.exports = {
       jsx: true,
     },
   },
+  ignorePatterns: ['dist/'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
