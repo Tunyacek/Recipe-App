@@ -12,7 +12,8 @@ const getRecipeById = async (req: Request , res: Response ) => {
 }
  
 const createRecipe = async (req: Request, res: Response) => {
-    const createdRecipe = await recipeService.createRecipe(req.body)
+    const id = req.params.id;
+    const createdRecipe = await recipeService.createRecipe({id, ...req.body})
     return res.json(createdRecipe)
 }
 
@@ -25,8 +26,7 @@ const updateRecipe = async (req:Request, res: Response) => {
 const deleteRecipe = async (req: Request , res: Response) => {
     const id = req.params.id;
     await recipeService.deleteRecipe(id)
-    
     return res.json({ message: "Recept úspěšně smazán." });
-  }
+}
 
 export const recipeControlller = {getAllRecipes, getRecipeById, createRecipe, updateRecipe, deleteRecipe}
