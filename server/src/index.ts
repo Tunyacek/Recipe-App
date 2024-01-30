@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from 'express'
 import { recipeRouter } from './routers/recipe.router'
+import { errorHandler } from './middleware'
 import 'dotenv/config'
 import cors from 'cors'
 
@@ -14,6 +15,8 @@ app.get('/api', async (req: Request, res: Response) => {
 })
 
 app.use('/recipes', recipeRouter)
+
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`)
