@@ -56,10 +56,18 @@ const updateRecipe = async (req: Request, res: Response, next: NextFunction) => 
   }
 }
 
-const deleteRecipe = async (req: Request, res: Response) => {
+const deleteRecipe = async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id
-  await recipeService.deleteRecipe(id)
-  return res.json({ message: 'Recept úspěšně smazán.' })
+  try {
+    const foundRecipe = await recipeService.getRecipeById(id)
+    if (!foundRecipe) {
+      throw new NotFoundError('Recipe not found')
+    }
+    await recipeService.deleteRecipe(id)
+    return res.json({ message: 'Recept úspěšně smazán.' })
+  } catch (err) {
+    next(err)
+  }
 }
 
 export const recipeControlller = {
