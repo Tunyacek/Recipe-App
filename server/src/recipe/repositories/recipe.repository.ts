@@ -1,4 +1,4 @@
-import { prisma } from '../lib/prisma'
+import { prisma } from '../../lib/prisma'
 
 const getAllRecipes = async () => {
   const allRecipes = await prisma.recipe.findMany()
