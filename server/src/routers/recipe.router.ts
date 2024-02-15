@@ -1,14 +1,20 @@
 import express, { Router } from 'express'
-import { recipeControlller } from '../controllers/recipe.controller'
+import { RecipeController } from '../recipe/controllers/recipe.controller.interface'
+import { asyncHandler } from '../lib/utils'
 
 export const recipeRouter: Router = express.Router()
+type RecipeRouterFactory = (controller: RecipeController) => Router
 
-recipeRouter.get('/', recipeControlller.getAllRecipes)
+export const recipeRouterFactory: RecipeRouterFactory = (controller: RecipeController) => {
+  const recipeRouter = express.Router()
 
-recipeRouter.get('/:id', recipeControlller.getRecipeById)
+  // asyncHandler wrapper is a workaround to directly pass thrown errors into the error middleware
+  // Without it thrown errors were not cauught by the global error middleware
+  recipeRouter.get('/', asyncHandler(controller.getAllRecipes))
+  recipeRouter.get('/:id', asyncHandler(controller.getRecipeById))
+  recipeRouter.post('/', asyncHandler(controller.createRecipe))
+  recipeRouter.put('/:id', asyncHandler(controller.updateRecipe))
+  recipeRouter.delete('/:id', asyncHandler(controller.deleteRecipe))
 
-recipeRouter.post('/', recipeControlller.createRecipe)
-
-recipeRouter.patch('/:id', recipeControlller.updateRecipe)
-
-recipeRouter.delete('/:id', recipeControlller.deleteRecipe)
+  return recipeRouter
+}
