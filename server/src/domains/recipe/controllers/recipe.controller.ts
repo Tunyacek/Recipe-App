@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
-import { NotFoundError } from '../../lib/errors'
-import { UnprocessableEntity } from '../../lib/errors'
-import { recipeSchema } from '../../schemas/recipe.schema'
+import { NotFoundError } from '../../../lib/errors'
+import { UnprocessableEntityError } from '../../../lib/errors'
+import { recipeSchema } from '../schemas/recipe.schema'
 import { RecipeService } from '../services/recipe.services.interface'
 import { StatusCodes } from 'http-status-codes'
-import { ExpressControllerFn } from '../../lib/utils'
+import { ExpressControllerFn } from '../../../lib/utils'
 
 type RecipeControllerFactory = (service: RecipeService) => {
   getAllRecipes: ExpressControllerFn
@@ -21,16 +21,13 @@ export const recipeControllerFactory: RecipeControllerFactory = (service: Recipe
   }
   const getRecipeById = async (req: Request, res: Response, _next: NextFunction) => {
     const recipeResult = await service.getRecipeById(req.params.id)
-    if (!recipeResult) {
-      throw new NotFoundError('Recipe not found')
-    }
     return res.status(StatusCodes.OK).json(recipeResult)
   }
 
   const createRecipe = async (req: Request, res: Response, _next: NextFunction) => {
     const parsedRecipe = recipeSchema.safeParse(req.body)
     if (!parsedRecipe.success) {
-      throw new UnprocessableEntity('Unprocessable Entity')
+      throw new UnprocessableEntityError(parsedRecipe.error)
     }
     const createdRecipe = await service.createRecipe(req.body)
 
@@ -39,7 +36,7 @@ export const recipeControllerFactory: RecipeControllerFactory = (service: Recipe
   const updateRecipe = async (req: Request, res: Response, _next: NextFunction) => {
     const parsedRecipe = recipeSchema.safeParse(req.body)
     if (!parsedRecipe.success) {
-      throw new UnprocessableEntity('Unprocessable Entity')
+      throw new UnprocessableEntityError(parsedRecipe.error)
     }
     const id = req.params.id
     const updatedRecipe = await service.updateRecipe(id, req.body)

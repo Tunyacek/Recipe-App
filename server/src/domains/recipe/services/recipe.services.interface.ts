@@ -1,4 +1,4 @@
-import { RecipeSchema } from '../../schemas/recipe.schema'
+import { RecipeSchema } from '../schemas/recipe.schema'
 import { Recipe } from '@prisma/client'
 
 export interface RecipeService {

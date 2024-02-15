@@ -1,5 +1,5 @@
-import { prisma } from '../../lib/prisma'
-import { RecipeSchema } from '../../schemas/recipe.schema'
+import { prisma } from '../../../lib/prisma'
+import { RecipeSchema } from '../schemas/recipe.schema'
 
 export const recipeRepository = () => {
   const getAllRecipes = async () => {

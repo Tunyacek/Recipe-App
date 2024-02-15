@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express'
 import { errorHandler } from './middleware'
-import { recipeModule } from './modules/recipe.module'
+import { recipeModule } from './domains/recipe/recipe.module'
 import 'dotenv/config'
 import cors from 'cors'
 

@@ -1,4 +1,4 @@
-import { type ExpressControllerFn } from '../../lib/utils'
+import { type ExpressControllerFn } from '../../../lib/utils'
 
 export interface RecipeController {
   getAllRecipes: ExpressControllerFn

@@ -1,6 +1,6 @@
 import express, { Router } from 'express'
-import { RecipeController } from '../recipe/controllers/recipe.controller.interface'
-import { asyncHandler } from '../lib/utils'
+import { RecipeController } from '../controllers/recipe.controller.interface'
+import { asyncHandler } from '../../../lib/utils'
 
 export const recipeRouter: Router = express.Router()
 type RecipeRouterFactory = (controller: RecipeController) => Router
