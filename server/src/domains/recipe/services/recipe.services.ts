@@ -13,7 +13,7 @@ export const recipeService = (recipeRepository: RecipeRepository) => {
     if (!recipeResult) {
       throw new NotFoundError('Recipe not found')
     }
-    return await recipeRepository.getRecipeById(id)
+    return recipeResult
   }
 
   const createRecipe = async (recipe: RecipeSchema) => {
@@ -25,11 +25,6 @@ export const recipeService = (recipeRepository: RecipeRepository) => {
 
     if (!foundRecipe) {
       throw new NotFoundError('Recipe not found')
-    }
-
-    const updatedRecipe = await recipeRepository.updateRecipe(id, recipe)
-    if (!updatedRecipe) {
-      throw new UnprocessableEntityError('Unprocessable Entity')
     }
     return await recipeRepository.updateRecipe(id, recipe)
   }
