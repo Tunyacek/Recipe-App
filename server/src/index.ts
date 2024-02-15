@@ -12,10 +12,6 @@ const recipeAPI = recipeModule()
 app.use(express.json())
 app.use(cors({ origin: process.env.FE_URL }))
 
-app.get('/api', async (req: Request, res: Response) => {
-  res.send('Meowdy Everybunny')
-})
-
 app.use('/recipes', recipeAPI)
 
 app.use(errorHandler)

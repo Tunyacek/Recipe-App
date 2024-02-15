@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes'
+
 export abstract class BaseCustomError extends Error {
   abstract statusCode: number
 
@@ -9,7 +11,7 @@ export abstract class BaseCustomError extends Error {
 }
 
 export class NotFoundError extends Error {
-  statusCode = 404
+  statusCode = StatusCodes.NOT_FOUND
 
   constructor(message = 'Entity Not Found') {
     super(message)
@@ -18,7 +20,7 @@ export class NotFoundError extends Error {
 }
 
 export class UnprocessableEntity extends Error {
-  statusCode = 422
+  statusCode = StatusCodes.UNPROCESSABLE_ENTITY
 
   constructor(message = 'Unprocessable Entity') {
     super(message)

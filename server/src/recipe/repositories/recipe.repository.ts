@@ -3,50 +3,26 @@ import { RecipeSchema } from '../../schemas/recipe.schema'
 
 export const recipeRepository = () => {
   const getAllRecipes = async () => {
-    const allRecipes = await prisma.recipe.findMany()
-    return allRecipes
+    return await prisma.recipe.findMany()
   }
 
   const getRecipeById = async (id: string) => {
-    const recipeById = await prisma.recipe.findUnique({ where: { id: id } })
-    return recipeById
+    return await prisma.recipe.findUnique({ where: { id: id } })
   }
 
   const createRecipe = async (recipe: RecipeSchema) => {
-    const { title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } =
-      recipe
     const createdRecipe = await prisma.recipe.create({
-      data: {
-        title,
-        summary,
-        ingredients,
-        instructions,
-        rating,
-        image_url,
-        prep_time,
-        cook_time,
-      },
+      data: { ...recipe },
     })
     return createdRecipe
   }
 
   const updateRecipe = async (id: string, recipe: RecipeSchema) => {
-    const { title, summary, ingredients, instructions, rating, image_url, prep_time, cook_time } =
-      recipe
     const updatedRecipe = await prisma.recipe.update({
       where: {
         id: id,
       },
-      data: {
-        title,
-        summary,
-        ingredients,
-        instructions,
-        rating,
-        image_url,
-        prep_time,
-        cook_time,
-      },
+      data: { ...recipe },
     })
     return updatedRecipe
   }

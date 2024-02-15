@@ -4,14 +4,14 @@ import { UnprocessableEntity } from '../../lib/errors'
 import { recipeSchema } from '../../schemas/recipe.schema'
 import { RecipeService } from '../services/recipe.services.interface'
 import { StatusCodes } from 'http-status-codes'
-import { ExpressResponse } from '../../lib/utils'
+import { ExpressControllerFn } from '../../lib/utils'
 
 type RecipeControllerFactory = (service: RecipeService) => {
-  getAllRecipes: ExpressResponse
-  getRecipeById: ExpressResponse
-  createRecipe: ExpressResponse
-  updateRecipe: ExpressResponse
-  deleteRecipe: ExpressResponse
+  getAllRecipes: ExpressControllerFn
+  getRecipeById: ExpressControllerFn
+  createRecipe: ExpressControllerFn
+  updateRecipe: ExpressControllerFn
+  deleteRecipe: ExpressControllerFn
 }
 
 export const recipeControllerFactory: RecipeControllerFactory = (service: RecipeService) => {
@@ -33,10 +33,8 @@ export const recipeControllerFactory: RecipeControllerFactory = (service: Recipe
       throw new UnprocessableEntity('Unprocessable Entity')
     }
     const createdRecipe = await service.createRecipe(req.body)
-    if (!createdRecipe) {
-      throw new UnprocessableEntity('Unprocessable Entity')
-    }
-    return res.status(StatusCodes.OK).json(createdRecipe)
+
+    return res.status(StatusCodes.CREATED).json(createdRecipe)
   }
   const updateRecipe = async (req: Request, res: Response, _next: NextFunction) => {
     const parsedRecipe = recipeSchema.safeParse(req.body)
@@ -45,18 +43,11 @@ export const recipeControllerFactory: RecipeControllerFactory = (service: Recipe
     }
     const id = req.params.id
     const updatedRecipe = await service.updateRecipe(id, req.body)
-    if (!updatedRecipe) {
-      throw new UnprocessableEntity('Unprocessable Entity')
-    }
+
     return res.status(StatusCodes.OK).json(updatedRecipe)
   }
   const deleteRecipe = async (req: Request, res: Response, _next: NextFunction) => {
     const id = req.params.id
-
-    const foundRecipe = await service.getRecipeById(id)
-    if (!foundRecipe) {
-      throw new NotFoundError('Recipe not found')
-    }
     await service.deleteRecipe(id)
     return res.status(StatusCodes.OK).json({ message: 'Recept úspěšně smazán.' })
   }
