@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import { NotFoundError } from '../../../lib/errors'
 import { UnprocessableEntityError } from '../../../lib/errors'
 import { recipeSchema } from '../schemas/recipe.schema'
 import { RecipeService } from '../services/recipe.services.interface'
