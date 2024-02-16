@@ -3,7 +3,7 @@ import { NotFoundError } from '../../../lib/errors'
 
 export const categoryService = (categoryRepository: CategoryRepository) => {
   const getAllCategories = async () => {
-    return await categoryRepository.getAllCategories
+    return await categoryRepository.getAllCategories()
   }
 
   const getCategoryById = async (id: string) => {
