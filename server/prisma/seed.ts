@@ -3,6 +3,24 @@ import { PrismaClient, Rating } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
+  const category1 = await prisma.category.upsert({
+    where: { id: '1' },
+    update: {},
+    create: {
+      id: '1',
+      title: 'Polévky',
+    },
+  })
+
+  const category2 = await prisma.category.upsert({
+    where: { id: '2' },
+    update: {},
+    create: {
+      id: '2',
+      title: 'Omáčky',
+    },
+  })
+
   const recipe1 = await prisma.recipe.upsert({
     where: { id: '1' },
     update: {},
@@ -14,6 +32,7 @@ async function main() {
       instructions:
         'Oloupejte a nakrájejte brambory, orestujte cibuli a česnek, přidejte houby a klobásu, vařte do měkka.',
       rating: Rating.FOUR,
+      category: { connect: { id: '1' } },
       image_url: 'https://unsplash.com/photos/brown-tabby-cat-7GX5aICb5i4',
       prep_time: 20,
       cook_time: 40,
@@ -32,6 +51,7 @@ async function main() {
       instructions:
         'Uvařte maso se zeleninou, připravte omáčku ze smetany a podávejte s knedlíkem.',
       rating: Rating.FIVE,
+      category: { connect: { id: '2' } },
       image_url:
         'https://unsplash.com/photos/orange-tabby-cat-in-black-and-white-jacket-yJozLVBxNA0',
       prep_time: 30,
@@ -39,7 +59,7 @@ async function main() {
     },
   })
 
-  console.log('Created or updated recipes:', recipe1, recipe2)
+  console.log('Created or updated recipes:', recipe1, recipe2, category1, category2)
 }
 
 main()
