@@ -10,6 +10,7 @@ export const categoryRouterFactory: CategoryRouterFactory = (controller: Categor
 
   categoryRouter.get('/', asyncHandler(controller.getAllCategories))
   categoryRouter.get('/:id', asyncHandler(controller.getCategoryById))
+  categoryRouter.post('/', asyncHandler(controller.createCategory))
 
   return categoryRouter
 }

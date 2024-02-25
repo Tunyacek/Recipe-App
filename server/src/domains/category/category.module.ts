@@ -1,7 +1,7 @@
 import { categoryRepository } from './repositories/category.repository'
 import { categoryService } from './services/category.services'
 import { categoryControllerFactory } from './controllers/category.controller'
-import { categoryRouterFactory } from './routers/categorey.router'
+import { categoryRouterFactory } from './routers/category.router'
 
 export const categoryModule = () => {
   const repository = categoryRepository()

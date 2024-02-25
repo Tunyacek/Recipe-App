@@ -1,5 +1,6 @@
 import { CategoryRepository } from '../repositories/category.repository.interface'
 import { NotFoundError } from '../../../lib/errors'
+import { CategorySchema } from '../schemas/category.schema'
 
 export const categoryService = (categoryRepository: CategoryRepository) => {
   const getAllCategories = async () => {
@@ -13,8 +14,19 @@ export const categoryService = (categoryRepository: CategoryRepository) => {
     }
     return categoryResult
   }
+
+  const createCategory = async (category: CategorySchema) => {
+    const createdCategory = await categoryRepository.createCategory(category)
+    return createdCategory
+  }
+
   return {
     getAllCategories,
     getCategoryById,
+    createCategory,
   }
+}
+
+export const category = async (categoryRepository: CategoryRepository, id: string) => {
+  await categoryRepository.getCategoryById(id)
 }
