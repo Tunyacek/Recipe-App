@@ -26,7 +26,7 @@ export const categoryControllerFactory: CategoryControllerFactory = (service: Ca
     if (!parsedCategory.success) {
       throw new UnprocessableEntityError(parsedCategory.error)
     }
-    const createdCategory = await service.createCategory(req.body)
+    const createdCategory = await service.createCategory(parsedCategory.data)
     return res.status(StatusCodes.CREATED).json(createdCategory)
   }
 

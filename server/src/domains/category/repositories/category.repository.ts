@@ -16,6 +16,7 @@ export const categoryRepository = () => {
     })
     return createdCategory
   }
+
   return {
     getAllCategories,
     getCategoryById,

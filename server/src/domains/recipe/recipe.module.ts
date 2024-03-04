@@ -2,14 +2,11 @@ import { recipeService } from './services/recipe.services'
 import { recipeRepository } from './repositories/recipe.repository'
 import { recipeControllerFactory } from './controllers/recipe.controller'
 import { recipeRouterFactory } from './routers/recipe.router'
-import { categoryService } from '../category/services/category.services'
-import { categoryRepository } from '../category/repositories/category.repository'
+import { categoryValidationService } from '../category-recipe.module'
 
 export const recipeModule = () => {
   const repository = recipeRepository()
-  const categoryRepo = categoryRepository()
-  const categorySvc = categoryService(categoryRepo)
-  const service = recipeService(repository, categorySvc)
+  const service = recipeService(repository, categoryValidationService)
   const controller = recipeControllerFactory(service)
   const router = recipeRouterFactory(controller)
 
