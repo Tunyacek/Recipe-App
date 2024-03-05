@@ -3,7 +3,7 @@ import { RecipeSchema } from '../schemas/recipe.schema'
 import { NotFoundError, UnprocessableEntityError } from '../../../lib/errors'
 import { CategoryRepository } from '../../category/repositories/category.repository.interface'
 
-export const recipeService = (
+export const recipeServiceFactory = (
   recipeRepository: RecipeRepository,
   categoryRepository: CategoryRepository
 ) => {

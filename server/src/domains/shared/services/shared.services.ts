@@ -1,8 +1,8 @@
-import { CategoryRepository } from '../repositories/category.repository.interface'
 import { NotFoundError } from '../../../lib/errors'
-import { CategorySchema } from '../schemas/category.schema'
+import { CategoryRepository } from '../../category/repositories/category.repository.interface'
+import { CategorySchema } from '../../category/schemas/category.schema'
 
-export const categoryServiceFactory = (categoryRepository: CategoryRepository) => {
+export const categoryValidationServiceFactory = (categoryRepository: CategoryRepository) => {
   const getAllCategories = async () => {
     return await categoryRepository.getAllCategories()
   }
@@ -25,8 +25,4 @@ export const categoryServiceFactory = (categoryRepository: CategoryRepository) =
     getCategoryById,
     createCategory,
   }
-}
-
-export const category = async (categoryRepository: CategoryRepository, id: string) => {
-  await categoryRepository.getCategoryById(id)
 }

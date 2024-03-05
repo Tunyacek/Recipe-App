@@ -1,7 +1,7 @@
 import { prisma } from '../../../lib/prisma'
 import { CategorySchema } from '../schemas/category.schema'
 
-export const categoryRepository = () => {
+export const categoryRepositoryFactory = () => {
   const getAllCategories = async () => {
     return await prisma.category.findMany()
   }
