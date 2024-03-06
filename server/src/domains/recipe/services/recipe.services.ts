@@ -2,6 +2,7 @@ import { RecipeRepository } from '../repositories/recipe.repository.interface'
 import { RecipeSchema } from '../schemas/recipe.schema'
 import { NotFoundError, UnprocessableEntityError } from '../../../lib/errors'
 import { CategoryRepository } from '../../category/repositories/category.repository.interface'
+import { categoryValidationService } from '../../shared/shared.module'
 
 export const recipeServiceFactory = (
   recipeRepository: RecipeRepository,
@@ -20,7 +21,7 @@ export const recipeServiceFactory = (
   }
 
   const createRecipe = async (recipe: RecipeSchema) => {
-    const categoryExists = await categoryRepository.getCategoryById(recipe.categoryId)
+    const categoryExists = await categoryValidationService.categoryExists(recipe.categoryId)
     if (!categoryExists) {
       throw new UnprocessableEntityError('Category does not exist')
     }

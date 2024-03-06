@@ -26,7 +26,3 @@ export const categoryServiceFactory = (categoryRepository: CategoryRepository) =
     createCategory,
   }
 }
-
-export const category = async (categoryRepository: CategoryRepository, id: string) => {
-  await categoryRepository.getCategoryById(id)
-}
