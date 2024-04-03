@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express'
 import { errorHandler } from './middleware'
 import { recipeModule } from './domains/recipe/recipe.module'
+import { imageModule } from './domains/image/image.module'
 import 'dotenv/config'
 import cors from 'cors'
 

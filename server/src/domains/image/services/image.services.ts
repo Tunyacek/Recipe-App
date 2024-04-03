@@ -1,9 +1,9 @@
 import { NotFoundError } from '../../../lib/errors'
 import { ImageRepository } from '../repositories/image.repository.interface'
 
-export const imageServiceFactory = async (imageRepository: ImageRepository) => {
-  const getImage = async (image_url: string) => {
-    const imageResult = await imageRepository.getImage(image_url)
+export const imageServiceFactory = async (repository: ImageRepository) => {
+  const getImage = async (id: string) => {
+    const imageResult = await repository.getImage(id)
     if (!imageResult) {
       throw new NotFoundError('Image not found')
     }
