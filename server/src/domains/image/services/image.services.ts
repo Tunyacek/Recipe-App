@@ -10,7 +10,12 @@ export const imageServiceFactory = async (repository: ImageRepository) => {
     return imageResult
   }
 
+  const uploadImage = async (image: File) => {
+    return await repository.uploadImage(image)
+  }
+
   return {
     getImage,
+    uploadImage,
   }
 }

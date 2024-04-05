@@ -5,6 +5,7 @@ import { ExpressControllerFn } from '../../../lib/utils'
 
 type imageControllerFactory = (service: ImageService) => {
   getImage: ExpressControllerFn
+  uploadImage: ExpressControllerFn
 }
 
 export const imageControllerFactory: imageControllerFactory = (service: ImageService) => {
@@ -19,6 +20,10 @@ export const imageControllerFactory: imageControllerFactory = (service: ImageSer
     return res.status(StatusCodes.OK).json(imageResult)
   }
 
+  const uploadImage = async (req: Request, res: Response, _next: NextFunction) => {
+    // parsing logic
+    // if (parsedFile)
+  }
   return {
     getImage,
   }
