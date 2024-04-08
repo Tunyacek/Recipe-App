@@ -21,10 +21,12 @@ export const imageControllerFactory: imageControllerFactory = (service: ImageSer
   }
 
   const uploadImage = async (req: Request, res: Response, _next: NextFunction) => {
-    // parsing logic
-    // if (parsedFile)
+    const uploadedImage = await service.uploadImage(req.body)
+
+    return res.status(StatusCodes.CREATED).json(uploadedImage)
   }
   return {
     getImage,
+    uploadImage,
   }
 }

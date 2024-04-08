@@ -6,16 +6,22 @@ export const imageRepositoryFactory = () => {
     if (error) {
       throw error
     }
-    return data
+    return data as File
   }
 
-  const uploadImage = async (id: string) => {
-    const fileBody = 'something' // load your file here
+  const uploadImage = async (image: File, id: string) => {
+    const fileBody = image
     const { data, error } = await storageClient.from('bucket').upload(`path/to/${id}`, fileBody)
     if (error) {
       throw error
     }
-    return data
+
+    if (typeof data === 'string') {
+      const file = new File([data], 'name')
+      return file
+    } else {
+      throw new Error('Unexpected data format returned from upload')
+    }
   }
 
   return {

@@ -7,6 +7,7 @@ type ImageRouterFactory = (controller: ImageController) => Router
 
 export const imageRouterFactory: ImageRouterFactory = (controller: ImageController) => {
   imageRouter.get('/:id', asyncHandler(controller.getImage))
+  imageRouter.post('/', asyncHandler(controller.uploadImage))
 
   return imageRouter
 }
