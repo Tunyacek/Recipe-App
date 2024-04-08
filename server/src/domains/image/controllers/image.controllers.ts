@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { ImageService } from '../services/image.services.interface'
 import { ExpressControllerFn } from '../../../lib/utils'
+import { v4 as uuidv4 } from 'uuid'
 
 type imageControllerFactory = (service: ImageService) => {
   getImage: ExpressControllerFn
@@ -21,7 +22,8 @@ export const imageControllerFactory: imageControllerFactory = (service: ImageSer
   }
 
   const uploadImage = async (req: Request, res: Response, _next: NextFunction) => {
-    const uploadedImage = await service.uploadImage(req.body)
+    const id = uuidv4()
+    const uploadedImage = await service.uploadImage(req.body, id)
 
     return res.status(StatusCodes.CREATED).json(uploadedImage)
   }
