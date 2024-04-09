@@ -1,5 +1,3 @@
-import { Category } from '@prisma/client'
-
 export interface CategoryValidationService {
-  categoryExists: (id: string) => Promise<Category>
+  categoryExists: (id: string) => Promise<boolean>
 }
