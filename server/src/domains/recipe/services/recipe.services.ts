@@ -1,8 +1,12 @@
 import { RecipeRepository } from '../repositories/recipe.repository.interface'
 import { RecipeSchema } from '../schemas/recipe.schema'
-import { NotFoundError } from '../../../lib/errors'
+import { NotFoundError, UnprocessableEntityError } from '../../../lib/errors'
+import { CategoryValidationService } from '../../shared/services/shared.services.interface'
 
-export const recipeService = (recipeRepository: RecipeRepository) => {
+export const recipeServiceFactory = (
+  recipeRepository: RecipeRepository,
+  categoryValidationService: CategoryValidationService
+) => {
   const getAllRecipes = async () => {
     return await recipeRepository.getAllRecipes()
   }
@@ -16,7 +20,12 @@ export const recipeService = (recipeRepository: RecipeRepository) => {
   }
 
   const createRecipe = async (recipe: RecipeSchema) => {
-    return await recipeRepository.createRecipe(recipe)
+    const categoryExists = await categoryValidationService.categoryExists(recipe.categoryId)
+    if (!categoryExists) {
+      throw new UnprocessableEntityError('Category does not exist')
+    }
+    const createdRecipe = await recipeRepository.createRecipe(recipe)
+    return createdRecipe
   }
 
   const updateRecipe = async (id: string, recipe: RecipeSchema) => {

@@ -1,3 +1,3 @@
 export interface ImageService {
-  uploadImage: (image: File, id: string) => Promise<File>
+  uploadImage: (image: File, id: string) => Promise<{ path: string }>
 }

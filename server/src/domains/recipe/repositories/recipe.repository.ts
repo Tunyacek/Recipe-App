@@ -1,7 +1,7 @@
 import { prisma } from '../../../lib/prisma'
 import { RecipeSchema } from '../schemas/recipe.schema'
 
-export const recipeRepository = () => {
+export const recipeRepositoryFactory = () => {
   const getAllRecipes = async () => {
     return await prisma.recipe.findMany()
   }
