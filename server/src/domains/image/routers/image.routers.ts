@@ -7,7 +7,9 @@ export const imageRouter: Router = express.Router()
 type ImageRouterFactory = (controller: ImageController) => Router
 
 export const imageRouterFactory: ImageRouterFactory = (controller: ImageController) => {
-  imageRouter.post('/upload', upload.single('file'), asyncHandler(controller.uploadImage))
+  const imageRouter = express.Router()
+
+  imageRouter.post('/', upload.single('file'), asyncHandler(controller.uploadImage))
 
   return imageRouter
 }
