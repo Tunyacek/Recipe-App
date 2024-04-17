@@ -8,7 +8,7 @@ export const imageRepositoryFactory = () => {
       throw error
     }
     const imagePath = data.path
-    return imagePath
+    return { path: imagePath }
   }
 
   return {
