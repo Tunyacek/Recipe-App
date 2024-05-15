@@ -5,7 +5,7 @@ import { imageRouterFactory } from './routers/image.routers'
 
 export const imageModule = async () => {
   const repository = imageRepositoryFactory()
-  const service = await imageServiceFactory(repository)
+  const service = imageServiceFactory(repository)
   const controller = imageControllerFactory(service)
   const router = imageRouterFactory(controller)
 

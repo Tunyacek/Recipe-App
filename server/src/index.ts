@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express'
+import express, { Express } from 'express'
 import { errorHandler } from './middleware'
 import { recipeModule } from './domains/recipe/recipe.module'
 import { categoryModule } from './domains/category/category.module'
@@ -15,10 +15,13 @@ const imageAPI = imageModule()
 
 app.use(express.json())
 app.use(cors({ origin: process.env.FE_URL }))
+;(async () => {
+  const imageRouter = await imageAPI
+  app.use('/images', imageRouter)
+})()
 
 app.use('/recipes', recipeAPI)
 app.use('/categories', categoryAPI)
-app.use('/upload', imageAPI)
 
 app.use(errorHandler)
 
