@@ -6,8 +6,8 @@ export const categoryRepositoryFactory = () => {
     return await prisma.category.findMany()
   }
 
-  const getCategoryById = async (id: string) => {
-    return await prisma.category.findUnique({ where: { id: id } })
+  const getCategoryById = async (ids: string[]) => {
+    return await prisma.category.findMany({ where: { id: { in: ids } } })
   }
 
   const createCategory = async (category: CategorySchema) => {

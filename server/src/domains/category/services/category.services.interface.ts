@@ -3,6 +3,6 @@ import { CategorySchema } from '../schemas/category.schema'
 
 export interface CategoryService {
   getAllCategories: () => Promise<Category[]>
-  getCategoryById: (id: string) => Promise<Category | null>
+  getCategoryById: (ids: string[]) => Promise<Category[]>
   createCategory: (category: CategorySchema) => Promise<Category>
 }

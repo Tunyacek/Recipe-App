@@ -28,11 +28,11 @@ async function main() {
       id: '1',
       title: 'Bramborová polévka',
       summary: 'Tradiční česká bramborová polévka s houbami a klobásou.',
-      ingredients: '500g brambor, 200g hub, 150g klobásy, cibule, česnek, sůl, pepř',
-      instructions:
+      ingredients: ['500g brambor, 200g hub, 150g klobásy, cibule, česnek, sůl, pepř'],
+      instructions: [
         'Oloupejte a nakrájejte brambory, orestujte cibuli a česnek, přidejte houby a klobásu, vařte do měkka.',
+      ],
       rating: Rating.FOUR,
-      categoryId: '1',
       image_url: 'https://unsplash.com/photos/brown-tabby-cat-7GX5aICb5i4',
       prep_time: 20,
       cook_time: 40,
@@ -46,21 +46,41 @@ async function main() {
       id: '2',
       title: 'Svíčková na smetaně',
       summary: 'Klasické české jídlo s hovězím masem, zeleninou a smetanovou omáčkou.',
-      ingredients:
+      ingredients: [
         '500g hovězího masa, 200ml smetany, mrkev, petržel, celer, cibule, houskový knedlík',
-      instructions:
+      ],
+      instructions: [
         'Uvařte maso se zeleninou, připravte omáčku ze smetany a podávejte s knedlíkem.',
+      ],
       rating: Rating.FIVE,
-      categoryId: '2',
       image_url:
         'https://unsplash.com/photos/orange-tabby-cat-in-black-and-white-jacket-yJozLVBxNA0',
       prep_time: 30,
       cook_time: 120,
     },
   })
+
+  const recipeCategory1 = await prisma.recipeCategory.create({
+    data: {
+      recipeId: recipe1.id,
+      categoryId: category1.id,
+    },
+  })
+
+  const recipeCategory2 = await prisma.recipeCategory.create({
+    data: {
+      recipeId: recipe2.id,
+      categoryId: category2.id,
+    },
+  })
+
   console.log(
-    'Created or updated recipes:',
-    JSON.stringify({ recipe1, recipe2, category1, category2 })
+    'Created or updated recipes and categories:',
+    JSON.stringify(
+      { recipe1, recipe2, category1, category2, recipeCategory1, recipeCategory2 },
+      null,
+      2
+    )
   )
 }
 
