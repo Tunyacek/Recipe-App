@@ -46,6 +46,10 @@ export const recipeRepositoryFactory = () => {
         recipeId: id,
       },
     })
+
+    await prisma.recipe.delete({
+      where: { id },
+    })
   }
 
   return {
