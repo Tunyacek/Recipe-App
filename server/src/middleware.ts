@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import { BaseCustomError } from './lib/errors'
+import multer from 'multer'
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof BaseCustomError) {
@@ -12,3 +13,10 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
     error: { message: 'Something went wrong' },
   })
 }
+
+export const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+})
