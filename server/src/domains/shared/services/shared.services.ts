@@ -1,9 +1,9 @@
 import { CategoryRepository } from '../../category/repositories/category.repository.interface'
 
 export const categoryValidationServiceFactory = (categoryRepository: CategoryRepository) => {
-  const categoryExists = async (id: string) => {
-    const category = await categoryRepository.getCategoryById(id)
-    return !!category
+  const categoryExists = async (ids: string[]) => {
+    const categories = await categoryRepository.getCategoryById(ids)
+    return categories.length === ids.length
   }
 
   return {

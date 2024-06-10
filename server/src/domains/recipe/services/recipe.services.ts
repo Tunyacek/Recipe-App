@@ -14,7 +14,7 @@ export const recipeServiceFactory = (
   const getRecipeById = async (id: string) => {
     const recipeResult = await recipeRepository.getRecipeById(id)
     if (!recipeResult) {
-      throw new NotFoundError('Recipe not found')
+      throw new NotFoundError('Recept nenalezen')
     }
     return recipeResult
   }
@@ -22,7 +22,7 @@ export const recipeServiceFactory = (
   const createRecipe = async (recipe: RecipeSchema) => {
     const categoryExists = await categoryValidationService.categoryExists(recipe.categoryId)
     if (!categoryExists) {
-      throw new UnprocessableEntityError('Category does not exist')
+      throw new UnprocessableEntityError('Kategorie neexistuje')
     }
     const createdRecipe = await recipeRepository.createRecipe(recipe)
     return createdRecipe
@@ -31,7 +31,7 @@ export const recipeServiceFactory = (
   const updateRecipe = async (id: string, recipe: RecipeSchema) => {
     const foundRecipe = await recipeRepository.getRecipeById(id)
     if (!foundRecipe) {
-      throw new NotFoundError('Recipe not found')
+      throw new NotFoundError('Recept nenalezen')
     }
     return await recipeRepository.updateRecipe(id, recipe)
   }
@@ -39,7 +39,7 @@ export const recipeServiceFactory = (
   const deleteRecipe = async (id: string) => {
     const foundRecipe = await recipeRepository.getRecipeById(id)
     if (!foundRecipe) {
-      throw new NotFoundError('Recipe not found')
+      throw new NotFoundError('Recept nenalezen')
     }
     return await recipeRepository.deleteRecipe(id)
   }

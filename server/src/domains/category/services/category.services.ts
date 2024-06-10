@@ -7,7 +7,7 @@ export const categoryServiceFactory = (categoryRepository: CategoryRepository) =
     return await categoryRepository.getAllCategories()
   }
 
-  const getCategoryById = async (id: string) => {
+  const getCategoryById = async (id: string[]) => {
     const categoryResult = await categoryRepository.getCategoryById(id)
     if (!categoryResult) {
       throw new NotFoundError('Category not found')

@@ -16,8 +16,9 @@ export const categoryControllerFactory: CategoryControllerFactory = (service: Ca
     const allCategories = await service.getAllCategories()
     return res.status(StatusCodes.OK).json(allCategories)
   }
+
   const getCategoryById = async (req: Request, res: Response, _next: NextFunction) => {
-    const categoryResult = await service.getCategoryById(req.params.id)
+    const categoryResult = await service.getCategoryById([req.params.id])
     return res.status(StatusCodes.OK).json(categoryResult)
   }
 
