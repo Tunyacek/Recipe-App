@@ -3,11 +3,28 @@ import { RecipeSchema } from '../schemas/recipe.schema'
 
 export const recipeRepositoryFactory = () => {
   const getAllRecipes = async () => {
-    return await prisma.recipe.findMany()
+    return await prisma.recipe.findMany({
+      include: {
+        categoryId: {
+          include: {
+            category: true,
+          },
+        },
+      },
+    })
   }
 
   const getRecipeById = async (id: string) => {
-    return await prisma.recipe.findUnique({ where: { id: id } })
+    return await prisma.recipe.findUnique({
+      where: { id: id },
+      include: {
+        categoryId: {
+          include: {
+            category: true,
+          },
+        },
+      },
+    })
   }
 
   const createRecipe = async (recipe: RecipeSchema) => {
