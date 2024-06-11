@@ -1,8 +1,8 @@
 import './App.css'
-import { RecipeList } from './Components/Recipe.Card'
+import { Homepage } from './Pages/Homepage'
 
 function App() {
-  return <RecipeList />
+  return <Homepage />
 }
 
 export default App
