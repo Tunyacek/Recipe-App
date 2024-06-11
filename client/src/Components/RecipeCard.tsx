@@ -39,15 +39,31 @@ interface Category {
   title: string
 }
 
-const CARD_SIZE1 = 400
-const CARD_SIZE2 = 626
+//card sizes
+const CARD_HEIGHT1 = 400
+const CARD_HEIGHT2 = 650
+const CARD_WIDTH1 = 475
+const CARD_WIDTH2 = 435
+
 const NUMBER_OF_LINES1 = 1
 const NUMBER_OF_LINES2 = 2
 const NUMBER_OF_LINES3 = 3
 const NUMBER_OF_LINES4 = 4
 const NUMBER_OF_LINES5 = 5
 
-const cardHeights = [CARD_SIZE1, CARD_SIZE1, CARD_SIZE2]
+const cardHeights = [CARD_HEIGHT1, CARD_HEIGHT1, CARD_HEIGHT2]
+const cardWidths = [CARD_WIDTH1, CARD_WIDTH1, CARD_WIDTH2]
+
+//image sizes
+
+const IMAGE_HEIGHT1 = 333
+const IMAGE_HEIGHT2 = 333
+const IMAGE_WIDTH1 = 33
+const IMAGE_WIDTH2 = 333
+IMAGE_HEIGHT1
+IMAGE_HEIGHT2
+IMAGE_WIDTH1
+IMAGE_WIDTH2
 
 const textNoOfLines = [
   NUMBER_OF_LINES1,
@@ -60,7 +76,7 @@ const textNoOfLines = [
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   return (
     <Box ml="15px" mb="15px">
-      <Card maxW="435px" h={cardHeights}>
+      <Card width={cardWidths} h={cardHeights}>
         <CardBody>
           <Box>
             <Image
@@ -127,10 +143,12 @@ export const RecipeList: React.FC = () => {
   }
 
   return (
-    <Grid templateColumns="repeat(4, 1fr)" gap={1}>
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
-      ))}
-    </Grid>
+    <Box mb="20px">
+      <Grid templateColumns="repeat(4, 1fr)" gap={1}>
+        {recipes.map((recipe) => (
+          <RecipeCard key={recipe.id} recipe={recipe} />
+        ))}
+      </Grid>
+    </Box>
   )
 }
