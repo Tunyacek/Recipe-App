@@ -13,6 +13,8 @@ import {
   Stack,
   Button,
   ButtonGroup,
+  Flex,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 
 import axios from 'axios'
@@ -40,30 +42,40 @@ interface Category {
 }
 
 //card sizes
-const CARD_HEIGHT1 = 400
-const CARD_HEIGHT2 = 650
-const CARD_WIDTH1 = 475
-const CARD_WIDTH2 = 435
 
-const NUMBER_OF_LINES1 = 1
-const NUMBER_OF_LINES2 = 2
-const NUMBER_OF_LINES3 = 3
-const NUMBER_OF_LINES4 = 4
-const NUMBER_OF_LINES5 = 5
+const CARD_HEIGHT1 = 500
+const CARD_HEIGHT2 = 650
+const CARD_WIDTH1 = 450
+const CARD_WIDTH2 = 435
 
 const cardHeights = [CARD_HEIGHT1, CARD_HEIGHT1, CARD_HEIGHT2]
 const cardWidths = [CARD_WIDTH1, CARD_WIDTH1, CARD_WIDTH2]
 
 //image sizes
 
-const IMAGE_HEIGHT1 = 333
-const IMAGE_HEIGHT2 = 333
-const IMAGE_WIDTH1 = 33
-const IMAGE_WIDTH2 = 333
-IMAGE_HEIGHT1
-IMAGE_HEIGHT2
-IMAGE_WIDTH1
-IMAGE_WIDTH2
+const IMAGE_HEIGHT1 = 175
+const IMAGE_HEIGHT2 = 300
+const IMAGE_WIDTH1 = 250
+const IMAGE_WIDTH2 = 400
+
+const imageHeights = [IMAGE_HEIGHT1, IMAGE_HEIGHT1, IMAGE_HEIGHT2]
+const imageWidths = [IMAGE_WIDTH1, IMAGE_WIDTH1, IMAGE_WIDTH2]
+
+//font sizes
+
+const TEXT_SIZE1 = 15
+const TEXT_SIZE2 = 20
+const HEADING_SIZE1 = 20
+const HEADING_SIZE2 = 25
+
+const textSize = [TEXT_SIZE1, TEXT_SIZE1, TEXT_SIZE2]
+const headingSize = [HEADING_SIZE1, HEADING_SIZE1, HEADING_SIZE2]
+
+const NUMBER_OF_LINES1 = 1
+const NUMBER_OF_LINES2 = 2
+const NUMBER_OF_LINES3 = 3
+const NUMBER_OF_LINES4 = 4
+const NUMBER_OF_LINES5 = 5
 
 const textNoOfLines = [
   NUMBER_OF_LINES1,
@@ -79,19 +91,24 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       <Card width={cardWidths} h={cardHeights}>
         <CardBody>
           <Box>
-            <Image
-              src={recipe.image_url}
-              width="400px"
-              height="300px"
-              alt={recipe.title}
-              borderRadius="lg"
-            />
+            <Flex justifyContent="center">
+              <Image
+                objectFit="cover"
+                src={recipe.image_url}
+                width={imageWidths}
+                height={imageHeights}
+                alt={recipe.title}
+                borderRadius="lg"
+              />
+            </Flex>
             <Stack mt="6" spacing="3">
-              <Heading size="md" textAlign="center">
+              <Heading size="md" textAlign="center" fontSize={headingSize}>
                 {recipe.title}
               </Heading>
               <Divider />
-              <Text noOfLines={textNoOfLines}>{recipe.summary}</Text>
+              <Text noOfLines={textNoOfLines} fontSize={textSize}>
+                {recipe.summary}
+              </Text>
             </Stack>
           </Box>
         </CardBody>
@@ -138,13 +155,19 @@ export const RecipeList: React.FC = () => {
     fetchRecipes()
   }, [])
 
+  const gridTemplateColumns = useBreakpointValue({
+    base: 'repeat(1, 1fr)',
+    md: 'repeat(2, 1fr)',
+    lg: 'repeat(4, 1fr)',
+  })
+
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Načítám...</div>
   }
 
   return (
     <Box mb="20px">
-      <Grid templateColumns="repeat(4, 1fr)" gap={1}>
+      <Grid templateColumns={gridTemplateColumns} gap={1}>
         {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
