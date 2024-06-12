@@ -8,13 +8,13 @@ const ZERO = 0
 
 //createbutton size
 
-const BUTTON_WIDTH1 = 160
-const BUTTON_WIDTH2 = 200
-const TEXT_SIZE1 = 13
-const TEXT_SIZE2 = 15
+const C_BUTTON_WIDTH1 = 160
+const C_BUTTON_WIDTH2 = 200
+const C_TEXT_SIZE1 = 13
+const C_TEXT_SIZE2 = 15
 
-const buttonWidths = [BUTTON_WIDTH1, BUTTON_WIDTH1, BUTTON_WIDTH2]
-const textSizes = [TEXT_SIZE1, TEXT_SIZE1, TEXT_SIZE2]
+const createButtonWidths = [C_BUTTON_WIDTH1, C_BUTTON_WIDTH1, C_BUTTON_WIDTH2]
+const createTextSizes = [C_TEXT_SIZE1, C_TEXT_SIZE1, C_TEXT_SIZE2]
 
 interface AddImageProps {
   onUpload: (filePath: string) => void
@@ -23,12 +23,12 @@ interface AddImageProps {
 export function CreateButton() {
   return (
     <Button
-      fontSize={textSizes}
+      fontSize={createTextSizes}
       color="#f8fae5"
       bg="#9acc9c"
       _hover={{ background: '#8cb88d' }}
       borderRadius="lg"
-      width={buttonWidths}
+      width={createButtonWidths}
     >
       Vytvořit nový recept
     </Button>

@@ -13,7 +13,11 @@ export function Dropdown() {
   const animatedComponents = makeAnimated() //animated API
 
   return (
-    <Box width="300px">
+    <Box
+      width={['375px', '375px', '350px']}
+      ml={['30px', '30px', '250px']}
+      pt={['15px', '15px', '0px']}
+    >
       <Select
         placeholder="Kategorie"
         options={options}
@@ -25,8 +29,8 @@ export function Dropdown() {
           borderRadius: 0,
           colors: {
             ...theme.colors,
-            primary25: '#FFC7C7',
-            primary: '#FFC7C7',
+            primary25: '#9acc9c',
+            primary: '#9acc9c',
           },
         })}
       />

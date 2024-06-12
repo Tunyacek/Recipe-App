@@ -34,7 +34,7 @@ export function Header() {
           direction="column"
           align="center"
         >
-          <Flex direction={flexDisplayDirection} width="100%">
+          <Flex direction={flexDisplayDirection} width="100%" alignItems="center">
             <Box pl="15px" flex="1">
               <Searchbar />
             </Box>
