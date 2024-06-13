@@ -41,16 +41,6 @@ interface Category {
   title: string
 }
 
-//image sizes
-
-const IMAGE_HEIGHT1 = 175
-const IMAGE_HEIGHT2 = 300
-const IMAGE_WIDTH1 = 250
-const IMAGE_WIDTH2 = 400
-
-const imageHeights = [IMAGE_HEIGHT1, IMAGE_HEIGHT1, IMAGE_HEIGHT2]
-const imageWidths = [IMAGE_WIDTH1, IMAGE_WIDTH1, IMAGE_WIDTH2]
-
 const NUMBER_OF_LINES1 = 1
 const NUMBER_OF_LINES2 = 2
 const NUMBER_OF_LINES3 = 3
@@ -82,8 +72,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               <Image
                 objectFit="cover"
                 src={recipe.image_url}
-                width={imageWidths}
-                height={imageHeights}
+                width={['250px', '250px', '400px']}
+                height={['175px', '175px', '300px']}
                 alt={recipe.title}
                 borderRadius="lg"
               />
