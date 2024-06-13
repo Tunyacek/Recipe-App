@@ -27,14 +27,8 @@ export function Header() {
           </Box>
         </Flex>
 
-        <Flex
-          pt="5"
-          bg="#B0EBB4"
-          height={['130px', '130px', '80px']}
-          direction="column"
-          align="center"
-        >
-          <Flex direction={flexDisplayDirection} width="100%" alignItems="center">
+        <Flex pt="5" bg="#B0EBB4" height={['130px', '130px', '80px']} direction="column">
+          <Flex direction={flexDisplayDirection} alignItems="center">
             <Box pl="15px" flex="1">
               <Searchbar />
             </Box>

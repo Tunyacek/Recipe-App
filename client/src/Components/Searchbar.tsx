@@ -8,7 +8,12 @@ export function Searchbar() {
         <InputLeftElement pointerEvents="none">
           <Icon as={Search} color="gray.500" />
         </InputLeftElement>
-        <Input bg="white" placeholder="Vyhledávání receptu" width={['375px', '375px', '600px']} />
+        <Input
+          bg="white"
+          placeholder="Vyhledávání receptu"
+          width={['375px', '375px', '600px']}
+          focusBorderColor="#9acc9c"
+        />
       </InputGroup>
     </Stack>
   )

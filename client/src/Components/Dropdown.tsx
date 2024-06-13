@@ -10,13 +10,25 @@ export function Dropdown() {
     { label: 'Category4', value: '4' },
   ]
 
-  const animatedComponents = makeAnimated() //animated API
+  const animatedComponents = makeAnimated() // animated API
 
   return (
     <Box
-      width={['375px', '375px', '350px']}
-      ml={['30px', '30px', '250px']}
-      pt={['15px', '15px', '0px']}
+      width="375px"
+      ml="250px"
+      pt="0px"
+      sx={{
+        '@media screen and (max-width: 1385px)': {
+          width: '375px',
+          ml: '30px',
+          pt: '15px',
+        },
+        '@media screen and (max-width: 790px)': {
+          width: '300px',
+          ml: '30px',
+          pt: '15px',
+        },
+      }}
     >
       <Select
         placeholder="Kategorie"

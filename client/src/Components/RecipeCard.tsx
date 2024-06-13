@@ -41,16 +41,6 @@ interface Category {
   title: string
 }
 
-//card sizes
-
-const CARD_HEIGHT1 = 500
-const CARD_HEIGHT2 = 650
-const CARD_WIDTH1 = 450
-const CARD_WIDTH2 = 435
-
-const cardHeights = [CARD_HEIGHT1, CARD_HEIGHT1, CARD_HEIGHT2]
-const cardWidths = [CARD_WIDTH1, CARD_WIDTH1, CARD_WIDTH2]
-
 //image sizes
 
 const IMAGE_HEIGHT1 = 175
@@ -60,16 +50,6 @@ const IMAGE_WIDTH2 = 400
 
 const imageHeights = [IMAGE_HEIGHT1, IMAGE_HEIGHT1, IMAGE_HEIGHT2]
 const imageWidths = [IMAGE_WIDTH1, IMAGE_WIDTH1, IMAGE_WIDTH2]
-
-//font sizes
-
-const TEXT_SIZE1 = 15
-const TEXT_SIZE2 = 20
-const HEADING_SIZE1 = 20
-const HEADING_SIZE2 = 25
-
-const textSize = [TEXT_SIZE1, TEXT_SIZE1, TEXT_SIZE2]
-const headingSize = [HEADING_SIZE1, HEADING_SIZE1, HEADING_SIZE2]
 
 const NUMBER_OF_LINES1 = 1
 const NUMBER_OF_LINES2 = 2
@@ -86,9 +66,16 @@ const textNoOfLines = [
 ]
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
+  const headingSize = '23px'
+  const textSize = '19px'
+
   return (
-    <Box ml="15px" mb="15px">
-      <Card width={cardWidths} h={cardHeights}>
+    <Box ml="15px" mb="15px" mr="15px">
+      <Card
+        maxWidth={['500px', '500px', '450px']}
+        minWidth={['200px', '200px', '250px']}
+        height={['500px', '500px', '650px']}
+      >
         <CardBody>
           <Box>
             <Flex justifyContent="center">
@@ -102,11 +89,40 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               />
             </Flex>
             <Stack mt="6" spacing="3">
-              <Heading size="md" textAlign="center" fontSize={headingSize}>
+              <Heading
+                size="md"
+                textAlign="center"
+                fontSize={headingSize}
+                sx={{
+                  '@media screen and (max-width: 1583px)': {
+                    fontSize: '18px',
+                  },
+                  '@media screen and (max-width: 766px)': {
+                    fontSize: '14px',
+                  },
+                  '@media screen and (max-width: 699px)': {
+                    fontSize: '23px',
+                  },
+                }}
+              >
                 {recipe.title}
               </Heading>
               <Divider />
-              <Text noOfLines={textNoOfLines} fontSize={textSize}>
+              <Text
+                noOfLines={textNoOfLines}
+                fontSize={textSize}
+                sx={{
+                  '@media screen and (max-width: 1520px)': {
+                    fontSize: '16px',
+                  },
+                  '@media screen and (max-width: 1150px)': {
+                    fontSize: '12px',
+                  },
+                  '@media screen and (max-width: 699px)': {
+                    fontSize: '14px',
+                  },
+                }}
+              >
                 {recipe.summary}
               </Text>
             </Stack>
@@ -167,7 +183,21 @@ export const RecipeList: React.FC = () => {
 
   return (
     <Box mb="20px">
-      <Grid templateColumns={gridTemplateColumns} gap={1}>
+      <Grid
+        templateColumns={gridTemplateColumns}
+        gap={3}
+        sx={{
+          '@media screen and (max-width: 1385px)': {
+            gridTemplateColumns: 'repeat(3, 1fr)',
+          },
+          '@media screen and (max-width: 1067px)': {
+            gridTemplateColumns: 'repeat(2, 1fr)',
+          },
+          '@media screen and (max-width: 699px)': {
+            gridTemplateColumns: 'repeat(1, 1fr)',
+          },
+        }}
+      >
         {recipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
