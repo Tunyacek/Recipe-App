@@ -26,10 +26,17 @@ export function Header() {
             <CreateButton />
           </Box>
         </Flex>
-
-        <Flex pt="5" bg="#B0EBB4" height={['130px', '130px', '80px']} direction="column">
-          <Flex direction={flexDisplayDirection} alignItems="center">
-            <Box pl="15px" flex="1">
+        <Box bg="#B0EBB4" height={['130px', '130px', '80px']}>
+          <Flex direction={flexDisplayDirection} alignItems="center" height="100%">
+            <Box
+              pl="15px"
+              flex="1"
+              sx={{
+                '@media screen and (max-width: 767px)': {
+                  pt: '20px',
+                },
+              }}
+            >
               <Searchbar />
             </Box>
             <Spacer />
@@ -37,7 +44,7 @@ export function Header() {
               <Dropdown />
             </Box>
           </Flex>
-        </Flex>
+        </Box>
       </Box>
     </Box>
   )

@@ -1,14 +1,35 @@
 import { Box } from '@chakra-ui/react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
+interface Category {
+  id: string
+  title: string
+}
+
+const url = import.meta.env.VITE_BE_URL
+
 export function Dropdown() {
-  const options = [
-    { label: 'Category1', value: '1' },
-    { label: 'Category2', value: '2' },
-    { label: 'Category3', value: '3' },
-    { label: 'Category4', value: '4' },
-  ]
+  const [categories, setCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${url}categories`)
+        const formattedCategories = response.data.map((category: Category) => ({
+          value: category.id,
+          label: category.title,
+        }))
+        setCategories(formattedCategories)
+      } catch (error) {
+        console.error('Error fetching categories', error)
+      }
+    }
+
+    fetchCategories()
+  }, [])
 
   const animatedComponents = makeAnimated() // animated API
 
@@ -27,14 +48,14 @@ export function Dropdown() {
         },
         '@media screen and (max-width: 767px)': {
           width: '375px',
-          pt: '10px',
+          pb: '20px',
           ml: '30px',
         },
       }}
     >
       <Select
         placeholder="Kategorie"
-        options={options}
+        options={categories}
         isMulti
         closeMenuOnSelect={false}
         components={animatedComponents}
