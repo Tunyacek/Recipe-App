@@ -61,7 +61,7 @@ export function Dropdown() {
         components={animatedComponents}
         theme={(theme) => ({
           ...theme,
-          borderRadius: 0,
+          borderRadius: 5,
           colors: {
             ...theme.colors,
             primary25: '#9acc9c',
