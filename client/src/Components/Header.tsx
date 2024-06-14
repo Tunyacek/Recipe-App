@@ -33,7 +33,7 @@ export function Header() {
               <Searchbar />
             </Box>
             <Spacer />
-            <Box pr="15px" flex="1">
+            <Box pr="15px">
               <Dropdown />
             </Box>
           </Flex>

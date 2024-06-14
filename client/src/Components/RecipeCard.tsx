@@ -60,7 +60,25 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   const textSize = '19px'
 
   return (
-    <Box ml="15px" mb="15px" mr="15px">
+    <Box
+      ml="15px"
+      mb="15px"
+      mr="15px"
+      sx={{
+        '@media screen and (max-width: 699px)': {
+          pl: '70px',
+        },
+        '@media screen and (max-width: 659px)': {
+          pl: '50px',
+        },
+        '@media screen and (max-width: 619px)': {
+          pl: '30px',
+        },
+        '@media screen and (max-width: 569px)': {
+          pl: '0px',
+        },
+      }}
+    >
       <Card
         maxWidth={['500px', '500px', '450px']}
         minWidth={['200px', '200px', '250px']}
@@ -118,7 +136,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
             </Stack>
           </Box>
         </CardBody>
-
         <Divider />
         <CardFooter>
           <ButtonGroup spacing="2" mb={'50px'}>
