@@ -14,22 +14,16 @@ export function Dropdown() {
 
   return (
     <Box
+      width="600px"
       sx={{
-        '@media screen and (max-width: 2000px)': {
-          width: '600px',
-          ml: '100px',
-        },
         '@media screen and (max-width: 1272px)': {
           width: '450px',
-          ml: '100px',
         },
         '@media screen and (max-width: 1996px)': {
           width: '450px',
-          ml: '0px',
         },
         '@media screen and (max-width: 1147px)': {
           width: '300px',
-          ml: '0px',
         },
         '@media screen and (max-width: 767px)': {
           width: '375px',

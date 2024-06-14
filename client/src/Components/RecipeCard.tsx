@@ -14,7 +14,6 @@ import {
   Button,
   ButtonGroup,
   Flex,
-  useBreakpointValue,
 } from '@chakra-ui/react'
 
 import axios from 'axios'
@@ -56,14 +55,8 @@ const textNoOfLines = [
 ]
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
-  const headingSize = '23px'
-  const textSize = '19px'
-
   return (
     <Box
-      ml="15px"
-      mb="15px"
-      mr="15px"
       sx={{
         '@media screen and (max-width: 699px)': {
           pl: '70px',
@@ -100,7 +93,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               <Heading
                 size="md"
                 textAlign="center"
-                fontSize={headingSize}
+                fontSize="23px"
                 sx={{
                   '@media screen and (max-width: 1583px)': {
                     fontSize: '18px',
@@ -118,7 +111,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               <Divider />
               <Text
                 noOfLines={textNoOfLines}
-                fontSize={textSize}
+                fontSize="19px"
                 sx={{
                   '@media screen and (max-width: 1520px)': {
                     fontSize: '16px',
@@ -178,12 +171,6 @@ export const RecipeList: React.FC = () => {
     fetchRecipes()
   }, [])
 
-  const gridTemplateColumns = useBreakpointValue({
-    base: 'repeat(1, 1fr)',
-    md: 'repeat(2, 1fr)',
-    lg: 'repeat(4, 1fr)',
-  })
-
   if (loading) {
     return <div>Načítám...</div>
   }
@@ -191,7 +178,7 @@ export const RecipeList: React.FC = () => {
   return (
     <Box mb="20px">
       <Grid
-        templateColumns={gridTemplateColumns}
+        templateColumns="repeat(4, 1fr)"
         gap={3}
         sx={{
           '@media screen and (max-width: 1385px)': {
