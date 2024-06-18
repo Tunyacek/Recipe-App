@@ -3,19 +3,24 @@ import { CreateButton } from './Button.tsx'
 import { Searchbar } from './Searchbar.tsx'
 import { Dropdown } from './Dropdown.tsx'
 import { Dessert } from 'lucide-react'
+import { type Category } from './Dropdown.tsx'
 
-//logo size
 const LOGO_SIZE1 = 15
 const LOGO_SIZE2 = 35
 
 const logoSizes = [LOGO_SIZE1, LOGO_SIZE1, LOGO_SIZE2]
 
-export function Header() {
+export function Header({
+  onCategoryChange,
+}: {
+  onCategoryChange: (selectedCategories: Category[]) => void
+}) {
   const flexDisplayDirection = useBreakpointValue<'column' | 'row'>({
     base: 'column',
     md: 'row',
     lg: 'row',
   })
+
   return (
     <Box as="section">
       <Box height={['250px', '250px', '200px']}>
@@ -41,7 +46,7 @@ export function Header() {
             </Box>
             <Spacer />
             <Box pr="15px">
-              <Dropdown />
+              <Dropdown onCategoryChange={onCategoryChange} />
             </Box>
           </Flex>
         </Box>

@@ -19,6 +19,8 @@ import {
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
+const ZERO = 0
+
 interface Category {
   id: string
   title: string
@@ -35,24 +37,10 @@ interface Recipe {
 interface RecipeCardProps {
   recipe: Recipe
 }
-interface Category {
-  id: string
-  title: string
+
+interface RecipeListProps {
+  selectedCategories: Category[]
 }
-
-const NUMBER_OF_LINES1 = 1
-const NUMBER_OF_LINES2 = 2
-const NUMBER_OF_LINES3 = 3
-const NUMBER_OF_LINES4 = 4
-const NUMBER_OF_LINES5 = 5
-
-const textNoOfLines = [
-  NUMBER_OF_LINES1,
-  NUMBER_OF_LINES2,
-  NUMBER_OF_LINES3,
-  NUMBER_OF_LINES4,
-  NUMBER_OF_LINES5,
-]
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   return (
@@ -110,7 +98,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
               </Heading>
               <Divider />
               <Text
-                noOfLines={textNoOfLines}
+                noOfLines={5}
                 fontSize="19px"
                 sx={{
                   '@media screen and (max-width: 1520px)': {
@@ -152,7 +140,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 
 const url = import.meta.env.VITE_BE_URL
 
-export const RecipeList: React.FC = () => {
+export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories }) => {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -175,8 +163,17 @@ export const RecipeList: React.FC = () => {
     return <div>Načítám...</div>
   }
 
+  const filteredRecipes =
+    selectedCategories.length > ZERO
+      ? recipes.filter((recipe) =>
+          recipe.categoryId.some((categoryRel) =>
+            selectedCategories.some((category) => category.id === categoryRel.category.id)
+          )
+        )
+      : recipes
+
   return (
-    <Box mb="20px">
+    <Box mb="20px" ml="10px">
       <Grid
         templateColumns="repeat(4, 1fr)"
         gap={3}
@@ -192,7 +189,7 @@ export const RecipeList: React.FC = () => {
           },
         }}
       >
-        {recipes.map((recipe) => (
+        {filteredRecipes.map((recipe) => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </Grid>

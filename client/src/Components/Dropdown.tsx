@@ -4,14 +4,18 @@ import { useEffect, useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
-interface Category {
+export interface Category {
   id: string
   title: string
 }
 
+interface DropdownProps {
+  onCategoryChange: (selectedCategories: Category[]) => void
+}
+
 const url = import.meta.env.VITE_BE_URL
 
-export function Dropdown() {
+export function Dropdown({ onCategoryChange }: DropdownProps) {
   const [categories, setCategories] = useState<Category[]>([])
 
   useEffect(() => {
@@ -32,6 +36,14 @@ export function Dropdown() {
   }, [])
 
   const animatedComponents = makeAnimated() // animated API
+
+  const handleChange = (selectedOptions: any) => {
+    const selectedCategories = selectedOptions.map((option: any) => ({
+      id: option.value,
+      title: option.label,
+    }))
+    onCategoryChange(selectedCategories)
+  }
 
   return (
     <Box
@@ -68,6 +80,7 @@ export function Dropdown() {
             primary: '#9acc9c',
           },
         })}
+        onChange={handleChange}
       />
     </Box>
   )
