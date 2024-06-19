@@ -9,6 +9,7 @@ import {
   OrderedList,
   Text,
   Image,
+  Spacer,
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { CookingPot, Salad, StarIcon } from 'lucide-react'
@@ -72,35 +73,35 @@ export function Recipe() {
   }
   return (
     <Box>
-      <Flex justifyContent="center" flexDirection="column" alignItems="center">
+      <Flex flexDirection="column" alignItems="center">
         <Image m="40px" src={recipe.image_url} width="600px" height="400px" borderRadius="xl" />
-        <Heading textAlign="center" m="40px">
-          {recipe.title}
-        </Heading>
-        <Flex justifyContent="center" alignItems="center" mb="20px">
-          <Flex alignItems="center" mx="10px">
-            <Icon as={Salad} />
-            <Text pl="5px" pr="15px">
-              : {recipe.prep_time} min
-            </Text>
-          </Flex>
-          <Flex alignItems="center" mx="10px">
-            <Icon as={CookingPot} />
-            <Text pl="5px">: {recipe.cook_time} min</Text>
-          </Flex>
+
+        <Heading m="10px">{recipe.title}</Heading>
+
+        <Flex justifyContent="center" alignItems="center" m="15px" mb="30px">
+          <Icon as={Salad} />
+          <Text pl="5px" pr="15px">
+            : {recipe.prep_time} min
+          </Text>
+          <Spacer width="10px" />
+          <Icon as={CookingPot} />
+          <Text pl="5px">: {recipe.cook_time} min</Text>
         </Flex>
+
         <Box textAlign="center" mb="40px">
-          <Text fontWeight="bold">Shrnutí</Text>
-          <Text maxW="600px">{recipe.summary}</Text>
+          <Text fontWeight="bold" m="5px">
+            Shrnutí
+          </Text>
+          <Text maxW="1000px">{recipe.summary}</Text>
         </Box>
       </Flex>
+
       <Flex justifyContent="center">
         <Text fontWeight="bold">Ingredience:</Text>
-
         <Box pt="15px">
           <OrderedList mt="10px" pl="20px">
             {recipe.ingredients.map((ingredient, index) => (
-              <ListItem key={index} width="500px">
+              <ListItem key={index} maxWidth="500px">
                 {ingredient}
               </ListItem>
             ))}
@@ -108,17 +109,17 @@ export function Recipe() {
         </Box>
 
         <Text fontWeight="bold">Instrukce:</Text>
-
         <Box pt={'15px'}>
           <OrderedList mt="10px" pl="20px">
             {recipe.instructions.map((instruction, index) => (
-              <ListItem key={index} width="500px">
+              <ListItem key={index} maxWidth="500px">
                 {instruction}
               </ListItem>
             ))}
           </OrderedList>
         </Box>
       </Flex>
+
       <Flex flexDirection="column" alignItems="center" mt="40px">
         <Box textAlign="center" mb="20px">
           <Text fontWeight="bold" fontSize="lg">
