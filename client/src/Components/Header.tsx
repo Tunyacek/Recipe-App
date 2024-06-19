@@ -10,11 +10,12 @@ const LOGO_SIZE2 = 35
 
 const logoSizes = [LOGO_SIZE1, LOGO_SIZE1, LOGO_SIZE2]
 
-export function Header({
-  onCategoryChange,
-}: {
+interface HeaderProps {
   onCategoryChange: (selectedCategories: Category[]) => void
-}) {
+  onSearchChange: (searchRecipe: string) => void
+}
+
+export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
   const flexDisplayDirection = useBreakpointValue<'column' | 'row'>({
     base: 'column',
     md: 'row',
@@ -42,7 +43,7 @@ export function Header({
                 },
               }}
             >
-              <Searchbar />
+              <Searchbar onSearchChange={onSearchChange} />
             </Box>
             <Spacer />
             <Box pr="15px">
