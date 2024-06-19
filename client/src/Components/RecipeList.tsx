@@ -40,6 +40,7 @@ interface RecipeCardProps {
 
 interface RecipeListProps {
   selectedCategories: Category[]
+  searchRecipe: string
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
@@ -140,7 +141,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 
 const url = import.meta.env.VITE_BE_URL
 
-export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories }) => {
+export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, searchRecipe }) => {
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -163,14 +164,27 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories }) =>
     return <div>Načítám...</div>
   }
 
-  const filteredRecipes =
-    selectedCategories.length > ZERO
-      ? recipes.filter((recipe) =>
-          recipe.categoryId.some((categoryRel) =>
+  const filteredRecipes = recipes
+    .filter((recipe) =>
+      selectedCategories.length > ZERO
+        ? recipe.categoryId.some((categoryRel) =>
             selectedCategories.some((category) => category.id === categoryRel.category.id)
           )
-        )
-      : recipes
+        : true
+    )
+    .filter((recipe) => recipe.title.toLowerCase().includes(searchRecipe.toLowerCase()))
+
+  if (filteredRecipes.length === 0) {
+    return (
+      <Flex justifyContent="center">
+        <Box>
+          <Text fontSize="30px" mt="40px">
+            Recepty nenalezeny🥺
+          </Text>
+        </Box>
+      </Flex>
+    )
+  }
 
   return (
     <Box mb="20px" ml="10px">

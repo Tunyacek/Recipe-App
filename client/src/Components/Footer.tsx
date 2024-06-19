@@ -7,7 +7,7 @@ export function Footer() {
       <Divider />
       <Box>
         <Text pt="10px" pl="15px">
-          © {year} Niky
+          © {year} Niky 🦕
         </Text>
       </Box>
     </Box>

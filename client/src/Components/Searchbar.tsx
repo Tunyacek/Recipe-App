@@ -1,7 +1,19 @@
 import { Icon, Input, InputGroup, InputLeftElement, Stack } from '@chakra-ui/react'
 import { Search } from 'lucide-react'
+import { useState } from 'react'
 
-export function Searchbar() {
+interface SearchbarProps {
+  onSearchChange: (searchRecipe: string) => void
+}
+
+export function Searchbar({ onSearchChange }: SearchbarProps) {
+  const [searchRecipe, setSearchRecipe] = useState('')
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchRecipe(event.target.value)
+    onSearchChange(event.target.value)
+  }
+
   return (
     <Stack>
       <InputGroup>
@@ -11,6 +23,8 @@ export function Searchbar() {
         <Input
           bg="white"
           placeholder="Vyhledávání receptu"
+          value={searchRecipe}
+          onChange={handleChange}
           focusBorderColor="#9acc9c"
           sx={{
             '@media screen and (max-width: 1272px)': {
