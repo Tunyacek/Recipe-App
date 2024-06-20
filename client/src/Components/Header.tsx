@@ -1,9 +1,9 @@
-import { Heading, Box, Flex, Spacer, Icon, useBreakpointValue } from '@chakra-ui/react'
+import { Heading, Box, Flex, Spacer, useBreakpointValue, Image } from '@chakra-ui/react'
 import { CreateButton } from './Button.tsx'
 import { Searchbar } from './Searchbar.tsx'
 import { Dropdown } from './Dropdown.tsx'
-import { Dessert } from 'lucide-react'
 import { type Category } from './Dropdown.tsx'
+import catImage from '../assets/kitty.png'
 
 const LOGO_SIZE1 = 15
 const LOGO_SIZE2 = 35
@@ -60,7 +60,7 @@ export function HeaderLogo() {
   return (
     <>
       <Heading as="h1" pl="15px" pt="10px" fontSize={logoSizes}>
-        <Icon as={Dessert} w={16} h={16} /> Nom Nom Nation
+        <Image src={catImage} w={16} h={16} />
       </Heading>
     </>
   )
