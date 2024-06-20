@@ -18,6 +18,7 @@ import {
 
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const ZERO = 0
 
@@ -66,58 +67,60 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
         minWidth={['200px', '200px', '250px']}
         height={['500px', '500px', '650px']}
       >
-        <CardBody>
-          <Box>
-            <Flex justifyContent="center">
-              <Image
-                objectFit="cover"
-                src={recipe.image_url}
-                width={['250px', '250px', '400px']}
-                height={['175px', '175px', '300px']}
-                alt={recipe.title}
-                borderRadius="lg"
-              />
-            </Flex>
-            <Stack mt="6" spacing="3">
-              <Heading
-                size="md"
-                textAlign="center"
-                fontSize="23px"
-                sx={{
-                  '@media screen and (max-width: 1583px)': {
-                    fontSize: '18px',
-                  },
-                  '@media screen and (max-width: 766px)': {
-                    fontSize: '14px',
-                  },
-                  '@media screen and (max-width: 699px)': {
-                    fontSize: '23px',
-                  },
-                }}
-              >
-                {recipe.title}
-              </Heading>
-              <Divider />
-              <Text
-                noOfLines={5}
-                fontSize="19px"
-                sx={{
-                  '@media screen and (max-width: 1520px)': {
-                    fontSize: '16px',
-                  },
-                  '@media screen and (max-width: 1150px)': {
-                    fontSize: '12px',
-                  },
-                  '@media screen and (max-width: 699px)': {
-                    fontSize: '14px',
-                  },
-                }}
-              >
-                {recipe.summary}
-              </Text>
-            </Stack>
-          </Box>
-        </CardBody>
+        <Link to={`/recipes/${recipe.id}`}>
+          <CardBody>
+            <Box>
+              <Flex justifyContent="center">
+                <Image
+                  objectFit="cover"
+                  src={recipe.image_url}
+                  width={['250px', '250px', '400px']}
+                  height={['175px', '175px', '300px']}
+                  alt={recipe.title}
+                  borderRadius="lg"
+                />
+              </Flex>
+              <Stack mt="6" spacing="3">
+                <Heading
+                  size="md"
+                  textAlign="center"
+                  fontSize="23px"
+                  sx={{
+                    '@media screen and (max-width: 1583px)': {
+                      fontSize: '18px',
+                    },
+                    '@media screen and (max-width: 766px)': {
+                      fontSize: '14px',
+                    },
+                    '@media screen and (max-width: 699px)': {
+                      fontSize: '23px',
+                    },
+                  }}
+                >
+                  {recipe.title}
+                </Heading>
+                <Divider />
+                <Text
+                  noOfLines={5}
+                  fontSize="19px"
+                  sx={{
+                    '@media screen and (max-width: 1520px)': {
+                      fontSize: '16px',
+                    },
+                    '@media screen and (max-width: 1150px)': {
+                      fontSize: '12px',
+                    },
+                    '@media screen and (max-width: 699px)': {
+                      fontSize: '14px',
+                    },
+                  }}
+                >
+                  {recipe.summary}
+                </Text>
+              </Stack>
+            </Box>
+          </CardBody>
+        </Link>
         <Divider />
         <CardFooter>
           <ButtonGroup spacing="2" mb={'50px'}>

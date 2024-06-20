@@ -10,6 +10,8 @@ import {
   Text,
   Image,
   Spacer,
+  Divider,
+  UnorderedList,
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { CookingPot, Salad, StarIcon } from 'lucide-react'
@@ -67,6 +69,13 @@ export function Recipe() {
           <Text fontSize="30px" mt="40px">
             Recept nenalezen🥺
           </Text>
+          <Text m="10px" fontSize="20px">
+            Co se stalo?
+          </Text>
+          <UnorderedList>
+            <ListItem m="10px">Recept byl smazán</ListItem>
+            <ListItem m="10px">Chyba v url</ListItem>
+          </UnorderedList>
         </Box>
       </Flex>
     )
@@ -74,10 +83,22 @@ export function Recipe() {
   return (
     <Box>
       <Flex flexDirection="column" alignItems="center">
-        <Image m="40px" src={recipe.image_url} width="600px" height="400px" borderRadius="xl" />
+        <Image
+          m="40px"
+          src={recipe.image_url}
+          width="600px"
+          height="400px"
+          objectFit="cover"
+          borderRadius="xl"
+          sx={{
+            '@media screen and (max-width: 766px)': {
+              width: '300px',
+              height: '200px',
+            },
+          }}
+        />
 
         <Heading m="10px">{recipe.title}</Heading>
-
         <Flex justifyContent="center" alignItems="center" m="15px" mb="30px">
           <Icon as={Salad} />
           <Text pl="5px" pr="15px">
@@ -87,17 +108,27 @@ export function Recipe() {
           <Icon as={CookingPot} />
           <Text pl="5px">: {recipe.cook_time} min</Text>
         </Flex>
-
         <Box textAlign="center" mb="40px">
           <Text fontWeight="bold" m="5px">
             Shrnutí
           </Text>
-          <Text maxW="1000px">{recipe.summary}</Text>
+          <Text
+            maxWidth="1000px"
+            sx={{
+              '@media screen and (max-width: 766px)': {
+                maxWidth: '400px',
+              },
+            }}
+          >
+            {recipe.summary}
+          </Text>
         </Box>
       </Flex>
-
-      <Flex justifyContent="center">
-        <Text fontWeight="bold">Ingredience:</Text>
+      <Divider />
+      <Flex direction="column" justifyContent="center" alignItems="center" m="20px">
+        <Text fontWeight="bold" mt="10px">
+          Ingredience:
+        </Text>
         <Box pt="15px">
           <OrderedList mt="10px" pl="20px">
             {recipe.ingredients.map((ingredient, index) => (
@@ -107,8 +138,12 @@ export function Recipe() {
             ))}
           </OrderedList>
         </Box>
-
-        <Text fontWeight="bold">Instrukce:</Text>
+      </Flex>
+      <Divider />
+      <Flex direction="column" justifyContent="center" alignItems="center" m="20px">
+        <Text fontWeight="bold" mt="10px">
+          Instrukce:
+        </Text>
         <Box pt={'15px'}>
           <OrderedList mt="10px" pl="20px">
             {recipe.instructions.map((instruction, index) => (
@@ -119,7 +154,7 @@ export function Recipe() {
           </OrderedList>
         </Box>
       </Flex>
-
+      <Divider />
       <Flex flexDirection="column" alignItems="center" mt="40px">
         <Box textAlign="center" mb="20px">
           <Text fontWeight="bold" fontSize="lg">
@@ -138,7 +173,7 @@ export function Recipe() {
             Kategorie
           </Text>
           <ButtonGroup spacing="2" mb={'50px'}>
-            {recipe.categoryId.map((categoryWrapper, index) => (
+            {recipe.categoryId.map((categories, index) => (
               <Button
                 color="#f8fae5"
                 key={index}
@@ -146,7 +181,7 @@ export function Recipe() {
                 bg="#9acc9c"
                 _hover={{ background: '#8cb88d' }}
               >
-                {categoryWrapper.category.title}
+                {categories.category.title}
               </Button>
             ))}
           </ButtonGroup>

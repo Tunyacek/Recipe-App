@@ -103,3 +103,20 @@ export function PrevNextButtons() {
     </ButtonGroup>
   )
 }
+
+export function BackButton() {
+  return (
+    <Button
+      leftIcon={<ArrowLeft />}
+      width="125px"
+      ml="15px"
+      mt="20px"
+      variant="solid"
+      bg="#f3fff4"
+      color="#8cb88d"
+      _hover={{ background: '#defde0' }}
+    >
+      Zpět
+    </Button>
+  )
+}
