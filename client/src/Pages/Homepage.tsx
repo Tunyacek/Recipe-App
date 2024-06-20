@@ -1,9 +1,9 @@
 import { Box, Flex } from '@chakra-ui/react'
-import { Footer } from '../Components/Footer'
-import { Header } from '../Components/Header'
-import { RecipeList } from '../Components/RecipeList'
+import { Footer } from '../Components/Footer/Footer.tsx'
+import { Header } from '../Components/Header/Header.tsx'
+import { RecipeList } from '../Components/Homepage/RecipeList.tsx'
 import { useState } from 'react'
-import { type Category } from '../Components/Dropdown.tsx'
+import { type Category } from '../Components/Header/Dropdown.tsx'
 
 export function Homepage() {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([])

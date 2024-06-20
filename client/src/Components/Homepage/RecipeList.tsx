@@ -177,7 +177,7 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, sear
     )
     .filter((recipe) => recipe.title.toLowerCase().includes(searchRecipe.toLowerCase()))
 
-  if (filteredRecipes.length === 0) {
+  if (filteredRecipes.length === ZERO) {
     return (
       <Flex justifyContent="center">
         <Box>

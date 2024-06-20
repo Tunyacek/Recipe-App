@@ -1,8 +1,8 @@
 import { Box, Flex } from '@chakra-ui/react'
-import { Footer } from '../Components/Footer'
-import { Recipe } from '../Components/Recipe'
-import { HeaderLogo } from '../Components/Header'
-import { BackButton } from '../Components/Button'
+import { Footer } from '../Components/Footer/Footer'
+import { Recipe } from '../Components/Recipepage/Recipe'
+import { HeaderLogo } from '../Components/Header/Header'
+import { BackButton } from '../Components/Buttons/Button'
 import { Link } from 'react-router-dom'
 
 export function Recipepage() {

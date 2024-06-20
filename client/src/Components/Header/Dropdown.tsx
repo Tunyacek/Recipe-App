@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import Select from 'react-select'
+import Select, { type MultiValue, type ActionMeta } from 'react-select'
 import makeAnimated from 'react-select/animated'
 
 export interface Category {
@@ -15,14 +15,19 @@ interface DropdownProps {
 
 const url = import.meta.env.VITE_BE_URL
 
+interface SelectOption {
+  value: string
+  label: string
+}
+
 export function Dropdown({ onCategoryChange }: DropdownProps) {
-  const [categories, setCategories] = useState<Category[]>([])
+  const [categories, setCategories] = useState<SelectOption[]>([])
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${url}categories`)
-        const formattedCategories = response.data.map((category: Category) => ({
+        const formattedCategories: SelectOption[] = response.data.map((category: Category) => ({
           value: category.id,
           label: category.title,
         }))
@@ -35,10 +40,13 @@ export function Dropdown({ onCategoryChange }: DropdownProps) {
     fetchCategories()
   }, [])
 
-  const animatedComponents = makeAnimated() // animated API
+  const animatedComponents = makeAnimated()
 
-  const handleChange = (selectedOptions: any) => {
-    const selectedCategories = selectedOptions.map((option: any) => ({
+  const handleChange = (
+    selectedOptions: MultiValue<SelectOption>,
+    _actionMeta: ActionMeta<SelectOption>
+  ) => {
+    const selectedCategories = selectedOptions.map((option) => ({
       id: option.value,
       title: option.label,
     }))
@@ -80,7 +88,9 @@ export function Dropdown({ onCategoryChange }: DropdownProps) {
             primary: '#9acc9c',
           },
         })}
-        onChange={handleChange}
+        onChange={(newValue, actionMeta) =>
+          handleChange(newValue as MultiValue<SelectOption>, actionMeta as ActionMeta<SelectOption>)
+        }
       />
     </Box>
   )
