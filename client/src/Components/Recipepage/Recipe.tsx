@@ -14,9 +14,10 @@ import {
   UnorderedList,
 } from '@chakra-ui/react'
 import axios from 'axios'
-import { CookingPot, Salad, StarIcon } from 'lucide-react'
+import { CookingPot, Salad } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import Rating, { FullStar, EmptyStar } from '../Createpage/Rating'
 
 interface Category {
   id: string
@@ -33,6 +34,7 @@ interface Recipe {
   ingredients: string[]
   instructions: string[]
   categoryId: { category: Category }[]
+  rating: string
 }
 
 const url = import.meta.env.VITE_BE_URL
@@ -80,6 +82,17 @@ export function Recipe() {
       </Flex>
     )
   }
+
+  const ratingMap: { [key: string]: number } = {
+    ONE: 1,
+    TWO: 2,
+    THREE: 3,
+    FOUR: 4,
+    FIVE: 5,
+  }
+
+  const stars = ratingMap[recipe.rating] || 0
+
   return (
     <Box>
       <Flex flexDirection="column" alignItems="center">
@@ -160,13 +173,14 @@ export function Recipe() {
           <Text fontWeight="bold" fontSize="lg">
             Hodnocení
           </Text>
-          <Box display="flex" justifyContent="center">
-            <StarIcon color="gold" />
-            <StarIcon color="gold" />
-            <StarIcon color="gold" />
-            <StarIcon color="gold" />
-            <StarIcon color="gold" />
-          </Box>
+          <Rating
+            count={5}
+            value={stars}
+            size={30}
+            edit={false}
+            emptyIcon={<EmptyStar />}
+            fullIcon={<FullStar />}
+          />
         </Box>
         <Box textAlign="center">
           <Text fontWeight="bold" mb="10px">

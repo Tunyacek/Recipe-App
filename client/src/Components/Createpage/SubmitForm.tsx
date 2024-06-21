@@ -1,5 +1,5 @@
 import { Box, Flex, FormControl, FormLabel, HStack, Input, Textarea } from '@chakra-ui/react'
-import { AddImage, SubmitRecipe } from '../Buttons/Button.tsx'
+import { AddImage, SubmitRecipeButton } from '../Buttons/Button.tsx'
 import { useState, type ChangeEvent } from 'react'
 import { InstructionList, IngredientList } from './Lists.tsx'
 import Rating from './Rating.tsx'
@@ -39,7 +39,7 @@ export const SubmitForm: React.FC = () => {
   return (
     <Box>
       <Box bg="#B0EBB4" height="80px" />
-      <form action="/recipes/" method="POST">
+      <form action="/recipes" method="POST">
         <Flex direction="column" maxW="600px" pt="15px" pl="15px">
           <Box pb="5" mr="15px">
             <FormControl isRequired>
@@ -109,7 +109,7 @@ export const SubmitForm: React.FC = () => {
             </Box>
           </HStack>
           <Box ml="auto" mr="15px" pb="5">
-            <SubmitRecipe />
+            <SubmitRecipeButton />
           </Box>
         </Flex>
       </form>

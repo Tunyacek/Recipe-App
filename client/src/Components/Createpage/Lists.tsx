@@ -10,7 +10,7 @@ import {
   ListItem,
   UnorderedList,
 } from '@chakra-ui/react'
-import { Bean, BeanOff, BookMinus, BookPlus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 const ZERO = 0
@@ -21,6 +21,10 @@ export function IngredientList() {
   const [ingredientInput, setIngredientInput] = useState('')
 
   const addIngredient = () => {
+    if (!ingredientInput.trim()) {
+      return
+    }
+
     const newIngredient = {
       item: ingredientInput,
     }
@@ -47,7 +51,7 @@ export function IngredientList() {
           />
           <InputRightElement>
             <Button onClick={addIngredient} bg="#9acc9c" _hover={{ background: '#8cb88d' }}>
-              <Icon as={Bean} />
+              <Icon as={Plus} />
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -66,7 +70,7 @@ export function IngredientList() {
             >
               {item.item}
               <Button onClick={() => deleteIngredient(index)} variant="ghost" colorScheme="red">
-                <Icon as={BeanOff} />
+                <Icon as={Minus} />
               </Button>
             </ListItem>
           ))}
@@ -81,6 +85,10 @@ export function InstructionList() {
   const [instructionInput, setInstructionInput] = useState('')
 
   const addInstruction = () => {
+    if (!instructionInput.trim()) {
+      return
+    }
+
     const newInstruction = {
       item: instructionInput,
     }
@@ -94,6 +102,7 @@ export function InstructionList() {
     newInstructionList.splice(index, ONE)
     setInstructionList(newInstructionList)
   }
+
   return (
     <Box pb="5" mr="15px">
       <FormControl isRequired>
@@ -106,7 +115,7 @@ export function InstructionList() {
           />
           <InputRightElement>
             <Button onClick={addInstruction} bg="#9acc9c" _hover={{ background: '#8cb88d' }}>
-              <Icon as={BookPlus} />
+              <Icon as={Plus} />
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -125,7 +134,7 @@ export function InstructionList() {
             >
               {item.item}
               <Button onClick={() => deleteInstruction(index)} variant="ghost" colorScheme="red">
-                <Icon as={BookMinus} />
+                <Icon as={Minus} />
               </Button>
             </ListItem>
           ))}

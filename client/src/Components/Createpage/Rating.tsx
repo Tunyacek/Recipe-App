@@ -26,7 +26,7 @@ const ONE = 1
 const TWENTYFOUR = 24
 const THIRTY = 30
 
-const FullStar: React.FC<IconProps> = ({ size = TWENTYFOUR, color = '#000000' }) => (
+export const FullStar: React.FC<IconProps> = ({ size = TWENTYFOUR, color = '#000000' }) => (
   <div style={{ color }}>
     <svg height={size} viewBox="0 0 24 24">
       <path
@@ -38,7 +38,7 @@ const FullStar: React.FC<IconProps> = ({ size = TWENTYFOUR, color = '#000000' })
   </div>
 )
 
-const EmptyStar: React.FC<IconProps> = ({ size = TWENTYFOUR, color = '#000000' }) => (
+export const EmptyStar: React.FC<IconProps> = ({ size = TWENTYFOUR, color = '#000000' }) => (
   <div style={{ color }}>
     <svg height={size} viewBox="0 0 24 24">
       <path
