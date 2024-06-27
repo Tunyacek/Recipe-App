@@ -1,3 +1,3 @@
 export interface ImageRepository {
-  uploadImage: (image: File, id: string) => Promise<{ path: string }>
+  uploadImage: (file: Express.Multer.File, id: string) => Promise<{ path: string }>
 }
