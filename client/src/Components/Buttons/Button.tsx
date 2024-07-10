@@ -35,7 +35,7 @@ export function CreateButton() {
   )
 }
 
-export function SubmitRecipe() {
+export function SubmitRecipeButton() {
   return (
     <Button
       bg="#9acc9c"

@@ -1,9 +1,7 @@
-import { StorageClient } from '@supabase/storage-js'
+import 'dotenv/config'
+import { createClient } from '@supabase/supabase-js'
 
-const storage_url = process.env.STORAGE_URL ?? ''
-const service_key = process.env.SERVICE_KEY ?? ''
+const supabaseUrl = process.env.STORAGE_URL as string
+const supabaseKey = process.env.SERVICE_KEY as string
 
-export const storageClient = new StorageClient(storage_url, {
-  apikey: service_key,
-  Authorization: `Bearer ${service_key}`,
-})
+export const supabase = createClient(supabaseUrl, supabaseKey)

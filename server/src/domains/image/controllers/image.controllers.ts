@@ -10,11 +10,16 @@ type imageControllerFactory = (service: ImageService) => {
 
 export const imageControllerFactory: imageControllerFactory = (service: ImageService) => {
   const uploadImage = async (req: Request, res: Response, _next: NextFunction) => {
-    const id = uuidv4()
-    const uploadedImage = await service.uploadImage(req.body, id)
+    if (!req.file) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'No file uploaded' })
+    }
 
+    const file = req.file
+    const id = uuidv4()
+    const uploadedImage = await service.uploadImage(file, id)
     return res.status(StatusCodes.CREATED).json(uploadedImage)
   }
+
   return {
     uploadImage,
   }

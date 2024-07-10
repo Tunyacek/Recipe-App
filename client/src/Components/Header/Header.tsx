@@ -1,9 +1,10 @@
 import { Heading, Box, Flex, Spacer, useBreakpointValue, Image } from '@chakra-ui/react'
-import { CreateButton } from './Button.tsx'
+import { CreateButton } from '../Buttons/Button.tsx'
 import { Searchbar } from './Searchbar.tsx'
-import { Dropdown } from './Dropdown.tsx'
-import { type Category } from './Dropdown.tsx'
-import catImage from '../assets/kitty.png'
+import { Dropdown } from '../Header/Dropdown.tsx'
+import { type Category } from '../Header/Dropdown.tsx'
+import catImage from '../../assets/logo_cream.jpeg'
+import { Link } from 'react-router-dom'
 
 const LOGO_SIZE1 = 15
 const LOGO_SIZE2 = 35
@@ -21,15 +22,17 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
     md: 'row',
     lg: 'row',
   })
-
+  // bg="#d0ffd5"
   return (
     <Box as="section">
       <Box height={['250px', '250px', '200px']}>
-        <Flex pl="5px" pb="10px" bg="#BFF6C3" align="center" pr="10px">
+        <Flex pl="5px" pb="10px" bg="#d0ffd5" align="center" pr="10px">
           <HeaderLogo />
           <Spacer />
           <Box pt="30px">
-            <CreateButton />
+            <Link to="/add-recipe">
+              <CreateButton />
+            </Link>
           </Box>
         </Flex>
         <Box bg="#B0EBB4" height={['130px', '130px', '80px']}>
