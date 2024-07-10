@@ -26,7 +26,7 @@ export function Dropdown({ onCategoryChange }: DropdownProps) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${url}categories`)
+        const response = await axios.get(`${url}/categories`)
         const formattedCategories: SelectOption[] = response.data.map((category: Category) => ({
           value: category.id,
           label: category.title,

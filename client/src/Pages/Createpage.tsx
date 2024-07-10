@@ -6,7 +6,7 @@ import { Footer } from '../Components/Footer/Footer'
 export function Createpage() {
   return (
     <Flex direction="column" minHeight="100vh" bg="#f3fff4">
-      <Box bg="#BFF6C3">
+      <Box bg="#d0ffd5">
         <Box ml="5px">
           <HeaderLogo />
         </Box>

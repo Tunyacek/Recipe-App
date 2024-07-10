@@ -3,7 +3,7 @@ import { CreateButton } from '../Buttons/Button.tsx'
 import { Searchbar } from './Searchbar.tsx'
 import { Dropdown } from '../Header/Dropdown.tsx'
 import { type Category } from '../Header/Dropdown.tsx'
-import catImage from '../../assets/kitty.png'
+import catImage from '../../assets/logo_cream.jpeg'
 import { Link } from 'react-router-dom'
 
 const LOGO_SIZE1 = 15
@@ -22,11 +22,11 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
     md: 'row',
     lg: 'row',
   })
-
+  // bg="#d0ffd5"
   return (
     <Box as="section">
       <Box height={['250px', '250px', '200px']}>
-        <Flex pl="5px" pb="10px" bg="#BFF6C3" align="center" pr="10px">
+        <Flex pl="5px" pb="10px" bg="#d0ffd5" align="center" pr="10px">
           <HeaderLogo />
           <Spacer />
           <Box pt="30px">

@@ -151,7 +151,7 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, sear
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get(`${url}recipes`)
+        const response = await axios.get(`${url}/recipes`)
         setRecipes(response.data)
       } catch (error) {
         console.error('Error fetching recipes:', error)

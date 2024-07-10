@@ -48,7 +48,7 @@ export function Recipe() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`${url}recipes/${id}`)
+        const response = await axios.get(`${url}/recipes/${id}`)
         setRecipe(response.data)
       } catch (error) {
         console.error('Error fetching recipes:', error)
