@@ -29,6 +29,8 @@ export function CreateButton() {
       _hover={{ background: '#8cb88d' }}
       borderRadius="lg"
       width={createButtonWidths}
+      mb="18px"
+      mr="5px"
     >
       Vytvořit nový recept
     </Button>
