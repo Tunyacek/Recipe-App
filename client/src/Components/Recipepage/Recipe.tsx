@@ -77,6 +77,7 @@ export function Recipe() {
           <UnorderedList>
             <ListItem m="10px">Recept byl smazán</ListItem>
             <ListItem m="10px">Chyba v url</ListItem>
+            <ListItem m="10px">Chyba u nás na serveru, nebo v komunikaci se serverem</ListItem>
           </UnorderedList>
         </Box>
       </Flex>

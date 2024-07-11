@@ -14,6 +14,8 @@ import {
   Button,
   ButtonGroup,
   Flex,
+  UnorderedList,
+  ListItem,
 } from '@chakra-ui/react'
 
 import axios from 'axios'
@@ -63,9 +65,42 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       }}
     >
       <Card
-        maxWidth={['500px', '500px', '450px']}
-        minWidth={['200px', '200px', '250px']}
-        height={['500px', '500px', '650px']}
+        sx={{
+          '@media screen and (max-width: 1385px)': {
+            width: '500px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 1067px)': {
+            width: '450px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 960px)': {
+            width: '400px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 860px)': {
+            width: '380px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 820px)': {
+            width: '360px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 790px)': {
+            width: '340px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 740px)': {
+            width: '300px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 699px)': {
+            width: '475px',
+            height: '500px',
+          },
+        }}
+        my="5px"
+        mx="5px"
       >
         <Link to={`/recipes/${recipe.id}`}>
           <CardBody>
@@ -74,8 +109,21 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 <Image
                   objectFit="cover"
                   src={recipe.image_url}
-                  width={['250px', '250px', '400px']}
-                  height={['175px', '175px', '300px']}
+                  sx={{
+                    '@media screen and (max-width: 1385px)': {
+                      width: '400px',
+                      height: '300px',
+                    },
+                    '@media screen and (max-width: 1067px)': {
+                      width: '250px',
+                      height: '175px',
+                    },
+
+                    '@media screen and (max-width: 699px)': {
+                      width: '250px',
+                      height: '175px',
+                    },
+                  }}
                   alt={recipe.title}
                   borderRadius="lg"
                 />
@@ -86,10 +134,10 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                   textAlign="center"
                   fontSize="23px"
                   sx={{
-                    '@media screen and (max-width: 1583px)': {
+                    '@media screen and (max-width: 1385px)': {
                       fontSize: '18px',
                     },
-                    '@media screen and (max-width: 766px)': {
+                    '@media screen and (max-width: 1067px)': {
                       fontSize: '14px',
                     },
                     '@media screen and (max-width: 699px)': {
@@ -103,11 +151,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 <Text
                   noOfLines={5}
                   fontSize="19px"
+                  textAlign="center"
+                  height="100px"
                   sx={{
-                    '@media screen and (max-width: 1520px)': {
+                    '@media screen and (max-width: 1385px)': {
                       fontSize: '16px',
                     },
-                    '@media screen and (max-width: 1150px)': {
+                    '@media screen and (max-width: 1067px)': {
                       fontSize: '12px',
                     },
                     '@media screen and (max-width: 699px)': {
@@ -123,7 +173,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
         </Link>
         <Divider />
         <CardFooter>
-          <ButtonGroup spacing="2" mb={'50px'}>
+          <ButtonGroup spacing="2" mb="50px" display={'flex'} flexWrap={'wrap'}>
             {recipe.categoryId?.map((categoryRel, index) => (
               <Button
                 color="#f8fae5"
@@ -131,6 +181,19 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 variant="solid"
                 bg="#9acc9c"
                 _hover={{ background: '#8cb88d' }}
+                marginBottom="5px"
+                sx={{
+                  '@media screen and (max-width: 740px)': {
+                    width: '100px',
+                    height: '20px',
+                    fontSize: '10px',
+                  },
+                  '@media screen and (max-width: 699px)': {
+                    width: '150px',
+                    height: '30px',
+                    fontSize: '15px',
+                  },
+                }}
               >
                 {categoryRel.category.title}
               </Button>
@@ -184,13 +247,22 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, sear
           <Text fontSize="30px" mt="40px">
             Recepty nenalezeny🥺
           </Text>
+          <Text m="10px" fontSize="20px">
+            Co se stalo?
+          </Text>
+          <UnorderedList>
+            <ListItem m="10px">Název neodpovídá žádnému receptu</ListItem>
+            <ListItem m="10px">Kategorie nemá žádné recepty</ListItem>
+            <ListItem m="10px">Recepty byly smazány</ListItem>
+            <ListItem m="10px">Chyba u nás na serveru, nebo v komunikaci se serverem</ListItem>
+          </UnorderedList>
         </Box>
       </Flex>
     )
   }
 
   return (
-    <Box mb="20px" ml="10px">
+    <Box my="20px" ml="10px">
       <Grid
         templateColumns="repeat(4, 1fr)"
         gap={3}
