@@ -65,13 +65,57 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
       }}
     >
       <Card
+        my="5px"
+        mx="5px"
+        width="450px"
+        height="650px"
         sx={{
-          '@media screen and (max-width: 1385px)': {
-            width: '500px',
+          '@media screen and (max-width: 1900px)': {
+            width: '420px',
+            height: '500px',
+            mx: '0px',
+          },
+          '@media screen and (max-width: 1850px)': {
+            width: '400px',
+            height: '500px',
+            mx: '0px',
+          },
+          '@media screen and (max-width: 1720px)': {
+            width: '380px',
+            height: '500px',
+            mx: '0px',
+          },
+
+          '@media screen and (max-width: 1600px)': {
+            width: '350px',
+            height: '500px',
+            mx: '0px',
+          },
+          '@media screen and (max-width: 1470px)': {
+            width: '330px',
+            height: '500px',
+            mx: '0px',
+          },
+          '@media screen and (max-width: 1440px)': {
+            width: '420px',
             height: '500px',
           },
-          '@media screen and (max-width: 1067px)': {
-            width: '450px',
+          '@media screen and (max-width: 1340px)': {
+            width: '400px',
+            height: '500px',
+          },
+          '@media screen and (max-width: 1285px)': {
+            width: '380px',
+            height: '500px',
+            mx: '0px',
+          },
+          '@media screen and (max-width: 1190px)': {
+            width: '360px',
+            height: '500px',
+            mx: '0px',
+          },
+          '@media screen and (max-width: 1140px)': {
+            width: '475px',
             height: '500px',
           },
           '@media screen and (max-width: 960px)': {
@@ -91,7 +135,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
             height: '500px',
           },
           '@media screen and (max-width: 740px)': {
-            width: '300px',
+            width: '320px',
             height: '500px',
           },
           '@media screen and (max-width: 699px)': {
@@ -99,8 +143,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
             height: '500px',
           },
         }}
-        my="5px"
-        mx="5px"
       >
         <Link to={`/recipes/${recipe.id}`}>
           <CardBody>
@@ -109,17 +151,18 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 <Image
                   objectFit="cover"
                   src={recipe.image_url}
+                  width="400px"
+                  height="300px"
                   sx={{
-                    '@media screen and (max-width: 1385px)': {
-                      width: '400px',
-                      height: '300px',
+                    '@media screen and (max-width: 1900px)': {
+                      width: '300px',
+                      height: '200px',
                     },
-                    '@media screen and (max-width: 1067px)': {
-                      width: '250px',
-                      height: '175px',
+                    '@media screen and (max-width: 1440px)': {
+                      width: '300px',
+                      height: '200px',
                     },
-
-                    '@media screen and (max-width: 699px)': {
+                    '@media screen and (max-width: 1340px)': {
                       width: '250px',
                       height: '175px',
                     },
@@ -134,11 +177,11 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                   textAlign="center"
                   fontSize="23px"
                   sx={{
+                    '@media screen and (max-width: 1850px)': {
+                      fontSize: '20px',
+                    },
                     '@media screen and (max-width: 1385px)': {
                       fontSize: '18px',
-                    },
-                    '@media screen and (max-width: 1067px)': {
-                      fontSize: '14px',
                     },
                     '@media screen and (max-width: 699px)': {
                       fontSize: '23px',
@@ -149,16 +192,27 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 </Heading>
                 <Divider />
                 <Text
-                  noOfLines={5}
+                  noOfLines={3}
                   fontSize="19px"
                   textAlign="center"
                   height="100px"
+                  maxHeight="85px"
                   sx={{
+                    '@media screen and (max-width: 1850px)': {
+                      fontSize: '18px',
+                    },
                     '@media screen and (max-width: 1385px)': {
                       fontSize: '16px',
                     },
-                    '@media screen and (max-width: 1067px)': {
-                      fontSize: '12px',
+                    '@media screen and (max-width: 790px)': {
+                      height: '80px',
+                      maxHeight: '70px',
+                      fontSize: '15px',
+                    },
+                    '@media screen and (max-width: 735px)': {
+                      height: '80px',
+                      maxHeight: '75px',
+                      fontSize: '16px',
                     },
                     '@media screen and (max-width: 699px)': {
                       fontSize: '14px',
@@ -173,9 +227,19 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
         </Link>
         <Divider />
         <CardFooter>
-          <ButtonGroup spacing="2" mb="50px" display={'flex'} flexWrap={'wrap'}>
+          <ButtonGroup
+            spacing="2"
+            mb="50px"
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+            alignItems="center"
+          >
             {recipe.categoryId?.map((categoryRel, index) => (
               <Button
+                width="160px"
+                height="35px"
+                fontSize="15px"
                 color="#f8fae5"
                 key={index}
                 variant="solid"
@@ -183,15 +247,33 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 _hover={{ background: '#8cb88d' }}
                 marginBottom="5px"
                 sx={{
+                  '@media screen and (max-width: 1850px)': {
+                    width: '150px',
+                    fontSize: '14px',
+                  },
+                  '@media screen and (max-width: 1600px)': {
+                    width: '140px',
+                    height: '30px',
+                    fontSize: '12px',
+                  },
+                  '@media screen and (max-width: 1440px)': {
+                    width: '150px',
+                    fontSize: '14px',
+                  },
+                  '@media screen and (max-width: 790px)': {
+                    width: '140px',
+                    height: '30px',
+                    fontSize: '12px',
+                  },
                   '@media screen and (max-width: 740px)': {
-                    width: '100px',
-                    height: '20px',
+                    width: '130px',
+                    height: '25px',
                     fontSize: '10px',
                   },
                   '@media screen and (max-width: 699px)': {
-                    width: '150px',
+                    width: '175px',
                     height: '30px',
-                    fontSize: '15px',
+                    fontSize: '13px',
                   },
                 }}
               >
@@ -267,10 +349,10 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, sear
         templateColumns="repeat(4, 1fr)"
         gap={3}
         sx={{
-          '@media screen and (max-width: 1385px)': {
+          '@media screen and (max-width: 1440px)': {
             gridTemplateColumns: 'repeat(3, 1fr)',
           },
-          '@media screen and (max-width: 1067px)': {
+          '@media screen and (max-width: 1140px)': {
             gridTemplateColumns: 'repeat(2, 1fr)',
           },
           '@media screen and (max-width: 699px)': {
