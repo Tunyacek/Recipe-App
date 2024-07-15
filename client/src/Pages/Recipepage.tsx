@@ -1,17 +1,25 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, Spacer } from '@chakra-ui/react'
 import { Footer } from '../Components/Footer/Footer'
 import { Recipe } from '../Components/Recipepage/Recipe'
 import { HeaderLogo } from '../Components/Header/Header'
-import { BackButton } from '../Components/Buttons/Button'
+import { BackButton, CreateButton } from '../Components/Buttons/Button'
 import { Link } from 'react-router-dom'
 
 export function Recipepage() {
   return (
     <Flex direction="column" minHeight="100vh" bg="#f3fff4">
       <Box bg="#d0ffd5">
-        <Box ml="5px">
-          <HeaderLogo />
-        </Box>
+        <Flex direction="row" alignItems="center" height="100%">
+          <Box ml="5px">
+            <HeaderLogo />
+          </Box>
+          <Spacer />
+          <Box mr="5px" mt="30px">
+            <Link to="/add-recipe">
+              <CreateButton />
+            </Link>
+          </Box>
+        </Flex>
         <Box bg="#B0EBB4" height="80px" mt="10px">
           <Link to={`/recipes`}>
             <BackButton />
