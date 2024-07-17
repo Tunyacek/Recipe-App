@@ -17,9 +17,9 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
     md: 'row',
     lg: 'row',
   })
-  // bg="#d0ffd5"
+
   return (
-    <Box as="section">
+    <Box as="header">
       <Box height={['250px', '250px', '200px']}>
         <Flex pl="5px" pb="10px" bg="#d0ffd5" align="center" pr="10px">
           <HeaderLogo />

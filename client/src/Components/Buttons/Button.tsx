@@ -1,20 +1,10 @@
 /* eslint-disable react/prop-types */
 
 import { Box, Button, ButtonGroup, Input } from '@chakra-ui/react'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Pen, Trash2 } from 'lucide-react'
 import { type ChangeEvent } from 'react'
 
 const ZERO = 0
-
-//createbutton size
-
-const C_BUTTON_WIDTH1 = 160
-const C_BUTTON_WIDTH2 = 200
-const C_TEXT_SIZE1 = 13
-const C_TEXT_SIZE2 = 15
-
-const createButtonWidths = [C_BUTTON_WIDTH1, C_BUTTON_WIDTH1, C_BUTTON_WIDTH2]
-const createTextSizes = [C_TEXT_SIZE1, C_TEXT_SIZE1, C_TEXT_SIZE2]
 
 interface AddImageProps {
   onUpload: (filePath: string) => void
@@ -23,12 +13,10 @@ interface AddImageProps {
 export function CreateButton() {
   return (
     <Button
-      fontSize={createTextSizes}
       color="#f8fae5"
       bg="#9acc9c"
       _hover={{ background: '#8cb88d' }}
       borderRadius="lg"
-      width={createButtonWidths}
       mb="18px"
       mr="5px"
     >
@@ -119,6 +107,22 @@ export function BackButton() {
       _hover={{ background: '#defde0' }}
     >
       Zpět
+    </Button>
+  )
+}
+
+export function DeleteRecipe({ onClick }: { onClick: () => void }) {
+  return (
+    <Button colorScheme="red" variant="outline" onClick={onClick}>
+      <Trash2 />
+    </Button>
+  )
+}
+
+export function UpdateRecipe() {
+  return (
+    <Button colorScheme="yellow" variant="outline">
+      <Pen />
     </Button>
   )
 }
