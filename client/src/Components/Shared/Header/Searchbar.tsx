@@ -21,6 +21,7 @@ export function Searchbar({ onSearchChange }: SearchbarProps) {
           <Icon as={Search} color="gray.500" />
         </InputLeftElement>
         <Input
+          ml="5px"
           bg="white"
           placeholder="Vyhledávání receptu"
           value={searchRecipe}
@@ -29,19 +30,15 @@ export function Searchbar({ onSearchChange }: SearchbarProps) {
           sx={{
             '@media screen and (max-width: 1272px)': {
               width: '600px',
-              ml: '0px',
             },
             '@media screen and (max-width: 1996px)': {
               width: '600px',
-              ml: '0px',
             },
             '@media screen and (max-width: 1147px)': {
               width: '300px',
-              ml: '0px',
             },
             '@media screen and (max-width: 767px)': {
               width: '375px',
-              ml: '0px',
             },
           }}
         />

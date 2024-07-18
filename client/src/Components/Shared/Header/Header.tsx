@@ -3,7 +3,7 @@ import { CreateButton } from '../Buttons/Button.tsx'
 import { Searchbar } from './Searchbar.tsx'
 import { Dropdown } from '../Header/Dropdown.tsx'
 import { type Category } from '../Header/Dropdown.tsx'
-import logo from '../../assets/logo_cream.jpeg'
+import logo from '../../../assets/logo_cream.jpeg'
 import { Link } from 'react-router-dom'
 
 interface HeaderProps {
@@ -20,7 +20,7 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
 
   return (
     <Box as="header">
-      <Box height={['250px', '250px', '200px']}>
+      <Box>
         <Flex pl="5px" pb="10px" bg="#d0ffd5" align="center" pr="10px">
           <HeaderLogo />
           <Spacer />
