@@ -12,12 +12,15 @@ import {
   Spacer,
   Divider,
   UnorderedList,
+  useToast,
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { CookingPot, Salad } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Rating, { FullStar, EmptyStar } from '../Createpage/Rating'
+import { DeleteRecipe, UpdateRecipe } from '../Buttons/Button'
+import { useNavigate } from 'react-router-dom'
 
 interface Category {
   id: string
@@ -37,9 +40,14 @@ interface Recipe {
   rating: string
 }
 
+const THREE_THOUSAND = 3000
+
 const url = import.meta.env.VITE_BE_URL
 
 export function Recipe() {
+  const toast = useToast()
+  const navigate = useNavigate()
+
   const { id } = useParams<{ id: string }>()
 
   const [recipe, setRecipe] = useState<Recipe>()
@@ -60,6 +68,23 @@ export function Recipe() {
     fetchRecipe()
   }, [id])
 
+  const deleteRecipe = async () => {
+    try {
+      await axios.delete(`${url}/recipes/${id}`)
+      navigate('/recipes')
+    } catch (err) {
+      const error = err as Error
+      toast({
+        title: 'Chyba při mazání receptu.',
+        description: error.message,
+        status: 'error',
+        duration: THREE_THOUSAND,
+        isClosable: true,
+      })
+      throw error
+    }
+  }
+
   if (loading) {
     return <div>Načítám...</div>
   }
@@ -77,6 +102,7 @@ export function Recipe() {
           <UnorderedList>
             <ListItem m="10px">Recept byl smazán</ListItem>
             <ListItem m="10px">Chyba v url</ListItem>
+            <ListItem m="10px">Chyba u nás na serveru, nebo v komunikaci se serverem</ListItem>
           </UnorderedList>
         </Box>
       </Flex>
@@ -95,6 +121,11 @@ export function Recipe() {
 
   return (
     <Box>
+      <Box display="flex" gap="2" justifyContent="flex-end" pr="10px" py="10px">
+        <UpdateRecipe />
+        <DeleteRecipe onClick={deleteRecipe} />
+      </Box>
+
       <Flex flexDirection="column" alignItems="center">
         <Image
           m="40px"
@@ -104,6 +135,10 @@ export function Recipe() {
           objectFit="cover"
           borderRadius="xl"
           sx={{
+            '@media screen and (max-width: 1200px)': {
+              width: '500px',
+              height: '320px',
+            },
             '@media screen and (max-width: 766px)': {
               width: '300px',
               height: '200px',
@@ -145,7 +180,7 @@ export function Recipe() {
         <Box pt="15px">
           <OrderedList mt="10px" pl="20px">
             {recipe.ingredients.map((ingredient, index) => (
-              <ListItem key={index} maxWidth="500px">
+              <ListItem key={index} maxWidth="500px" my="5px">
                 {ingredient}
               </ListItem>
             ))}
@@ -157,10 +192,10 @@ export function Recipe() {
         <Text fontWeight="bold" mt="10px">
           Instrukce:
         </Text>
-        <Box pt={'15px'}>
+        <Box pt="15px">
           <OrderedList mt="10px" pl="20px">
             {recipe.instructions.map((instruction, index) => (
-              <ListItem key={index} maxWidth="500px">
+              <ListItem key={index} maxWidth="500px" my="5px">
                 {instruction}
               </ListItem>
             ))}
@@ -186,14 +221,39 @@ export function Recipe() {
           <Text fontWeight="bold" mb="10px">
             Kategorie
           </Text>
-          <ButtonGroup spacing="2" mb={'50px'}>
+          <ButtonGroup
+            spacing="2"
+            mb="50px"
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+            alignItems="center"
+          >
             {recipe.categoryId.map((categories, index) => (
               <Button
+                m="5px"
                 color="#f8fae5"
                 key={index}
                 variant="solid"
                 bg="#9acc9c"
                 _hover={{ background: '#8cb88d' }}
+                sx={{
+                  '@media screen and (max-width: 1200px)': {
+                    width: '200px',
+                    height: '40px',
+                    fontSize: '15px',
+                  },
+                  '@media screen and (max-width: 840px)': {
+                    width: '190px',
+                    height: '35px',
+                    fontSize: '14px',
+                  },
+                  '@media screen and (max-width: 699px)': {
+                    width: '175px',
+                    height: '30px',
+                    fontSize: '13px',
+                  },
+                }}
               >
                 {categories.category.title}
               </Button>
@@ -201,6 +261,7 @@ export function Recipe() {
           </ButtonGroup>
         </Box>
       </Flex>
+      <Box></Box>
     </Box>
   )
 }

@@ -1,15 +1,10 @@
-import { Heading, Box, Flex, Spacer, useBreakpointValue, Image } from '@chakra-ui/react'
+import { Box, Flex, Spacer, useBreakpointValue, Image } from '@chakra-ui/react'
 import { CreateButton } from '../Buttons/Button.tsx'
 import { Searchbar } from './Searchbar.tsx'
 import { Dropdown } from '../Header/Dropdown.tsx'
 import { type Category } from '../Header/Dropdown.tsx'
-import catImage from '../../assets/logo_cream.jpeg'
+import logo from '../../assets/logo_cream.jpeg'
 import { Link } from 'react-router-dom'
-
-const LOGO_SIZE1 = 15
-const LOGO_SIZE2 = 35
-
-const logoSizes = [LOGO_SIZE1, LOGO_SIZE1, LOGO_SIZE2]
 
 interface HeaderProps {
   onCategoryChange: (selectedCategories: Category[]) => void
@@ -22,9 +17,9 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
     md: 'row',
     lg: 'row',
   })
-  // bg="#d0ffd5"
+
   return (
-    <Box as="section">
+    <Box as="header">
       <Box height={['250px', '250px', '200px']}>
         <Flex pl="5px" pb="10px" bg="#d0ffd5" align="center" pr="10px">
           <HeaderLogo />
@@ -61,10 +56,10 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
 
 export function HeaderLogo() {
   return (
-    <>
-      <Heading as="h1" pl="15px" pt="10px" fontSize={logoSizes}>
-        <Image src={catImage} w={16} h={16} />
-      </Heading>
-    </>
+    <Box>
+      <Link to="/recipes">
+        <Image src={logo} width="100px" height="100px" />
+      </Link>
+    </Box>
   )
 }

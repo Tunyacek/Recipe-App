@@ -20,8 +20,8 @@ interface FormValues {
   categoryId: string[]
 }
 
-const ZERO = 0
 const THREE_THOUSAND = 3000
+const ZERO = 0
 const ONE = 1
 const TWO = 2
 const THREE = 3
@@ -87,6 +87,32 @@ export const SubmitForm: React.FC = () => {
     fetchCategories()
   }, [toast])
 
+  const createCategoryIfNotExists = async (categoryTitle: string): Promise<string> => {
+    const existingCategory = categories.find(
+      (category) => category.title.toLowerCase() === categoryTitle.toLowerCase()
+    )
+    if (existingCategory) {
+      return existingCategory.id
+    }
+
+    try {
+      const response = await axios.post(`${url}/categories`, { title: categoryTitle })
+      const newCategory = response.data
+      setCategories((prevCategories) => [...prevCategories, newCategory])
+      return newCategory.id
+    } catch (err) {
+      const error = err as Error
+      toast({
+        title: 'Chyba při vytváření kategorie.',
+        description: error.message,
+        status: 'error',
+        duration: THREE_THOUSAND,
+        isClosable: true,
+      })
+      throw error
+    }
+  }
+
   const handleInputChange = (
     event:
       | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -123,32 +149,6 @@ export const SubmitForm: React.FC = () => {
       const error = err as Error
       toast({
         title: 'Nahrávání obrázku selhalo.',
-        description: error.message,
-        status: 'error',
-        duration: THREE_THOUSAND,
-        isClosable: true,
-      })
-      throw error
-    }
-  }
-
-  const createCategoryIfNotExists = async (categoryTitle: string): Promise<string> => {
-    const existingCategory = categories.find(
-      (category) => category.title.toLowerCase() === categoryTitle.toLowerCase()
-    )
-    if (existingCategory) {
-      return existingCategory.id
-    }
-
-    try {
-      const response = await axios.post(`${url}/categories`, { title: categoryTitle })
-      const newCategory = response.data
-      setCategories((prevCategories) => [...prevCategories, newCategory])
-      return newCategory.id
-    } catch (err) {
-      const error = err as Error
-      toast({
-        title: 'Chyba při vytváření kategorie.',
         description: error.message,
         status: 'error',
         duration: THREE_THOUSAND,
@@ -263,19 +263,10 @@ export const SubmitForm: React.FC = () => {
 
   return (
     <Box>
-      <Box bg="#B0EBB4" height="80px" />
       <form onSubmit={handleSubmit}>
         <Flex direction="column" maxW="600px" pt="15px" pl="15px">
-          <Box pb="5" mr="15px">
-            <FormControl isRequired>
-              <TitleInput value={values.title} onChange={handleInputChange} />
-            </FormControl>
-          </Box>
-          <Box pb="5" mr="15px">
-            <FormControl isRequired>
-              <SummaryInput value={values.summary} onChange={handleInputChange} />
-            </FormControl>
-          </Box>
+          <TitleInput value={values.title} onChange={handleInputChange} />
+          <SummaryInput value={values.summary} onChange={handleInputChange} />
           <Box pb="5" mr="15px">
             <ImageInput onChange={handleFileChange} />
           </Box>
@@ -291,20 +282,13 @@ export const SubmitForm: React.FC = () => {
             </FormControl>
           </Box>
           <CategoryList categoryList={categoryList} setCategoryList={setCategoryList} />
-          <Box pb="5" mr="15px">
-            <FormControl isRequired>
-              <PrepTimeInput value={values.prep_time} onChange={handlePrepTimeChange} />
-            </FormControl>
-          </Box>
-
-          <Box pb="5" mr="15px">
-            <FormControl isRequired>
-              <CookTimeInput value={values.cook_time} onChange={handleCookTimeChange} />
-            </FormControl>
-          </Box>
-          <HStack>
-            <SubmitRecipeButton />
+          <HStack spacing="15px" pb="5" mr="15px">
+            <PrepTimeInput value={values.prep_time} onChange={handlePrepTimeChange} />
+            <CookTimeInput value={values.cook_time} onChange={handleCookTimeChange} />
           </HStack>
+          <Box pb="5" mr="15px" textAlign="right">
+            <SubmitRecipeButton />
+          </Box>
         </Flex>
       </form>
     </Box>
