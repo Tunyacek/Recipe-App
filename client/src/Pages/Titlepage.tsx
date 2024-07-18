@@ -26,7 +26,6 @@ export function Titlepage() {
           </ButtonGroup>
         </Flex>
       </Box>
-
       <Footer />
     </Box>
   )
