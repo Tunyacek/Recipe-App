@@ -1,8 +1,8 @@
 import { Box, Flex, Spacer } from '@chakra-ui/react'
-import { Footer } from '../Components/Footer/Footer'
+import { Footer } from '../Components/Shared/Footer/Footer'
 import { Recipe } from '../Components/Recipepage/Recipe'
-import { HeaderLogo } from '../Components/Header/Header'
-import { BackButton, CreateButton } from '../Components/Buttons/Button'
+import { HeaderLogo } from '../Components/Shared/Header/Header'
+import { BackButton, CreateButton } from '../Components/Shared/Buttons/Button'
 import { Link } from 'react-router-dom'
 
 export function Recipepage() {

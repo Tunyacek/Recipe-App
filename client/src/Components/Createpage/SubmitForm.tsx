@@ -2,7 +2,7 @@
 import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react'
 import axios from 'axios'
 import { Box, Flex, FormControl, FormLabel, HStack, useToast } from '@chakra-ui/react'
-import { SubmitRecipeButton } from '../Buttons/Button'
+import { SubmitRecipeButton } from '../Shared/Buttons/Button'
 import { InstructionList, IngredientList, CategoryList } from './ListInputs'
 import Rating from './Rating'
 import { CookTimeInput, PrepTimeInput, SummaryInput, TitleInput } from './SingleInputs'
