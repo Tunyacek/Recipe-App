@@ -126,3 +126,32 @@ export function UpdateRecipe() {
     </Button>
   )
 }
+
+export function LoginRedirect() {
+  return (
+    <Button
+      variant="outline"
+      borderColor="#9acc9c"
+      color="#9acc9c"
+      _hover={{ background: '#8cb88d' }}
+    >
+      Přihlásit
+    </Button>
+  )
+}
+
+export function RegisterRedirect() {
+  return (
+    <Button color="#f8fae5" bg="#9acc9c" _hover={{ background: '#8cb88d' }}>
+      Registrovat
+    </Button>
+  )
+}
+
+export function LoginSubmit() {
+  return <Button type="submit">Přihlásit</Button>
+}
+
+export function RegisterSubmit() {
+  return <Button type="submit">Vytvořit účet</Button>
+}

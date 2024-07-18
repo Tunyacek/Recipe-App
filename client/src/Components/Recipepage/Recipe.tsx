@@ -19,7 +19,7 @@ import { CookingPot, Salad } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Rating, { FullStar, EmptyStar } from '../Createpage/Rating'
-import { DeleteRecipe, UpdateRecipe } from '../Buttons/Button'
+import { DeleteRecipe, UpdateRecipe } from '../Shared/Buttons/Button'
 import { useNavigate } from 'react-router-dom'
 
 interface Category {

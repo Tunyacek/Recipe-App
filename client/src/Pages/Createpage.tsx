@@ -1,9 +1,9 @@
 import { Box, Flex } from '@chakra-ui/react'
 import { SubmitForm } from '../Components/Createpage/SubmitForm'
-import { HeaderLogo } from '../Components/Header/Header'
-import { Footer } from '../Components/Footer/Footer'
+import { HeaderLogo } from '../Components/Shared/Header/Header'
+import { Footer } from '../Components/Shared/Footer/Footer'
 import { Link } from 'react-router-dom'
-import { BackButton } from '../Components/Buttons/Button'
+import { BackButton } from '../Components/Shared/Buttons/Button'
 
 export function Createpage() {
   return (
