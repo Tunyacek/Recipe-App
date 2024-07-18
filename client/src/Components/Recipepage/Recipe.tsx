@@ -180,7 +180,7 @@ export function Recipe() {
         <Box pt="15px">
           <OrderedList mt="10px" pl="20px">
             {recipe.ingredients.map((ingredient, index) => (
-              <ListItem key={index} maxWidth="500px">
+              <ListItem key={index} maxWidth="500px" my="5px">
                 {ingredient}
               </ListItem>
             ))}
@@ -192,10 +192,10 @@ export function Recipe() {
         <Text fontWeight="bold" mt="10px">
           Instrukce:
         </Text>
-        <Box pt={'15px'}>
+        <Box pt="15px">
           <OrderedList mt="10px" pl="20px">
             {recipe.instructions.map((instruction, index) => (
-              <ListItem key={index} maxWidth="500px">
+              <ListItem key={index} maxWidth="500px" my="5px">
                 {instruction}
               </ListItem>
             ))}

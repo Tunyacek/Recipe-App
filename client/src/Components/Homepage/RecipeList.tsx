@@ -203,6 +203,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                     },
                     '@media screen and (max-width: 1385px)': {
                       fontSize: '16px',
+                      height: '80px',
+                      maxHeight: '70px',
                     },
                     '@media screen and (max-width: 790px)': {
                       height: '80px',
@@ -216,6 +218,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                     },
                     '@media screen and (max-width: 699px)': {
                       fontSize: '14px',
+                      height: '80px',
+                      maxHeight: '65px',
                     },
                   }}
                 >
