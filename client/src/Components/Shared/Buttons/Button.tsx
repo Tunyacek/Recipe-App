@@ -149,9 +149,17 @@ export function RegisterRedirect() {
 }
 
 export function LoginSubmit() {
-  return <Button type="submit">Přihlásit</Button>
+  return (
+    <Button type="submit" bg="#9acc9c" _hover={{ background: '#8cb88d' }}>
+      Přihlásit
+    </Button>
+  )
 }
 
 export function RegisterSubmit() {
-  return <Button type="submit">Vytvořit účet</Button>
+  return (
+    <Button type="submit" bg="#9acc9c" _hover={{ background: '#8cb88d' }}>
+      Vytvořit účet
+    </Button>
+  )
 }
