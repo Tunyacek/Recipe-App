@@ -11,7 +11,9 @@ export function Recipepage() {
       <Box bg="#d0ffd5">
         <Flex direction="row" alignItems="center" height="100%">
           <Box ml="5px">
-            <HeaderLogo />
+            <Link to="/recipes">
+              <HeaderLogo />
+            </Link>
           </Box>
           <Spacer />
           <Box mr="5px" mt="30px">

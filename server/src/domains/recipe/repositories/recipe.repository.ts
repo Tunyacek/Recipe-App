@@ -10,6 +10,7 @@ export const recipeRepositoryFactory = () => {
             category: true,
           },
         },
+        user: true,
       },
     })
   }
@@ -23,16 +24,21 @@ export const recipeRepositoryFactory = () => {
             category: true,
           },
         },
+        user: true,
       },
     })
   }
 
-  const createRecipe = async (recipe: RecipeSchema) => {
-    const { categoryId, ...rest } = recipe
+  const createRecipe = async (recipe: RecipeSchema, userId: string) => {
+    const { categoryId, portions, ...rest } = recipe
 
     const createdRecipe = await prisma.recipe.create({
       data: {
         ...rest,
+        portions,
+        user: {
+          connect: { id: userId },
+        },
         categoryId: {
           create: categoryId.map((id) => ({ category: { connect: { id } } })),
         },
@@ -41,13 +47,17 @@ export const recipeRepositoryFactory = () => {
     return createdRecipe
   }
 
-  const updateRecipe = async (id: string, recipe: RecipeSchema) => {
-    const { categoryId, ...rest } = recipe
+  const updateRecipe = async (id: string, recipe: RecipeSchema, userId: string) => {
+    const { categoryId, portions, ...rest } = recipe
 
     const updatedRecipe = await prisma.recipe.update({
       where: { id },
       data: {
         ...rest,
+        portions,
+        user: {
+          connect: { id: userId },
+        },
         categoryId: {
           set: [],
           create: categoryId.map((id) => ({ category: { connect: { id } } })),

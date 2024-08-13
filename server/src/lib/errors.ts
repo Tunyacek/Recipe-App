@@ -40,3 +40,19 @@ export class UnprocessableEntityError extends BaseCustomError {
     super(message)
   }
 }
+
+export class ConflictError extends BaseCustomError {
+  statusCode = StatusCodes.CONFLICT
+
+  constructor(message = 'User with this email already exists.') {
+    super(message)
+  }
+}
+
+export class UnauthorizedError extends BaseCustomError {
+  statusCode = StatusCodes.UNAUTHORIZED
+
+  constructor(message = 'You are not authenticated') {
+    super(message)
+  }
+}

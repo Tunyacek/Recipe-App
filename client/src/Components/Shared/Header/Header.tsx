@@ -22,7 +22,9 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
     <Box as="header">
       <Box>
         <Flex pl="5px" pb="10px" bg="#d0ffd5" align="center" pr="10px">
-          <HeaderLogo />
+          <Link to="/recipes">
+            <HeaderLogo />
+          </Link>
           <Spacer />
           <Box pt="30px">
             <Link to="/add-recipe">
@@ -57,9 +59,7 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
 export function HeaderLogo() {
   return (
     <Box>
-      <Link to="/recipes">
-        <Image src={logo} width="100px" height="100px" />
-      </Link>
+      <Image src={logo} width="100px" height="100px" />
     </Box>
   )
 }

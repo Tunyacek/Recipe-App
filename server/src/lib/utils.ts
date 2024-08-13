@@ -4,7 +4,7 @@ export type ExpressControllerFn = (
   req: Request,
   res: Response,
   next: NextFunction
-) => Promise<Response<unknown>>
+) => Promise<Response<unknown> | void>
 
 export const asyncHandler =
   (fn: ExpressControllerFn) => (req: Request, res: Response, next: NextFunction) =>

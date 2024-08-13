@@ -21,6 +21,17 @@ async function main() {
     },
   })
 
+  const user1 = await prisma.users.upsert({
+    where: { id: '1' },
+    update: {},
+    create: {
+      id: '1',
+      email: 'some@email.xyz',
+      password: 'somehashedpassword',
+      username: 'someusername',
+    },
+  })
+
   const recipe1 = await prisma.recipe.upsert({
     where: { id: '1' },
     update: {},
@@ -36,6 +47,8 @@ async function main() {
       image_url: 'https://unsplash.com/photos/brown-tabby-cat-7GX5aICb5i4',
       prep_time: 20,
       cook_time: 40,
+      portions: 4,
+      userId: user1.id,
     },
   })
 
@@ -57,6 +70,8 @@ async function main() {
         'https://unsplash.com/photos/orange-tabby-cat-in-black-and-white-jacket-yJozLVBxNA0',
       prep_time: 30,
       cook_time: 120,
+      portions: 4,
+      userId: user1.id,
     },
   })
 
@@ -75,9 +90,9 @@ async function main() {
   })
 
   console.log(
-    'Created or updated recipes and categories:',
+    'Created or updated recipes, categories, and user:',
     JSON.stringify(
-      { recipe1, recipe2, category1, category2, recipeCategory1, recipeCategory2 },
+      { recipe1, recipe2, category1, category2, recipeCategory1, recipeCategory2, user1 },
       null,
       2
     )

@@ -10,7 +10,7 @@ export function Titlepage() {
       <Box ml="5px">
         <HeaderLogo />
       </Box>
-      <Box bg="#B0EBB4" height="80px" mt="10px"></Box>
+      <Box bg="#B0EBB4" height="80px" mt="10px" />
       <Box minHeight="75.7vh" bg="#f3fff4">
         <Flex justifyContent="center" alignItems="center" height="400px">
           <Text fontSize="100px">🐋Whalecum💦</Text>

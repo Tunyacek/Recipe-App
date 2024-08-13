@@ -4,7 +4,7 @@ import { Recipe } from '@prisma/client'
 export interface RecipeService {
   getAllRecipes: () => Promise<Recipe[]>
   getRecipeById: (id: string) => Promise<Recipe | null>
-  createRecipe: (recipe: RecipeSchema) => Promise<Recipe>
-  updateRecipe: (id: string, recipe: RecipeSchema) => Promise<Recipe>
+  createRecipe: (recipe: RecipeSchema, userId: string) => Promise<Recipe>
+  updateRecipe: (id: string, recipe: RecipeSchema, userId: string) => Promise<Recipe>
   deleteRecipe: (id: string) => Promise<void>
 }

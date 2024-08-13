@@ -12,6 +12,7 @@ export const recipeSchema = z.object({
   image_url: z.string(),
   prep_time: z.number(),
   cook_time: z.number(),
+  portions: z.number(),
 })
 
 export type RecipeSchema = z.infer<typeof recipeSchema>

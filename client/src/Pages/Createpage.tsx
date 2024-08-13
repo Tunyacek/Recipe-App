@@ -10,7 +10,9 @@ export function Createpage() {
     <Flex direction="column" minHeight="100vh" bg="#f3fff4">
       <Box bg="#d0ffd5">
         <Box ml="5px" mb="10px">
-          <HeaderLogo />
+          <Link to="/recipes">
+            <HeaderLogo />
+          </Link>
         </Box>
       </Box>
       <Box bg="#B0EBB4" height="80px">
