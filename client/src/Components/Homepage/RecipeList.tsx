@@ -11,11 +11,10 @@ import {
   Text,
   Grid,
   Stack,
-  Button,
-  ButtonGroup,
   Flex,
   UnorderedList,
   ListItem,
+  Tag,
 } from '@chakra-ui/react'
 
 import axios from 'axios'
@@ -231,16 +230,9 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
         </Link>
         <Divider />
         <CardFooter>
-          <ButtonGroup
-            spacing="2"
-            mb="50px"
-            display="flex"
-            flexWrap="wrap"
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Box mb="50px" display="flex" flexWrap="wrap" justifyContent="center" alignItems="center">
             {recipe.categoryId?.map((categoryRel, index) => (
-              <Button
+              <Tag
                 width="160px"
                 height="35px"
                 fontSize="15px"
@@ -282,9 +274,9 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 }}
               >
                 {categoryRel.category.title}
-              </Button>
+              </Tag>
             ))}
-          </ButtonGroup>
+          </Box>
         </CardFooter>
       </Card>
     </Box>

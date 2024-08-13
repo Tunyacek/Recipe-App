@@ -24,6 +24,9 @@ model Recipe {
   image_url    String
   prep_time    Int
   cook_time    Int
+  portions     Int
+  userId       String
+  user         Users            @relation(fields: [userId], references: [id])
 }
 
 model Category {
@@ -49,4 +52,12 @@ enum Rating {
   THREE
   FOUR
   FIVE
+}
+
+model Users {
+  id       String   @id @default(cuid())
+  username String   @unique
+  email    String   @unique
+  password String
+  recipes  Recipe[]
 }

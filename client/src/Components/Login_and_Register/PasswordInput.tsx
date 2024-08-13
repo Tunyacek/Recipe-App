@@ -22,7 +22,7 @@ export function PasswordInput() {
           bg="#9acc9c"
           _hover={{ background: '#8cb88d' }}
         >
-          {show ? 'Hide' : 'Show'}
+          {show ? 'Skrýt' : 'Zobrazit'}
         </Button>
       </InputRightElement>
     </InputGroup>

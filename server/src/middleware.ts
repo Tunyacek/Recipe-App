@@ -1,6 +1,10 @@
 import type { Request, Response, NextFunction } from 'express'
 import { BaseCustomError } from './lib/errors'
 import multer from 'multer'
+import dotenv from 'dotenv'
+import passport from 'passport'
+
+dotenv.config()
 
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof BaseCustomError) {

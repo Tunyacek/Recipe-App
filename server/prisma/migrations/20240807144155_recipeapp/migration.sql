@@ -14,6 +14,8 @@ CREATE TABLE "Recipe" (
     "image_url" TEXT NOT NULL,
     "prep_time" INTEGER NOT NULL,
     "cook_time" INTEGER NOT NULL,
+    "portions" INTEGER NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Recipe_pkey" PRIMARY KEY ("id")
 );
@@ -35,6 +37,25 @@ CREATE TABLE "RecipeCategory" (
 
     CONSTRAINT "RecipeCategory_pkey" PRIMARY KEY ("recipeId","categoryId")
 );
+
+-- CreateTable
+CREATE TABLE "Users" (
+    "id" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
+
+-- AddForeignKey
+ALTER TABLE "Recipe" ADD CONSTRAINT "Recipe_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "RecipeCategory" ADD CONSTRAINT "RecipeCategory_recipeId_fkey" FOREIGN KEY ("recipeId") REFERENCES "Recipe"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
