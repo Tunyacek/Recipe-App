@@ -15,6 +15,7 @@ import { BackButton, RegisterSubmit } from '../Components/Shared/Buttons/Button'
 import { Link, Navigate } from 'react-router-dom'
 import { type FormEvent, useState } from 'react'
 import axios from 'axios'
+import { Eye, EyeOff } from 'lucide-react'
 
 const url = import.meta.env.VITE_BE_URL
 
@@ -26,9 +27,12 @@ export function RegisterForm() {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [redirect, setRedirect] = useState(false)
-  const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false)
   const toast = useToast()
+
+  const handleClickPassword = () => setShowPassword(!showPassword)
+  const handleClickPasswordConfirm = () => setShowPasswordConfirm(!showPasswordConfirm)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -45,24 +49,39 @@ export function RegisterForm() {
     }
 
     try {
-      await axios.post(`${url}/register`, {
+      const response = await axios.post(`${url}/register`, {
         email,
         username,
         password,
       })
 
-      setRedirect(true)
-    } catch (error) {
-      console.error('Error occurred during registration:', error)
+      if (response.status === 201) {
+        setRedirect(true)
+        toast({
+          title: 'Účet vytvořen',
+          description: 'Prosím, přihlašte se',
+          status: 'success',
+          duration: THREE_THOUSAND,
+          isClosable: true,
+        })
+      }
+    } catch (error: any) {
+      let errorMessage = 'Došlo k chybě při registraci. Zkuste to znovu.'
+
+      if (error.response && error.response.data && error.response.data.error) {
+        errorMessage = error.response.data.error.message || errorMessage
+      }
+
       toast({
-        title: 'ZKONTROLUJ DATABAZI NA EMAIL A USERNAME A NAPIŠ ERROR',
-        description: 'Nastala chyba při registraci. Zkuste to prosím znovu.',
+        title: 'Chyba při registraci',
+        description: errorMessage,
         status: 'error',
         duration: THREE_THOUSAND,
         isClosable: true,
       })
     }
   }
+
   if (redirect) {
     return <Navigate to="/login" />
   }
@@ -118,22 +137,22 @@ export function RegisterForm() {
               <InputGroup size="md" width="400px">
                 <Input
                   pr="4.5rem"
-                  type={show ? 'text' : 'password'}
+                  type={showPassword ? 'text' : 'password'}
                   borderColor="#9acc9c"
                   focusBorderColor="#9acc9c"
                   bg="white"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <InputRightElement width="6rem" pr="8px">
+                <InputRightElement>
                   <Button
                     h="1.75rem"
-                    width="100px"
+                    width="30px"
                     size="xl"
-                    onClick={handleClick}
+                    onClick={handleClickPassword}
                     bg="#9acc9c"
                     _hover={{ background: '#8cb88d' }}
                   >
-                    {show ? 'Skrýt' : 'Zobrazit'}
+                    {showPassword ? <EyeOff /> : <Eye />}
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -143,22 +162,22 @@ export function RegisterForm() {
               <InputGroup size="md" width="400px">
                 <Input
                   pr="4.5rem"
-                  type={show ? 'text' : 'password'}
+                  type={showPasswordConfirm ? 'text' : 'password'}
                   borderColor="#9acc9c"
                   focusBorderColor="#9acc9c"
                   bg="white"
                   onChange={(e) => setPasswordConfirm(e.target.value)}
                 />
-                <InputRightElement width="6rem" pr="8px">
+                <InputRightElement>
                   <Button
                     h="1.75rem"
-                    width="100px"
+                    width="30px"
                     size="xl"
-                    onClick={handleClick}
+                    onClick={handleClickPasswordConfirm}
                     bg="#9acc9c"
                     _hover={{ background: '#8cb88d' }}
                   >
-                    {show ? 'Skrýt' : 'Zobrazit'}
+                    {showPasswordConfirm ? <EyeOff /> : <Eye />}
                   </Button>
                 </InputRightElement>
               </InputGroup>

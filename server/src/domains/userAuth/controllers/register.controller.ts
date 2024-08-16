@@ -3,6 +3,7 @@ import { registerSchema } from '../schemas/register.schema'
 import { RegisterService } from '../services/register.service.interface'
 import { ExpressControllerFn } from '../../../lib/utils'
 import { UnprocessableEntityError } from '../../../lib/errors'
+import { StatusCodes } from 'http-status-codes'
 
 type RegisterControllerFactory = (service: RegisterService) => {
   createUser: ExpressControllerFn
@@ -17,7 +18,7 @@ export const registerControllerFactory: RegisterControllerFactory = (service: Re
       throw new UnprocessableEntityError(parsedUser.error)
     }
     await service.createUser(req.body)
-    return res.redirect('/login')
+    return res.status(StatusCodes.CREATED).json({ message: 'User created successfully' })
   }
   return { createUser }
 }
