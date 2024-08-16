@@ -22,7 +22,7 @@ const userAPI = authenticatedUserModule()
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ origin: process.env.FE_URL }))
+app.use(cors({ origin: process.env.FE_URL, credentials: true }))
 ;(async () => {
   app.use('/images', await imageAPI)
 })()
