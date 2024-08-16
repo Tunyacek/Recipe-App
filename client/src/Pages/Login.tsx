@@ -7,16 +7,63 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  useToast,
 } from '@chakra-ui/react'
 import { HeaderLogo } from '../Components/Shared/Header/Header'
 import { Footer } from '../Components/Shared/Footer/Footer'
 import { BackButton, LoginSubmit } from '../Components/Shared/Buttons/Button'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, Navigate } from 'react-router-dom'
+import { type FormEvent, useState } from 'react'
+import axios from 'axios'
+import { Eye, EyeOff } from 'lucide-react'
+
+const url = import.meta.env.VITE_BE_URL
+
+const THREE_THOUSAND = 3000
 
 export function LoginForm() {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [redirect, setRedirect] = useState(false)
   const [show, setShow] = useState(false)
+
+  const toast = useToast()
+
   const handleClick = () => setShow(!show)
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+    try {
+      await axios.post(
+        `${url}/login`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      )
+
+      setRedirect(true)
+    } catch (error: any) {
+      let errorMessage = 'Došlo k chybě při přihlašování. Zkuste to znovu.'
+
+      if (error.response && error.response.data && error.response.data.error) {
+        errorMessage = error.response.data.error.message || errorMessage
+      }
+
+      toast({
+        title: 'Chyba při přihlášení',
+        description: errorMessage,
+        status: 'error',
+        duration: THREE_THOUSAND,
+        isClosable: true,
+      })
+    }
+  }
+
+  if (redirect) {
+    return <Navigate to="/recipes" />
+  }
 
   return (
     <Box bg="#d0ffd5">
@@ -41,11 +88,17 @@ export function LoginForm() {
             Přihlášení
           </Text>
         </Flex>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Flex direction="column" gap="3" m="20px">
             <Box>
               <FormLabel>Uživatelské jméno</FormLabel>
-              <Input width="400px" borderColor="#9acc9c" bg="white" focusBorderColor="#9acc9c" />
+              <Input
+                width="400px"
+                borderColor="#9acc9c"
+                bg="white"
+                focusBorderColor="#9acc9c"
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </Box>
             <Box>
               <FormLabel>Heslo</FormLabel>
@@ -56,17 +109,18 @@ export function LoginForm() {
                   borderColor="#9acc9c"
                   focusBorderColor="#9acc9c"
                   bg="white"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <InputRightElement width="6rem" pr="8px">
+                <InputRightElement>
                   <Button
                     h="1.75rem"
-                    width="100px"
+                    width="30px"
                     size="xl"
                     onClick={handleClick}
                     bg="#9acc9c"
                     _hover={{ background: '#8cb88d' }}
                   >
-                    {show ? 'Skrýt' : 'Zobrazit'}
+                    {show ? <EyeOff /> : <Eye />}
                   </Button>
                 </InputRightElement>
               </InputGroup>
