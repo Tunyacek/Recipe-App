@@ -15,15 +15,15 @@ export function Homepage() {
   const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
-    const checkUserAuthentication = async () => {
+    const fetchData = async () => {
       try {
-        await axios.get(`${url}/user`, { withCredentials: true })
+        await axios.get(`${url}/authentication/user`, { withCredentials: true })
       } catch (error) {
         setRedirect(true)
       }
     }
 
-    checkUserAuthentication()
+    fetchData()
   }, [])
 
   if (redirect) {
