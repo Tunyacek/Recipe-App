@@ -17,8 +17,6 @@ import { type FormEvent, useState } from 'react'
 import axios from 'axios'
 import { Eye, EyeOff } from 'lucide-react'
 
-const url = import.meta.env.VITE_BE_URL
-
 const THREE_THOUSAND = 3000
 
 export function LoginForm() {
@@ -34,14 +32,10 @@ export function LoginForm() {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
     try {
-      await axios.post(
-        `${url}/login`,
-        {
-          username,
-          password,
-        },
-        { withCredentials: true }
-      )
+      await axios.post(`/login`, {
+        username,
+        password,
+      })
 
       setRedirect(true)
     } catch (error: any) {

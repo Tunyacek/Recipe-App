@@ -7,15 +7,13 @@ import { BackButton } from '../Components/Shared/Buttons/Button'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-const url = import.meta.env.VITE_BE_URL
-
 export function Createpage() {
   const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get(`${url}/authentication/user`, { withCredentials: true })
+        await axios.get(`/authentication/user`)
       } catch (error) {
         setRedirect(true)
       }

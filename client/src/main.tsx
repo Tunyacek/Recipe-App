@@ -5,6 +5,7 @@ import App from './App.tsx'
 import './index.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../src/lib/theme.tsx'
+import './lib/interceptors/axios.ts'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

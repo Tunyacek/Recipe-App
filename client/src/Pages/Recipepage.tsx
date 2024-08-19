@@ -7,15 +7,13 @@ import { Link, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const url = import.meta.env.VITE_BE_URL
-
 export function Recipepage() {
   const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get(`${url}/authentication/user`, { withCredentials: true })
+        await axios.get(`/authentication/user`)
       } catch (error) {
         setRedirect(true)
       }

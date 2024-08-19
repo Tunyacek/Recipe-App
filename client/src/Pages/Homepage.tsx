@@ -7,8 +7,6 @@ import { type Category } from '../Components/Shared/Header/Dropdown.tsx'
 import axios from 'axios'
 import { Navigate } from 'react-router-dom'
 
-const url = import.meta.env.VITE_BE_URL
-
 export function Homepage() {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([])
   const [searchRecipe, setSearchRecipe] = useState('')
@@ -17,7 +15,7 @@ export function Homepage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get(`${url}/authentication/user`, { withCredentials: true })
+        await axios.get(`/authentication/user`)
       } catch (error) {
         setRedirect(true)
       }

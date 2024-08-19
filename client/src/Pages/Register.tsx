@@ -17,8 +17,6 @@ import { type FormEvent, useState } from 'react'
 import axios from 'axios'
 import { Eye, EyeOff } from 'lucide-react'
 
-const url = import.meta.env.VITE_BE_URL
-
 const THREE_THOUSAND = 3000
 
 export function RegisterForm() {
@@ -49,7 +47,7 @@ export function RegisterForm() {
     }
 
     try {
-      const response = await axios.post(`${url}/register`, {
+      const response = await axios.post(`/register`, {
         email,
         username,
         password,
