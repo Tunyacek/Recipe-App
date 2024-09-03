@@ -3,26 +3,34 @@ import { NotFoundError } from '../../../lib/errors'
 import { CategorySchema } from '../schemas/category.schema'
 
 export const categoryServiceFactory = (categoryRepository: CategoryRepository) => {
-  const getAllCategories = async () => {
-    return await categoryRepository.getAllCategories()
+  const getAllCategories = async (userId: string) => {
+    return await categoryRepository.getAllCategories(userId)
   }
 
-  const getCategoryById = async (id: string[]) => {
-    const categoryResult = await categoryRepository.getCategoryById(id)
+  const getCategoryByTitle = async (title: string[], userId: string) => {
+    const categoryResult = await categoryRepository.getCategoryByTitle(title, userId)
     if (!categoryResult) {
-      throw new NotFoundError('Category not found')
+      throw new NotFoundError('Kategorie nenalezena')
+    }
+    return categoryResult
+  }
+  const getCategoryById = async (id: string[], userId: string) => {
+    const categoryResult = await categoryRepository.getCategoryByTitle(id, userId)
+    if (!categoryResult) {
+      throw new NotFoundError('Kategorie nenalezena')
     }
     return categoryResult
   }
 
-  const createCategory = async (category: CategorySchema) => {
-    const createdCategory = await categoryRepository.createCategory(category)
+  const createCategory = async (category: CategorySchema, userId: string) => {
+    const createdCategory = await categoryRepository.createCategory(category, userId)
     return createdCategory
   }
 
   return {
     getAllCategories,
     getCategoryById,
+    getCategoryByTitle,
     createCategory,
   }
 }

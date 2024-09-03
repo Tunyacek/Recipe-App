@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, type ChangeEvent, type FormEvent } from 'react'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 import axios from 'axios'
 import { Box, Flex, FormControl, FormLabel, HStack, useToast } from '@chakra-ui/react'
 import { SubmitRecipeButton } from '../Shared/Buttons/Button'
 import { InstructionList, IngredientList, CategoryList } from './ListInputs'
 import Rating from './Rating'
-import { CookTimeInput, PrepTimeInput, SummaryInput, TitleInput } from './SingleInputs'
+import {
+  CookTimeInput,
+  PortionsInput,
+  PrepTimeInput,
+  SummaryInput,
+  TitleInput,
+} from './SingleInputs'
 import { ImageInput } from './ImageInput'
 
 interface FormValues {
@@ -14,6 +20,7 @@ interface FormValues {
   prep_time: number
   cook_time: number
   image_url: string
+  portions: number
   rating: Rating
   ingredients: string[]
   instructions: string[]
@@ -30,13 +37,6 @@ const FIVE = 5
 
 type Rating = 'ONE' | 'TWO' | 'THREE' | 'FOUR' | 'FIVE'
 
-interface Category {
-  id: string
-  title: string
-  created_at: string
-  updated_at: string
-}
-
 const url = import.meta.env.VITE_BE_URL
 
 export const SubmitForm: React.FC = () => {
@@ -46,13 +46,13 @@ export const SubmitForm: React.FC = () => {
     prep_time: ZERO,
     cook_time: ZERO,
     image_url: '',
+    portions: ZERO,
     rating: 'ONE',
     ingredients: [],
     instructions: [],
     categoryId: [],
   })
 
-  const [categories, setCategories] = useState<Category[]>([])
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [rating, setRating] = useState<number>(ZERO)
   const [ingredientList, setIngredientList] = useState<string[]>([])
@@ -61,56 +61,24 @@ export const SubmitForm: React.FC = () => {
   const toast = useToast()
 
   const handlePrepTimeChange = (_valueAsString: string, valueAsNumber: number) => {
-    setValues((prevValues) => ({ ...prevValues, prep_time: valueAsNumber }))
+    setValues((prevValues) => ({
+      ...prevValues,
+      prep_time: isNaN(valueAsNumber) ? 0 : valueAsNumber,
+    }))
   }
 
   const handleCookTimeChange = (_valueAsString: string, valueAsNumber: number) => {
-    setValues((prevValues) => ({ ...prevValues, cook_time: valueAsNumber }))
+    setValues((prevValues) => ({
+      ...prevValues,
+      cook_time: isNaN(valueAsNumber) ? 0 : valueAsNumber,
+    }))
   }
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get(`${url}/categories`)
-        setCategories(response.data)
-      } catch (err) {
-        const error = err as Error
-        toast({
-          title: 'Chyba při načítání kategorií.',
-          description: error.message,
-          status: 'error',
-          duration: THREE_THOUSAND,
-          isClosable: true,
-        })
-      }
-    }
-    fetchCategories()
-  }, [toast])
-
-  const createCategoryIfNotExists = async (categoryTitle: string): Promise<string> => {
-    const existingCategory = categories.find(
-      (category) => category.title.toLowerCase() === categoryTitle.toLowerCase()
-    )
-    if (existingCategory) {
-      return existingCategory.id
-    }
-
-    try {
-      const response = await axios.post(`${url}/categories`, { title: categoryTitle })
-      const newCategory = response.data
-      setCategories((prevCategories) => [...prevCategories, newCategory])
-      return newCategory.id
-    } catch (err) {
-      const error = err as Error
-      toast({
-        title: 'Chyba při vytváření kategorie.',
-        description: error.message,
-        status: 'error',
-        duration: THREE_THOUSAND,
-        isClosable: true,
-      })
-      throw error
-    }
+  const handlePortionsChange = (_valueAsString: string, valueAsNumber: number) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      portions: isNaN(valueAsNumber) ? 0 : valueAsNumber,
+    }))
   }
 
   const handleInputChange = (
@@ -211,17 +179,13 @@ export const SubmitForm: React.FC = () => {
     try {
       const imageUrl = await handleImageUpload()
 
-      const categoryIds = await Promise.all(
-        categoryList.map((category) => createCategoryIfNotExists(category))
-      )
-
       const data = {
         ...values,
         image_url: imageUrl,
         rating: convertRatingToEnum(rating),
         ingredients: ingredientList,
         instructions: instructionList,
-        categoryId: categoryIds,
+        categoryTitles: categoryList,
       }
       console.log(data)
       await axios.post(`${url}/recipes`, data)
@@ -239,6 +203,7 @@ export const SubmitForm: React.FC = () => {
         prep_time: ZERO,
         cook_time: ZERO,
         image_url: '',
+        portions: ZERO,
         rating: 'ONE',
         ingredients: [],
         instructions: [],
@@ -280,6 +245,9 @@ export const SubmitForm: React.FC = () => {
               <FormLabel fontWeight="semibold">Hodnocení</FormLabel>
               <Rating count={5} value={rating} edit={true} onChange={(value) => setRating(value)} />
             </FormControl>
+          </Box>
+          <Box pb="5" mr="15px">
+            <PortionsInput value={values.portions} onChange={handlePortionsChange} />
           </Box>
           <CategoryList categoryList={categoryList} setCategoryList={setCategoryList} />
           <HStack spacing="15px" pb="5" mr="15px">

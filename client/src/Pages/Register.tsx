@@ -9,13 +9,14 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { HeaderLogo } from '../Components/Shared/Header/Header'
+
 import { Footer } from '../Components/Shared/Footer/Footer'
 import { BackButton, RegisterSubmit } from '../Components/Shared/Buttons/Button'
 import { Link, Navigate } from 'react-router-dom'
 import { type FormEvent, useState } from 'react'
 import axios from 'axios'
 import { Eye, EyeOff } from 'lucide-react'
+import { Header } from '../Components/Shared/Header/Header'
 
 const THREE_THOUSAND = 3000
 
@@ -47,7 +48,7 @@ export function RegisterForm() {
     }
 
     try {
-      const response = await axios.post(`/register`, {
+      const response = await axios.post('/register', {
         email,
         username,
         password,
@@ -66,8 +67,13 @@ export function RegisterForm() {
     } catch (error: any) {
       let errorMessage = 'Došlo k chybě při registraci. Zkuste to znovu.'
 
-      if (error.response && error.response.data && error.response.data.error) {
-        errorMessage = error.response.data.error.message || errorMessage
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.error &&
+        error.response.data.error.message
+      ) {
+        errorMessage = error.response.data.error.message
       }
 
       toast({
@@ -87,10 +93,10 @@ export function RegisterForm() {
   return (
     <Box bg="#d0ffd5">
       <Box ml="5px">
-        <HeaderLogo />
+        <Header />
       </Box>
       <Box bg="#B0EBB4" height="80px" mt="10px">
-        <Link to={`/`}>
+        <Link to={`/login`}>
           <BackButton />
         </Link>
       </Box>

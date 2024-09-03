@@ -11,11 +11,13 @@ import {
 } from '@chakra-ui/react'
 import { HeaderLogo } from '../Components/Shared/Header/Header'
 import { Footer } from '../Components/Shared/Footer/Footer'
-import { BackButton, LoginSubmit } from '../Components/Shared/Buttons/Button'
+import { BackButton, LoginSubmit, RegisterRedirect } from '../Components/Shared/Buttons/Button'
 import { Link, Navigate } from 'react-router-dom'
 import { type FormEvent, useState } from 'react'
 import axios from 'axios'
 import { Eye, EyeOff } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import { type RootState } from '../lib/redux/store'
 
 const THREE_THOUSAND = 3000
 
@@ -25,12 +27,17 @@ export function LoginForm() {
   const [redirect, setRedirect] = useState(false)
   const [show, setShow] = useState(false)
 
+  const auth = useSelector((state: RootState) => state.auth.value)
   const toast = useToast()
+
+  console.log('Auth:', auth)
+  console.log('Redirect:', redirect)
 
   const handleClick = () => setShow(!show)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
+
     try {
       await axios.post(`/login`, {
         username,
@@ -55,7 +62,8 @@ export function LoginForm() {
     }
   }
 
-  if (redirect) {
+  if (redirect || auth) {
+    console.log('Redirecting to /recipes') // Debugging line
     return <Navigate to="/recipes" />
   }
 
@@ -124,6 +132,11 @@ export function LoginForm() {
             <LoginSubmit />
           </Box>
         </form>
+        <Box mt="20px">
+          <Link to="/register">
+            <RegisterRedirect />
+          </Link>
+        </Box>
       </Box>
       <Footer />
     </Box>

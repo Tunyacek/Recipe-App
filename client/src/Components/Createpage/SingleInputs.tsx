@@ -61,3 +61,14 @@ export const CookTimeInput: React.FC<TimeInputProps> = ({ value, onChange }) => 
     </FormControl>
   </Box>
 )
+
+export const PortionsInput: React.FC<TimeInputProps> = ({ value, onChange }) => (
+  <Box>
+    <FormControl isRequired>
+      <FormLabel fontWeight="semibold">Počet porcí</FormLabel>
+      <NumberInput bg="white" name="portions" onChange={onChange} value={value}>
+        <NumberInputField />
+      </NumberInput>
+    </FormControl>
+  </Box>
+)

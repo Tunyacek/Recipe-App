@@ -9,6 +9,7 @@ import { authenticatedUserModule } from './domains/userAuth/modules/user.module'
 import 'dotenv/config'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import { authenticate } from './middleware'
 
 const app: Express = express()
 const port = process.env.PORT || 3000
@@ -26,8 +27,8 @@ app.use(cors({ origin: process.env.FE_URL, credentials: true }))
 ;(async () => {
   app.use('/api/images', await imageAPI)
 })()
-app.use('/api/recipes', recipeAPI)
-app.use('/api/categories', categoryAPI)
+app.use('/api/recipes', authenticate, recipeAPI)
+app.use('/api/categories', authenticate, categoryAPI)
 app.use('/api/register', registerAPI)
 app.use('/api/login', loginAPI)
 app.use('/api/authentication', userAPI)

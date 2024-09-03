@@ -1,23 +1,49 @@
-import { Box, Flex, Spacer, useBreakpointValue, Image } from '@chakra-ui/react'
-import { CreateButton } from '../Buttons/Button.tsx'
-import { Searchbar } from './Searchbar.tsx'
-import { Dropdown } from '../Header/Dropdown.tsx'
-import { type Category } from '../Header/Dropdown.tsx'
+import { Box, Flex, Spacer, Image } from '@chakra-ui/react'
+import { CreateButton, LoginRedirect, Logout } from '../Buttons/Button.tsx'
 import logo from '../../../assets/logo_cream.jpeg'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { type RootState } from '../../../lib/redux/store.ts'
+import { useDispatch } from 'react-redux'
+import { setAuth } from '../../../lib/redux/authSlice.ts'
 
-interface HeaderProps {
-  onCategoryChange: (selectedCategories: Category[]) => void
-  onSearchChange: (searchRecipe: string) => void
-}
+export function Header() {
+  const auth = useSelector((state: RootState) => state.auth.value)
 
-export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
-  const flexDisplayDirection = useBreakpointValue<'column' | 'row'>({
-    base: 'column',
-    md: 'row',
-    lg: 'row',
-  })
+  const dispatch = useDispatch()
 
+  const logout = async () => {
+    await axios.post('authentication/logout')
+    dispatch(setAuth(false))
+  }
+
+  let links
+
+  if (auth) {
+    links = (
+      <Flex direction="column">
+        <Box py="10px" display="flex" justifyContent="center">
+          <Link to="/" onClick={logout}>
+            <Logout />
+          </Link>
+        </Box>
+        <Box>
+          <Link to="/add-recipe">
+            <CreateButton />
+          </Link>
+        </Box>
+      </Flex>
+    )
+  } else {
+    links = (
+      <Flex direction="column">
+        <Link to="/login">
+          <LoginRedirect />
+        </Link>
+      </Flex>
+    )
+  }
   return (
     <Box as="header">
       <Box>
@@ -26,31 +52,8 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
             <HeaderLogo />
           </Link>
           <Spacer />
-          <Box pt="30px">
-            <Link to="/add-recipe">
-              <CreateButton />
-            </Link>
-          </Box>
+          {links}
         </Flex>
-        <Box bg="#B0EBB4" height={['130px', '130px', '80px']}>
-          <Flex direction={flexDisplayDirection} alignItems="center" height="100%">
-            <Box
-              pl="15px"
-              flex="1"
-              sx={{
-                '@media screen and (max-width: 767px)': {
-                  pt: '20px',
-                },
-              }}
-            >
-              <Searchbar onSearchChange={onSearchChange} />
-            </Box>
-            <Spacer />
-            <Box pr="15px">
-              <Dropdown onCategoryChange={onCategoryChange} />
-            </Box>
-          </Flex>
-        </Box>
       </Box>
     </Box>
   )
@@ -59,7 +62,7 @@ export function Header({ onCategoryChange, onSearchChange }: HeaderProps) {
 export function HeaderLogo() {
   return (
     <Box>
-      <Image src={logo} width="100px" height="100px" />
+      <Image src={logo} width="110px" height="110px" />
     </Box>
   )
 }

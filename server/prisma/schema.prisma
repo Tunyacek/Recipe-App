@@ -31,10 +31,12 @@ model Recipe {
 
 model Category {
   id         String           @id @default(cuid())
-  title      String
+  title      String           @unique
   created_at DateTime         @default(now())
   updated_at DateTime         @updatedAt
   recipes    RecipeCategory[]
+  userId     String
+  user       Users            @relation(fields: [userId], references: [id])
 }
 
 model RecipeCategory {
@@ -55,9 +57,10 @@ enum Rating {
 }
 
 model Users {
-  id       String   @id @default(cuid())
-  username String   @unique
-  email    String   @unique
-  password String
-  recipes  Recipe[]
+  id         String     @id @default(cuid())
+  username   String     @unique
+  email      String     @unique
+  password   String
+  recipes    Recipe[]
+  categories Category[]
 }
