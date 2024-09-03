@@ -2,8 +2,9 @@ import { prisma } from '../../../lib/prisma'
 import { RecipeSchema } from '../schemas/recipe.schema'
 
 export const recipeRepositoryFactory = () => {
-  const getAllRecipes = async () => {
+  const getAllRecipes = async (userId: string) => {
     return await prisma.recipe.findMany({
+      where: { userId },
       include: {
         categoryId: {
           include: {
@@ -15,9 +16,9 @@ export const recipeRepositoryFactory = () => {
     })
   }
 
-  const getRecipeById = async (id: string) => {
+  const getRecipeById = async (id: string, userId: string) => {
     return await prisma.recipe.findUnique({
-      where: { id: id },
+      where: { id, userId },
       include: {
         categoryId: {
           include: {
@@ -29,8 +30,19 @@ export const recipeRepositoryFactory = () => {
     })
   }
 
-  const createRecipe = async (recipe: RecipeSchema, userId: string) => {
-    const { categoryId, portions, ...rest } = recipe
+  const createRecipe = async (recipe: RecipeSchema) => {
+    const { categoryTitles, portions, userId, ...rest } = recipe
+
+    const categoryIds = await Promise.all(
+      categoryTitles.map(async (title) => {
+        const categories = await prisma.category.findMany({
+          where: { title, userId },
+        })
+        return categories.length > 0 ? categories[0].id : null
+      })
+    )
+
+    const validCategoryIds = categoryIds.filter((id): id is string => id !== null)
 
     const createdRecipe = await prisma.recipe.create({
       data: {
@@ -40,15 +52,29 @@ export const recipeRepositoryFactory = () => {
           connect: { id: userId },
         },
         categoryId: {
-          create: categoryId.map((id) => ({ category: { connect: { id } } })),
+          create: validCategoryIds.map((id) => ({
+            category: { connect: { id } },
+          })),
         },
       },
     })
+
     return createdRecipe
   }
 
-  const updateRecipe = async (id: string, recipe: RecipeSchema, userId: string) => {
-    const { categoryId, portions, ...rest } = recipe
+  const updateRecipe = async (id: string, recipe: RecipeSchema) => {
+    const { categoryTitles, portions, userId, ...rest } = recipe
+
+    const categoryIds = await Promise.all(
+      categoryTitles.map(async (title) => {
+        const categories = await prisma.category.findMany({
+          where: { title, userId },
+        })
+        return categories.length > 0 ? categories[0].id : null
+      })
+    )
+
+    const validCategoryIds = categoryIds.filter((id): id is string => id !== null)
 
     const updatedRecipe = await prisma.recipe.update({
       where: { id },
@@ -60,10 +86,13 @@ export const recipeRepositoryFactory = () => {
         },
         categoryId: {
           set: [],
-          create: categoryId.map((id) => ({ category: { connect: { id } } })),
+          create: validCategoryIds.map((id) => ({
+            category: { connect: { id } },
+          })),
         },
       },
     })
+
     return updatedRecipe
   }
 

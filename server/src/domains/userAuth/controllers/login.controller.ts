@@ -27,7 +27,7 @@ export const loginControllerFactory: LoginControllerFactory = (service: LoginSer
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
-    return res.redirect('/recipes')
+    return res.status(StatusCodes.OK).json({ message: 'User log in successfull' })
   }
 
   return { checkUser }

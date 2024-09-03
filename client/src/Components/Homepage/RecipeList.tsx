@@ -293,7 +293,8 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, sear
     const fetchRecipes = async () => {
       try {
         const response = await axios.get(`${url}/recipes`)
-        setRecipes(response.data)
+        const recipesData = response.data || [] // Ensure it's an array
+        setRecipes(recipesData)
       } catch (error) {
         console.error('Error fetching recipes:', error)
       } finally {
@@ -309,13 +310,14 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, sear
   }
 
   const filteredRecipes = recipes
-    .filter((recipe) =>
-      selectedCategories.length > ZERO
-        ? recipe.categoryId.some((categoryRel) =>
-            selectedCategories.some((category) => category.id === categoryRel.category.id)
+    .filter((recipe) => {
+      const recipeCategories = recipe.categoryId || []
+      return selectedCategories.length > ZERO
+        ? recipeCategories.some((categoryRel) =>
+            selectedCategories.some((category) => category.id === categoryRel?.category?.id)
           )
         : true
-    )
+    })
     .filter((recipe) => recipe.title.toLowerCase().includes(searchRecipe.toLowerCase()))
 
   if (filteredRecipes.length === ZERO) {

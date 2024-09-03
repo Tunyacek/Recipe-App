@@ -13,8 +13,6 @@ interface DropdownProps {
   onCategoryChange: (selectedCategories: Category[]) => void
 }
 
-const url = import.meta.env.VITE_BE_URL
-
 interface SelectOption {
   value: string
   label: string
@@ -26,8 +24,9 @@ export function Dropdown({ onCategoryChange }: DropdownProps) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${url}/categories`)
-        const formattedCategories: SelectOption[] = response.data.map((category: Category) => ({
+        const response = await axios.get(`/categories`)
+        const categoriesData = response.data || []
+        const formattedCategories: SelectOption[] = categoriesData.map((category: Category) => ({
           value: category.id,
           label: category.title,
         }))

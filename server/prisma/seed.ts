@@ -3,12 +3,24 @@ import { PrismaClient, Rating } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
+  const user1 = await prisma.users.upsert({
+    where: { id: '1' },
+    update: {},
+    create: {
+      id: '1',
+      email: 'some@email.xyz',
+      password: 'somehashedpassword',
+      username: 'someusername',
+    },
+  })
+
   const category1 = await prisma.category.upsert({
     where: { id: '1' },
     update: {},
     create: {
       id: '1',
       title: 'Polévky',
+      userId: user1.id,
     },
   })
 
@@ -18,17 +30,7 @@ async function main() {
     create: {
       id: '2',
       title: 'Omáčky',
-    },
-  })
-
-  const user1 = await prisma.users.upsert({
-    where: { id: '1' },
-    update: {},
-    create: {
-      id: '1',
-      email: 'some@email.xyz',
-      password: 'somehashedpassword',
-      username: 'someusername',
+      userId: user1.id,
     },
   })
 
@@ -71,7 +73,7 @@ async function main() {
       prep_time: 30,
       cook_time: 120,
       portions: 4,
-      userId: user1.id,
+      userId: user1.id, // Linking recipe to user1
     },
   })
 

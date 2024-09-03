@@ -1,11 +1,72 @@
-import { Box, Text, Input, Flex, FormLabel } from '@chakra-ui/react'
+import {
+  Box,
+  Text,
+  Input,
+  Flex,
+  FormLabel,
+  InputGroup,
+  InputRightElement,
+  Button,
+  useToast,
+} from '@chakra-ui/react'
 import { HeaderLogo } from '../Components/Shared/Header/Header'
 import { Footer } from '../Components/Shared/Footer/Footer'
-import { PasswordInput } from '../Components/Login_and_Register/PasswordInput'
-import { BackButton, LoginSubmit } from '../Components/Shared/Buttons/Button'
-import { Link } from 'react-router-dom'
+import { BackButton, LoginSubmit, RegisterRedirect } from '../Components/Shared/Buttons/Button'
+import { Link, Navigate } from 'react-router-dom'
+import { type FormEvent, useState } from 'react'
+import axios from 'axios'
+import { Eye, EyeOff } from 'lucide-react'
+import { useSelector } from 'react-redux'
+import { type RootState } from '../lib/redux/store'
+
+const THREE_THOUSAND = 3000
 
 export function LoginForm() {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [redirect, setRedirect] = useState(false)
+  const [show, setShow] = useState(false)
+
+  const auth = useSelector((state: RootState) => state.auth.value)
+  const toast = useToast()
+
+  console.log('Auth:', auth)
+  console.log('Redirect:', redirect)
+
+  const handleClick = () => setShow(!show)
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+
+    try {
+      await axios.post(`/login`, {
+        username,
+        password,
+      })
+
+      setRedirect(true)
+    } catch (error: any) {
+      let errorMessage = 'Došlo k chybě při přihlašování. Zkuste to znovu.'
+
+      if (error.response && error.response.data && error.response.data.error) {
+        errorMessage = error.response.data.error.message || errorMessage
+      }
+
+      toast({
+        title: 'Chyba při přihlášení',
+        description: errorMessage,
+        status: 'error',
+        duration: THREE_THOUSAND,
+        isClosable: true,
+      })
+    }
+  }
+
+  if (redirect || auth) {
+    console.log('Redirecting to /recipes') // Debugging line
+    return <Navigate to="/recipes" />
+  }
+
   return (
     <Box bg="#d0ffd5">
       <Box ml="5px">
@@ -16,29 +77,66 @@ export function LoginForm() {
           <BackButton />
         </Link>
       </Box>
-      <Box minHeight="75.7vh" bg="#f3fff4">
+      <Box
+        minHeight="75.7vh"
+        bg="#f3fff4"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
+      >
         <Flex>
           <Text as="b" fontSize="30px" m="20px">
             Přihlášení
           </Text>
         </Flex>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Flex direction="column" gap="3" m="20px">
-            <FormLabel>Emailová adresa</FormLabel>
-            <Input
-              type="email"
-              width="400px"
-              borderColor="#9acc9c"
-              bg="white"
-              focusBorderColor="#9acc9c"
-            />
-            <FormLabel>Heslo</FormLabel>
-            <PasswordInput />
+            <Box>
+              <FormLabel>Uživatelské jméno</FormLabel>
+              <Input
+                width="400px"
+                borderColor="#9acc9c"
+                bg="white"
+                focusBorderColor="#9acc9c"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </Box>
+            <Box>
+              <FormLabel>Heslo</FormLabel>
+              <InputGroup size="md" width="400px">
+                <Input
+                  pr="4.5rem"
+                  type={show ? 'text' : 'password'}
+                  borderColor="#9acc9c"
+                  focusBorderColor="#9acc9c"
+                  bg="white"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <InputRightElement>
+                  <Button
+                    h="1.75rem"
+                    width="30px"
+                    size="xl"
+                    onClick={handleClick}
+                    bg="#9acc9c"
+                    _hover={{ background: '#8cb88d' }}
+                  >
+                    {show ? <EyeOff /> : <Eye />}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+            </Box>
           </Flex>
-          <Box ml="350px" mt="30px">
+          <Box ml="175px" mt="30px">
             <LoginSubmit />
           </Box>
         </form>
+        <Box mt="20px">
+          <Link to="/register">
+            <RegisterRedirect />
+          </Link>
+        </Box>
       </Box>
       <Footer />
     </Box>

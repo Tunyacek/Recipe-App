@@ -142,8 +142,13 @@ export function LoginRedirect() {
 
 export function RegisterRedirect() {
   return (
-    <Button color="#f8fae5" bg="#9acc9c" _hover={{ background: '#8cb88d' }}>
-      Registrovat
+    <Button
+      color="#8cb88d"
+      variant="outline"
+      _hover={{ background: '#9dcc9d85' }}
+      borderColor="#9acc9c"
+    >
+      Vytvořit nový účet
     </Button>
   )
 }
@@ -160,6 +165,19 @@ export function RegisterSubmit() {
   return (
     <Button type="submit" bg="#9acc9c" _hover={{ background: '#8cb88d' }}>
       Vytvořit účet
+    </Button>
+  )
+}
+
+export function Logout() {
+  return (
+    <Button
+      variant="outline"
+      borderColor="#9acc9c"
+      color="#9acc9c"
+      _hover={{ background: '#8cb88d' }}
+    >
+      Odhlásit
     </Button>
   )
 }
