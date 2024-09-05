@@ -1,7 +1,11 @@
 import { UnauthorizedError } from '../../../lib/errors'
 import { LoginRepository } from '../repositories/login.repository.interface'
+import { UserRepository } from '../repositories/user.repository.interface'
 
-export const authenticatedUserServiceFactory = (loginRepository: LoginRepository) => {
+export const authenticatedUserServiceFactory = (
+  loginRepository: LoginRepository,
+  userRepository: UserRepository
+) => {
   const authenticatedUser = async (userId: string) => {
     const user = await loginRepository.findUserById(userId)
     if (!user) {
@@ -10,5 +14,17 @@ export const authenticatedUserServiceFactory = (loginRepository: LoginRepository
     return user
   }
 
-  return { authenticatedUser }
+  const createToken = async (userId: string) => {
+    return await userRepository.createToken(userId)
+  }
+
+  const findToken = async (userId: string, token: string) => {
+    return await userRepository.findToken(userId, token)
+  }
+
+  const deleteToken = async (userId: string, token: string) => {
+    await userRepository.deleteToken(userId, token)
+  }
+
+  return { authenticatedUser, createToken, findToken, deleteToken }
 }

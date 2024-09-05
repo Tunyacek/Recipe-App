@@ -5,6 +5,8 @@ import dotenv from 'dotenv'
 import { verify } from 'jsonwebtoken'
 import { authenticatedUserServiceFactory } from './domains/userAuth/services/user.service'
 import { loginRepositoryFactory } from './domains/userAuth/repositories/login.repository'
+import { authenticatedUserModule } from './domains/userAuth/modules/user.module'
+import { authenticatedUserRepositoryFactory } from './domains/userAuth/repositories/user.repository'
 
 dotenv.config()
 
@@ -42,8 +44,9 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     }
 
     const loginRepository = loginRepositoryFactory()
+    const userRepository = authenticatedUserRepositoryFactory()
 
-    const userService = authenticatedUserServiceFactory(loginRepository)
+    const userService = authenticatedUserServiceFactory(loginRepository, userRepository)
     const user = await userService.authenticatedUser(payload.id)
 
     if (!user) {

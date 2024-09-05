@@ -1,7 +1,6 @@
 import { prisma } from '../../../lib/prisma'
-import { LoginRepository } from './login.repository.interface'
 
-export const loginRepositoryFactory = (): LoginRepository => {
+export const loginRepositoryFactory = () => {
   const findUserByEmail = async (email: string) => {
     return await prisma.users.findUnique({
       where: { email },

@@ -63,4 +63,17 @@ model Users {
   password   String
   recipes    Recipe[]
   categories Category[]
+  tokens     Token[]
+}
+
+model Token {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  createdAt DateTime @default(now())
+  expiredAt DateTime
+
+  user Users @relation(fields: [userId], references: [id])
+
+  @@index([userId], name: "user_id_idx")
 }
