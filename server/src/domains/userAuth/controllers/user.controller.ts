@@ -45,16 +45,22 @@ export const authenticatedUserControllerFactory = (userService: UserService) => 
     try {
       const cookie = req.cookies['refresh_token']
 
-      const payload = verify(cookie, refreshSecret) as { id: string }
-
-      if (!payload) {
+      if (!cookie) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
           message: 'Refresh token chybí',
         })
       }
 
-      const existingToken = await userService.findToken(payload.id, cookie)
-      if (!existingToken) {
+      const payload = verify(cookie, refreshSecret) as { id: string }
+
+      if (!payload) {
+        return res.status(StatusCodes.UNAUTHORIZED).send({
+          message: 'Chybný refresh token',
+        })
+      }
+
+      const refreshToken = await userService.findToken(payload.id, cookie)
+      if (!refreshToken) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
           message: 'Refresh token neexistuje nebo je neplatný',
         })
@@ -73,19 +79,19 @@ export const authenticatedUserControllerFactory = (userService: UserService) => 
   }
 
   const logout = async (req: Request, res: Response) => {
+    const token = req.cookies['refresh_token']
+
+    if (!token) {
+      return res.status(StatusCodes.BAD_REQUEST).send({
+        message: 'Refresh token nenalezen',
+      })
+    }
+
     try {
-      const token = req.cookies['refresh_token']
-
-      if (!token) {
-        return res.status(StatusCodes.BAD_REQUEST).send({
-          message: 'No refresh token found',
-        })
-      }
-
       const payload = verify(token, refreshSecret) as { id: string }
       if (!payload) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
-          message: 'Invalid token',
+          message: 'Chybný refresh token',
         })
       }
 
@@ -94,12 +100,12 @@ export const authenticatedUserControllerFactory = (userService: UserService) => 
       res.cookie('refresh_token', '', { maxAge: 0 })
 
       return res.status(StatusCodes.OK).send({
-        message: 'Logout successful',
+        message: 'Úspěšně odhlášen',
       })
     } catch (error) {
       console.error('Logout error: ', error)
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-        message: 'Logout failed',
+        message: 'Odhlášení se nepodařilo',
       })
     }
   }

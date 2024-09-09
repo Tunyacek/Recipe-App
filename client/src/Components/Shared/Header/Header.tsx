@@ -14,7 +14,7 @@ export function Header() {
   const dispatch = useDispatch()
 
   const logout = async () => {
-    await axios.post('authentication/logout')
+    await axios.post('authentication/logout', {}, { withCredentials: true })
     dispatch(setAuth(false))
   }
 

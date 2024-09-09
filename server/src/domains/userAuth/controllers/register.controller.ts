@@ -18,7 +18,7 @@ export const registerControllerFactory: RegisterControllerFactory = (service: Re
       throw new UnprocessableEntityError(parsedUser.error)
     }
     await service.createUser(req.body)
-    return res.status(StatusCodes.CREATED).json({ message: 'User created successfully' })
+    return res.status(StatusCodes.CREATED).json({ message: 'Uživatel úspěšně vytvořen' })
   }
   return { createUser }
 }

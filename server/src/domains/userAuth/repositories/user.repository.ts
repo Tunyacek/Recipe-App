@@ -20,12 +20,9 @@ export const authenticatedUserRepositoryFactory = () => {
       where: { userId, token, expiredAt: { gte: new Date() } },
     })
 
-    if (!foundToken) {
-      throw new Error('Token not found or expired')
-    }
-
-    return foundToken
+    return foundToken || null
   }
+
   const deleteToken = async (userId: string, token: string) => {
     await prisma.token.delete({
       where: { token, userId },

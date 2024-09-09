@@ -5,7 +5,6 @@ import dotenv from 'dotenv'
 import { verify } from 'jsonwebtoken'
 import { authenticatedUserServiceFactory } from './domains/userAuth/services/user.service'
 import { loginRepositoryFactory } from './domains/userAuth/repositories/login.repository'
-import { authenticatedUserModule } from './domains/userAuth/modules/user.module'
 import { authenticatedUserRepositoryFactory } from './domains/userAuth/repositories/user.repository'
 
 dotenv.config()
@@ -33,7 +32,7 @@ const accessSecret = process.env.JWT_ACCESS_SECRET || 'pleasewritemeindotenv'
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const token = req.cookies['access_token']
+    const token = req.header('Authorization')?.split(' ')[1] || ''
     if (!token) {
       return res.status(401).json({ message: 'Přístup odepřen: Nebyl nalezen žádný token' })
     }

@@ -30,9 +30,6 @@ export function LoginForm() {
   const auth = useSelector((state: RootState) => state.auth.value)
   const toast = useToast()
 
-  console.log('Auth:', auth)
-  console.log('Redirect:', redirect)
-
   const handleClick = () => setShow(!show)
 
   const handleSubmit = async (event: FormEvent) => {
@@ -63,7 +60,6 @@ export function LoginForm() {
   }
 
   if (redirect || auth) {
-    console.log('Redirecting to /recipes') // Debugging line
     return <Navigate to="/recipes" />
   }
 
