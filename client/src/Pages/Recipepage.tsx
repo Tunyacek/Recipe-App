@@ -21,9 +21,20 @@ export function Recipepage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get('/authentication/user')
-        dispatch(setAuth(true))
+        const token = localStorage.getItem('token')
+        if (token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }
+
+        const response = await axios.get('/authentication/user')
+        if (response.status === 200 && response.data) {
+          dispatch(setAuth(true))
+        } else {
+          setRedirect(true)
+          dispatch(setAuth(false))
+        }
       } catch (error) {
+        console.error('Authentication failed:', error)
         setRedirect(true)
         dispatch(setAuth(false))
       }

@@ -23,6 +23,11 @@ export function Homepage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem('token')
+        if (token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        }
+
         const response = await axios.get('/authentication/user')
         if (response.status === 200 && response.data) {
           dispatch(setAuth(true))
@@ -39,6 +44,7 @@ export function Homepage() {
 
     fetchData()
   }, [])
+
   if (redirect) {
     return <Navigate to="/login" />
   }

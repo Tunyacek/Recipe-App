@@ -148,7 +148,7 @@ export function Recipe() {
         />
 
         <Heading m="10px">{recipe.title}</Heading>
-        <Text as="i">Porcí: {recipe.portions}</Text>
+        <Text as="i">Počet porcí: {recipe.portions}</Text>
         <Flex justifyContent="center" alignItems="center" m="15px" mb="30px">
           <Icon as={Salad} />
           <Text pl="5px" pr="15px">
