@@ -187,8 +187,14 @@ export const SubmitForm: React.FC = () => {
         instructions: instructionList,
         categoryTitles: categoryList,
       }
-      console.log(data)
-      await axios.post(`${url}/recipes`, data)
+      const token = localStorage.getItem('token')
+
+      await axios.post(`${url}/recipes`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
 
       toast({
         title: 'Recept úspěšně přidán.',
