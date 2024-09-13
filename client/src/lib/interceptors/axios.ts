@@ -3,42 +3,24 @@ import axios from 'axios'
 const url = import.meta.env.VITE_BE_URL
 axios.defaults.baseURL = `${url}`
 
-const setToken = (token: string) => {
-  localStorage.setItem('token', token)
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-}
+let refresh = false
 
 axios.interceptors.response.use(
-  (response) => {
-    return response
-  },
+  (resp) => resp,
   async (error) => {
-    const originalRequest = error.config
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true
+    if (error.response.status === 401 && !refresh) {
+      refresh = true
 
-      try {
-        const refreshResponse = await axios.post(
-          '/authentication/refresh',
-          {},
-          { withCredentials: true }
-        )
+      const response = await axios.post('/authentication/refresh', {}, { withCredentials: true })
 
-        if (refreshResponse.status === 200) {
-          const { token } = refreshResponse.data
+      if (response.status === 200) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
 
-          setToken(token)
-
-          originalRequest.headers['Authorization'] = `Bearer ${token}`
-          return axios(originalRequest)
-        }
-      } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError)
-
-        localStorage.removeItem('token')
+        return axios(error.config)
       }
     }
 
-    return Promise.reject(error)
+    refresh = false
+    return error
   }
 )

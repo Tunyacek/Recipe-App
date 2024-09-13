@@ -19,18 +19,15 @@ export const recipeServiceFactory = (
     return recipeResult
   }
 
-  const createRecipe = async (recipe: RecipeSchema) => {
+  const createRecipe = async (recipe: RecipeSchema, userId: string) => {
     const categoryTitles = recipe.categoryTitles
 
     const categoryIds = await Promise.all(
       categoryTitles.map(async (title) => {
-        const category = await categoryValidationService.getCategoryByTitle([title], recipe.userId)
+        const category = await categoryValidationService.getCategoryByTitle([title], userId)
 
         if (category.length === 0) {
-          const newCategory = await categoryValidationService.createAfterCheck(
-            { title },
-            recipe.userId
-          )
+          const newCategory = await categoryValidationService.createAfterCheck({ title }, userId)
           return newCategory.id
         }
 
@@ -40,7 +37,7 @@ export const recipeServiceFactory = (
 
     const recipeWithIds = { ...recipe, categoryId: categoryIds }
 
-    const createdRecipe = await recipeRepository.createRecipe(recipeWithIds)
+    const createdRecipe = await recipeRepository.createRecipe(recipeWithIds, userId)
     return createdRecipe
   }
 

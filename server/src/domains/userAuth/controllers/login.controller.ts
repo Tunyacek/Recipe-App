@@ -25,16 +25,16 @@ export const loginControllerFactory: LoginControllerFactory = (
 
     const refreshToken = generateRefreshToken(user.id)
 
+    const accessToken = generateAccessToken(user.id)
+
     res.cookie('refresh_token', refreshToken, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
-    await userService.createToken(user.id)
+    const tokenResponse = await userService.createToken(user.id, accessToken)
 
-    const token = generateAccessToken(user.id)
-
-    return res.status(StatusCodes.OK).send({ token })
+    return res.status(StatusCodes.OK).send({ token: tokenResponse.token })
   }
 
   return { checkUser }

@@ -24,7 +24,7 @@ interface FormValues {
   rating: Rating
   ingredients: string[]
   instructions: string[]
-  categoryId: string[]
+  categoryTitles: string[]
 }
 
 const THREE_THOUSAND = 3000
@@ -50,7 +50,7 @@ export const SubmitForm: React.FC = () => {
     rating: 'ONE',
     ingredients: [],
     instructions: [],
-    categoryId: [],
+    categoryTitles: [],
   })
 
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -178,6 +178,7 @@ export const SubmitForm: React.FC = () => {
 
     try {
       const imageUrl = await handleImageUpload()
+      console.log('Image URL:', imageUrl)
 
       const data = {
         ...values,
@@ -187,15 +188,16 @@ export const SubmitForm: React.FC = () => {
         instructions: instructionList,
         categoryTitles: categoryList,
       }
+
       const token = localStorage.getItem('token')
 
-      await axios.post(`${url}/recipes`, data, {
+      const response = await axios.post(`${url}/recipes`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       })
-
+      console.log('Response:', response)
       toast({
         title: 'Recept úspěšně přidán.',
         status: 'success',
@@ -213,7 +215,7 @@ export const SubmitForm: React.FC = () => {
         rating: 'ONE',
         ingredients: [],
         instructions: [],
-        categoryId: [],
+        categoryTitles: [],
       })
       setImageFile(null)
       setRating(ZERO)

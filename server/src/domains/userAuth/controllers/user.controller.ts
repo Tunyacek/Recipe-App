@@ -11,14 +11,14 @@ const refreshSecret = process.env.JWT_REFRESH_SECRET || 'pleasewritemeindotenv'
 export const authenticatedUserControllerFactory = (userService: UserService) => {
   const authenticatedUser = async (req: Request, res: Response) => {
     try {
-      const acessToken = req.header('Authorization')?.split(' ')[1] || ''
-      if (!acessToken) {
+      const accessToken = req.header('Authorization')?.split(' ')[1] || ''
+      if (!accessToken) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
           message: 'Access token chybí',
         })
       }
 
-      const payload = verify(acessToken, accessSecret) as { id: string }
+      const payload = verify(accessToken, accessSecret) as { id: string }
       if (!payload) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
           message: 'Access token je neplatný',

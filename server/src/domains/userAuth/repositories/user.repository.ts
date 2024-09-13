@@ -1,15 +1,14 @@
 import { prisma } from '../../../lib/prisma'
-import { generateRefreshToken } from '../../../lib/jwt'
 
 export const authenticatedUserRepositoryFactory = () => {
-  const createToken = async (userId: string) => {
+  const createToken = async (userId: string, accessToken: string) => {
     const expiredAt = new Date()
     expiredAt.setDate(expiredAt.getDate() + 7)
-
+    console.log('token be', accessToken)
     return await prisma.token.create({
       data: {
         userId: userId,
-        token: generateRefreshToken(userId),
+        token: accessToken,
         expiredAt,
       },
     })
@@ -17,7 +16,7 @@ export const authenticatedUserRepositoryFactory = () => {
 
   const findToken = async (userId: string, token: string) => {
     const foundToken = await prisma.token.findFirst({
-      where: { userId, token, expiredAt: { gte: new Date() } },
+      where: { userId, token: token, expiredAt: { gte: new Date() } },
     })
 
     return foundToken || null
@@ -25,7 +24,7 @@ export const authenticatedUserRepositoryFactory = () => {
 
   const deleteToken = async (userId: string, token: string) => {
     await prisma.token.delete({
-      where: { token, userId },
+      where: { token: token, userId },
     })
   }
 

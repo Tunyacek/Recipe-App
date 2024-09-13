@@ -14,8 +14,8 @@ export const authenticatedUserServiceFactory = (
     return user
   }
 
-  const createToken = async (userId: string) => {
-    return await userRepository.createToken(userId)
+  const createToken = async (userId: string, accessToken: string) => {
+    return await userRepository.createToken(userId, accessToken)
   }
 
   const findToken = async (userId: string, token: string) => {

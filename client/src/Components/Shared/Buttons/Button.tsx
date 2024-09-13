@@ -169,13 +169,18 @@ export function RegisterSubmit() {
   )
 }
 
-export function Logout() {
+type LogoutProps = {
+  onClick?: () => void
+}
+
+export function Logout({ onClick }: LogoutProps) {
   return (
     <Button
       variant="outline"
       borderColor="#9acc9c"
       color="#9acc9c"
       _hover={{ background: '#8cb88d' }}
+      onClick={onClick} // Attach onClick handler
     >
       Odhlásit
     </Button>

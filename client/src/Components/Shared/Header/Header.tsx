@@ -24,9 +24,7 @@ export function Header() {
     links = (
       <Flex direction="column">
         <Box py="10px" display="flex" justifyContent="center">
-          <Link to="/" onClick={logout}>
-            <Logout />
-          </Link>
+          <Logout onClick={logout} />
         </Box>
         <Box>
           <Link to="/add-recipe">

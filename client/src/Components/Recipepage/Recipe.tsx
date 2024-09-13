@@ -57,7 +57,15 @@ export function Recipe() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`${url}/recipes/${id}`)
+        const token = localStorage.getItem('token')
+        if (!token) {
+          throw new Error('No token found')
+        }
+        const response = await axios.get(`${url}/recipes/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         setRecipe(response.data)
       } catch (error) {
         console.error('Error fetching recipes:', error)

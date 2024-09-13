@@ -42,6 +42,7 @@ export function LoginForm() {
       })
 
       const { token } = response.data
+
       localStorage.setItem('token', token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
