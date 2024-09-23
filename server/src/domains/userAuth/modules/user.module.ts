@@ -7,8 +7,8 @@ import { authenticatedUserServiceFactory } from '../services/user.service'
 export const authenticatedUserModule = () => {
   const loginRepository = loginRepositoryFactory()
   const userRepository = authenticatedUserRepositoryFactory()
-  const userService = authenticatedUserServiceFactory(loginRepository, userRepository)
-  const controller = authenticatedUserControllerFactory(userService)
+  const service = authenticatedUserServiceFactory(loginRepository, userRepository)
+  const controller = authenticatedUserControllerFactory(service)
   const router = authenticatedUserRouterFactory(controller)
 
   return router

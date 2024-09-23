@@ -7,16 +7,26 @@ export const authenticatedUserServiceFactory = (
   userRepository: UserRepository
 ) => {
   const authenticatedUser = async (userId: string) => {
-    const user = await loginRepository.findUserById(userId)
-    if (!user) {
-      throw new UnauthorizedError('Neautentikováno')
+    try {
+      const user = await loginRepository.findUserById(userId)
+      if (!user) {
+        console.error(`User not found with ID: ${userId}`)
+        throw new UnauthorizedError('Neautentikováno')
+      }
+      return user
+    } catch (error) {
+      console.error('Error fetching user:', error)
+      throw error
     }
-    return user
   }
 
-  const createToken = async (userId: string, accessToken: string) => {
-    return await userRepository.createToken(userId, accessToken)
+  const createAccessToken = async (userId: string, accessToken: string) => {
+    return await userRepository.createAccessToken(userId, accessToken)
   }
+
+  /*const createRefreshToken = async (userId: string, refreshToken: string) => {
+    return await userRepository.createRefreshToken(userId, refreshToken)
+  }*/
 
   const findToken = async (userId: string, token: string) => {
     return await userRepository.findToken(userId, token)
@@ -26,5 +36,5 @@ export const authenticatedUserServiceFactory = (
     await userRepository.deleteToken(userId, token)
   }
 
-  return { authenticatedUser, createToken, findToken, deleteToken }
+  return { authenticatedUser, createAccessToken, /*createRefreshToken*/ findToken, deleteToken }
 }

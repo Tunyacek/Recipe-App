@@ -4,13 +4,14 @@ import { Header } from '../Components/Shared/Header/Header.tsx'
 import { RecipeList } from '../Components/Homepage/RecipeList.tsx'
 import { useEffect, useState } from 'react'
 import { type Category } from '../Components/Shared/Header/Dropdown.tsx'
-import axios from 'axios'
 import { Navigate } from 'react-router-dom'
 import { Toolbar } from '../Components/Shared/Header/Toolbar.tsx'
 import { useDispatch } from 'react-redux'
 import { setAuth } from '../lib/redux/authSlice.ts'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../lib/redux/store.ts'
+//import axios from 'axios'
+import axiosInstance from '../lib/interceptors/axios.ts'
 
 export function Homepage() {
   const dispatch = useDispatch()
@@ -23,12 +24,8 @@ export function Homepage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token')
-        if (token) {
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-        }
+        const response = await axiosInstance.get('/authentication/user')
 
-        const response = await axios.get('/authentication/user')
         if (response.status === 200 && response.data) {
           dispatch(setAuth(true))
         } else {
@@ -43,7 +40,7 @@ export function Homepage() {
     }
 
     fetchData()
-  }, [])
+  }, [dispatch])
 
   if (redirect) {
     return <Navigate to="/login" />

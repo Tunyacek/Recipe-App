@@ -70,9 +70,6 @@ CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Token_token_key" ON "Token"("token");
-
--- CreateIndex
 CREATE INDEX "user_id_idx" ON "Token"("userId");
 
 -- AddForeignKey

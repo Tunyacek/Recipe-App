@@ -69,7 +69,7 @@ model Users {
 model Token {
   id        String   @id @default(cuid())
   userId    String
-  token     String   @unique
+  token     String
   createdAt DateTime @default(now())
   expiredAt DateTime
 

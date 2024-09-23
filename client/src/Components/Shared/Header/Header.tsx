@@ -2,7 +2,8 @@ import { Box, Flex, Spacer, Image } from '@chakra-ui/react'
 import { CreateButton, LoginRedirect, Logout } from '../Buttons/Button.tsx'
 import logo from '../../../assets/logo_cream.jpeg'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+//import axios from 'axios'
+import axiosInstance from '../../../lib/interceptors/axios.ts'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../../../lib/redux/store.ts'
 import { useDispatch } from 'react-redux'
@@ -14,7 +15,8 @@ export function Header() {
   const dispatch = useDispatch()
 
   const logout = async () => {
-    await axios.post('authentication/logout', {}, { withCredentials: true })
+    await axiosInstance.post('authentication/logout', {}, { withCredentials: true })
+    localStorage.removeItem('token')
     dispatch(setAuth(false))
   }
 

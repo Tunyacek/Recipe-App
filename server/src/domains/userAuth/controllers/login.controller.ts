@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { ExpressControllerFn } from '../../../lib/utils'
 import { LoginService } from '../services/login.service.interface'
-import { generateAccessToken, generateRefreshToken } from '../../../lib/jwt'
+import { generateAccessToken /*generateRefreshToken*/ } from '../../../lib/jwt'
 import { StatusCodes } from 'http-status-codes'
 import { UserService } from '../services/user.service.interface'
 
@@ -23,16 +23,22 @@ export const loginControllerFactory: LoginControllerFactory = (
       return res.status(StatusCodes.UNAUTHORIZED).send()
     }
 
-    const refreshToken = generateRefreshToken(user.id)
+    //const refreshToken = generateRefreshToken(user.id)
+    //const savedRefreshToken = await userService.createRefreshToken(user.id, refreshToken)
 
     const accessToken = generateAccessToken(user.id)
 
-    res.cookie('refresh_token', refreshToken, {
+    res.cookie('access_token', accessToken, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
-    const tokenResponse = await userService.createToken(user.id, accessToken)
+    /*res.cookie('refresh_token', savedRefreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    })
+*/
+    const tokenResponse = await userService.createAccessToken(user.id, accessToken)
 
     return res.status(StatusCodes.OK).send({ token: tokenResponse.token })
   }

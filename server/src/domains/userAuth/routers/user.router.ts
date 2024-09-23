@@ -9,7 +9,7 @@ export const authenticatedUserRouterFactory: UserRouterFactory = (controller: Us
   const userRouter = express.Router()
 
   userRouter.get('/user', asyncHandler(controller.authenticatedUser))
-  userRouter.post('/refresh', asyncHandler(controller.refresh))
+  //userRouter.post('/refresh', asyncHandler(controller.refresh))
   userRouter.post('/logout', asyncHandler(controller.logout))
 
   return userRouter
