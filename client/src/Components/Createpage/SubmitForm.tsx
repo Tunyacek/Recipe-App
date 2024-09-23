@@ -158,6 +158,8 @@ export const SubmitForm: React.FC = () => {
       return
     }
 
+    const uniqueCategories = Array.from(new Set(categoryList))
+
     if (ingredientList.length === ZERO) {
       toast({
         title: 'Ingredience jsou povinné.',
@@ -187,7 +189,7 @@ export const SubmitForm: React.FC = () => {
         rating: convertRatingToEnum(rating),
         ingredients: ingredientList,
         instructions: instructionList,
-        categoryTitles: categoryList,
+        categoryTitles: uniqueCategories,
       }
 
       const token = localStorage.getItem('token')
