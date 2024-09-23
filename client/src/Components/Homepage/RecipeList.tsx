@@ -292,8 +292,17 @@ export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, sear
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get(`${url}/recipes`)
-        const recipesData = response.data || [] // Ensure it's an array
+        const token = localStorage.getItem('token')
+        if (!token) {
+          throw new Error('No token found')
+        }
+        const response = await axios.get(`${url}/recipes`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        const recipesData = response.data || []
         setRecipes(recipesData)
       } catch (error) {
         console.error('Error fetching recipes:', error)

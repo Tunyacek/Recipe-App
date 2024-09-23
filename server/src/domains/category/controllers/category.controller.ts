@@ -4,6 +4,8 @@ import { CategoryService } from '../services/category.services.interface'
 import { StatusCodes } from 'http-status-codes'
 import { ExpressControllerFn } from '../../../lib/utils'
 import { categorySchema } from '../schemas/category.schema'
+import 'dotenv/config'
+import { verify } from 'jsonwebtoken'
 
 type CategoryControllerFactory = (service: CategoryService) => {
   getAllCategories: ExpressControllerFn
@@ -11,17 +13,21 @@ type CategoryControllerFactory = (service: CategoryService) => {
   createCategory: ExpressControllerFn
 }
 
-interface User {
-  id: string
-  email: string
-  username: string
-}
+const secretAccessKey = process.env.JWT_ACCESS_SECRET || 'pleasewritemeindotenv'
 
 export const categoryControllerFactory: CategoryControllerFactory = (service: CategoryService) => {
   const getAllCategories = async (req: Request, res: Response, _next: NextFunction) => {
-    const userId = (req.user as User).id
+    const authHeader = req.headers.authorization
+    if (!authHeader) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Uživatel neautentikován.' })
+    }
+
+    const token = authHeader.split(' ')[1]
+
+    const decoded = verify(token, secretAccessKey) as { id: string }
+    const userId = decoded.id
     if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'User not authenticated.' })
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Uživatel neautentikován.' })
     }
 
     const allCategories = await service.getAllCategories(userId)
@@ -29,9 +35,19 @@ export const categoryControllerFactory: CategoryControllerFactory = (service: Ca
   }
 
   const getCategoryById = async (req: Request, res: Response, _next: NextFunction) => {
-    const userId = (req.user as User).id
+    const authHeader = req.headers.authorization
+
+    if (!authHeader) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Uživatel neautentikován.' })
+    }
+
+    const token = authHeader.split(' ')[1]
+
+    const decoded = verify(token, secretAccessKey) as { id: string }
+
+    const userId = decoded.id
     if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'User not authenticated.' })
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Uživatel neautentikován.' })
     }
 
     const categoryResult = await service.getCategoryById([req.params.id], userId)
@@ -39,12 +55,21 @@ export const categoryControllerFactory: CategoryControllerFactory = (service: Ca
   }
 
   const createCategory = async (req: Request, res: Response, _next: NextFunction) => {
-    const userId = (req.user as User).id
-    if (!userId) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'User not authenticated.' })
+    const authHeader = req.headers.authorization
+
+    if (!authHeader) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Uživatel neautentikován.' })
     }
 
-    const parsedCategory = categorySchema.safeParse(req.body)
+    const token = authHeader.split(' ')[1]
+    const decoded = verify(token, secretAccessKey) as { id: string }
+
+    const userId = decoded.id
+    if (!userId) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Uživatel neautentikován.' })
+    }
+
+    const parsedCategory = categorySchema.safeParse({ ...req.body, userId })
     if (!parsedCategory.success) {
       throw new UnprocessableEntityError(parsedCategory.error)
     }

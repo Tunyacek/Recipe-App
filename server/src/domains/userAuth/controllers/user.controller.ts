@@ -2,82 +2,116 @@ import { Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
 import 'dotenv/config'
 import { StatusCodes } from 'http-status-codes'
-import { UserService } from '../services/user.service.interace'
-import { generateAccessToken } from '../../../lib/jwt'
+import { UserService } from '../services/user.service.interface'
+//import { generateAccessToken } from '../../../lib/jwt'
 
 const accessSecret = process.env.JWT_ACCESS_SECRET || 'pleasewritemeindotenv'
-const refreshSecret = process.env.JWT_REFRESH_SECRET || 'pleasewritemeindotenv'
+//const refreshSecret = process.env.JWT_REFRESH_SECRET || 'pleasewritemeindotenv'
 
 export const authenticatedUserControllerFactory = (userService: UserService) => {
   const authenticatedUser = async (req: Request, res: Response) => {
     try {
-      const cookie = req.cookies['access_token']
-      if (!cookie) {
+      const accessToken = req.header('Authorization')?.split(' ')[1] || ''
+
+      if (!accessToken) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
-          message: 'Access token chybí',
+          message: 'Chybí přístupový token',
         })
       }
 
-      const payload = verify(cookie, accessSecret) as { id: string }
+      const payload = verify(accessToken, accessSecret) as { id: string }
       if (!payload) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
-          message: 'Access token je neplatný',
+          message: 'Neplatný přístupový token',
         })
       }
 
       const user = await userService.authenticatedUser(payload.id)
       if (!user) {
         return res.status(StatusCodes.UNAUTHORIZED).send({
-          message: 'Uživatel nenalezen',
+          message: 'Uživatel nebyl nalezen',
         })
       }
 
       const { password, ...data } = user
-      return res.send(data)
+      return res.status(StatusCodes.OK).send(data)
     } catch (error) {
-      return res.status(StatusCodes.UNAUTHORIZED).send({
-        message: 'Chybný access token',
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        message: 'Interní chyba serveru při ověřování uživatele',
       })
     }
   }
 
-  const refresh = async (req: Request, res: Response) => {
+  /*const refresh = async (req: Request, res: Response) => {
     try {
       const cookie = req.cookies['refresh_token']
+      if (!cookie) {
+        console.error('Refresh token missing')
+        return res.status(StatusCodes.UNAUTHORIZED).send({
+          message: 'Chybí obnovovací token',
+        })
+      }
 
       const payload = verify(cookie, refreshSecret) as { id: string }
-
       if (!payload) {
+        console.error('Invalid refresh token')
         return res.status(StatusCodes.UNAUTHORIZED).send({
-          message: 'Refresh token chybí',
+          message: 'Neplatný obnovovací token',
+        })
+      }
+
+      const storedRefreshToken = await userService.findToken(payload.id, cookie)
+      if (!storedRefreshToken) {
+        console.error('Refresh token not found or invalid')
+        return res.status(StatusCodes.UNAUTHORIZED).send({
+          message: 'Obnovovací token nebyl nalezen nebo je neplatný',
         })
       }
 
       const newAccessToken = generateAccessToken(payload.id)
-
-      res.cookie('access_token', newAccessToken, {
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+      return res.status(StatusCodes.OK).send({ token: newAccessToken })
+    } catch (error) {
+      console.error('Error refreshing token:', error) // Log the exact error
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        message: 'Interní chyba serveru při obnovování tokenu',
       })
+    }
+  }*/
 
-      res.status(StatusCodes.OK).send({
-        message: 'V pořádku',
+  const logout = async (req: Request, res: Response) => {
+    res.cookie('access_token', '', { maxAge: 0 })
+    const authHeader = req.headers['authorization']
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(StatusCodes.BAD_REQUEST).send({
+        message: 'Přístupový token nebyl nalezen',
+      })
+    }
+
+    const token = authHeader.split(' ')[1]
+
+    try {
+      const payload = verify(token, accessSecret) as { id: string }
+      if (!payload) {
+        return res.status(StatusCodes.UNAUTHORIZED).send({
+          message: 'Chybný přístupový token',
+        })
+      }
+
+      await userService.deleteToken(payload.id, token)
+
+      res.setHeader('authorization', '')
+
+      return res.status(StatusCodes.OK).send({
+        message: 'Úspěšně odhlášen',
       })
     } catch (error) {
-      return res.status(StatusCodes.UNAUTHORIZED).send({
-        message: 'Chybný refresh token',
+      console.error('Logout error:', error)
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        message: 'Odhlášení se nepodařilo',
       })
     }
   }
 
-  const logout = async (_req: Request, res: Response) => {
-    res.cookie('access_token', '', { maxAge: 0 })
-    res.cookie('refresh_token', '', { maxAge: 0 })
-
-    res.status(StatusCodes.OK).send({
-      message: 'V pořádku',
-    })
-  }
-
-  return { authenticatedUser, refresh, logout }
+  return { authenticatedUser, /*refresh*/ logout }
 }

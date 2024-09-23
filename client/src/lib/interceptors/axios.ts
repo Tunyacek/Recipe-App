@@ -5,22 +5,82 @@ const url = import.meta.env.VITE_BE_URL
 axios.defaults.baseURL = `${url}`
 axios.defaults.withCredentials = true
 
-let refresh = false
+const axiosInstance = axios.create({
+  baseURL: `${url}`,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
-axios.interceptors.response.use(
-  (resp) => resp,
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+export default axiosInstance
+
+/*
+const axiosInstance = axios.create({
+  baseURL: `${url}`,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response
+  },
   async (error) => {
-    if (error.response.status === 401 && !refresh) {
-      refresh = true
+    const originalRequest = error.config
 
-      const response = await axios.post('/authentication/refresh', {})
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true
 
-      if (response.status === 200) {
-        return axios(error.config)
+      try {
+        const refreshResponse = await axiosInstance.post(
+          '/authentication/refresh',
+          {},
+          { withCredentials: true }
+        )
+        if (refreshResponse.status === 200) {
+          const newToken = refreshResponse.data.token
+          localStorage.setItem('token', newToken)
+          originalRequest.headers['Authorization'] = `Bearer ${newToken}`
+
+          return axiosInstance(originalRequest)
+        }
+      } catch (refreshError) {
+        localStorage.removeItem('token')
+        return Promise.reject(refreshError)
       }
     }
 
-    refresh = false
-    return error
+    return Promise.reject(error)
   }
 )
+
+export default axiosInstance*/

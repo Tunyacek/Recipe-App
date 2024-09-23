@@ -57,7 +57,15 @@ export function Recipe() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get(`${url}/recipes/${id}`)
+        const token = localStorage.getItem('token')
+        if (!token) {
+          throw new Error('No token found')
+        }
+        const response = await axios.get(`${url}/recipes/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         setRecipe(response.data)
       } catch (error) {
         console.error('Error fetching recipes:', error)
@@ -148,7 +156,7 @@ export function Recipe() {
         />
 
         <Heading m="10px">{recipe.title}</Heading>
-        <Text as="i">Porcí: {recipe.portions}</Text>
+        <Text as="i">Počet porcí: {recipe.portions}</Text>
         <Flex justifyContent="center" alignItems="center" m="15px" mb="30px">
           <Icon as={Salad} />
           <Text pl="5px" pr="15px">

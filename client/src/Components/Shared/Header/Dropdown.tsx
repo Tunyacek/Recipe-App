@@ -24,7 +24,12 @@ export function Dropdown({ onCategoryChange }: DropdownProps) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`/categories`)
+        const token = localStorage.getItem('token')
+        const response = await axios.get(`/categories`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
         const categoriesData = response.data || []
         const formattedCategories: SelectOption[] = categoriesData.map((category: Category) => ({
           value: category.id,

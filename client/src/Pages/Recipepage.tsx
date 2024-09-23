@@ -5,11 +5,12 @@ import { Header } from '../Components/Shared/Header/Header'
 import { BackButton, CreateButton } from '../Components/Shared/Buttons/Button'
 import { Link, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setAuth } from '../lib/redux/authSlice.ts'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../lib/redux/store.ts'
+import axiosInstance from '../lib/interceptors/axios.ts'
+//import axios from 'axios'
 
 export function Recipepage() {
   const [redirect, setRedirect] = useState(false)
@@ -21,9 +22,15 @@ export function Recipepage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get('/authentication/user')
-        dispatch(setAuth(true))
+        const response = await axiosInstance.get('/authentication/user')
+        if (response.status === 200 && response.data) {
+          dispatch(setAuth(true))
+        } else {
+          setRedirect(true)
+          dispatch(setAuth(false))
+        }
       } catch (error) {
+        console.error('Authentication failed:', error)
         setRedirect(true)
         dispatch(setAuth(false))
       }
@@ -43,9 +50,7 @@ export function Recipepage() {
       <Box bg="#d0ffd5">
         <Flex direction="row" alignItems="center" height="100%">
           <Box ml="5px">
-            <Link to="/recipes">
-              <Header />
-            </Link>
+            <Header />
           </Box>
           <Spacer />
           <Box mr="5px" mt="30px">

@@ -30,28 +30,28 @@ export function LoginForm() {
   const auth = useSelector((state: RootState) => state.auth.value)
   const toast = useToast()
 
-  console.log('Auth:', auth)
-  console.log('Redirect:', redirect)
-
   const handleClick = () => setShow(!show)
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
 
     try {
-      await axios.post(`/login`, {
+      const response = await axios.post(`/login`, {
         username,
         password,
       })
 
+      const { token } = response.data
+
+      localStorage.setItem('token', token)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
       setRedirect(true)
     } catch (error: any) {
       let errorMessage = 'Došlo k chybě při přihlašování. Zkuste to znovu.'
-
       if (error.response && error.response.data && error.response.data.error) {
         errorMessage = error.response.data.error.message || errorMessage
       }
-
       toast({
         title: 'Chyba při přihlášení',
         description: errorMessage,
@@ -61,9 +61,7 @@ export function LoginForm() {
       })
     }
   }
-
   if (redirect || auth) {
-    console.log('Redirecting to /recipes') // Debugging line
     return <Navigate to="/recipes" />
   }
 

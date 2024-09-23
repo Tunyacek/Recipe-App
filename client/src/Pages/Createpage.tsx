@@ -3,13 +3,14 @@ import { SubmitForm } from '../Components/Createpage/SubmitForm'
 import { Footer } from '../Components/Shared/Footer/Footer'
 import { Link, Navigate } from 'react-router-dom'
 import { BackButton } from '../Components/Shared/Buttons/Button'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Header } from '../Components/Shared/Header/Header'
 import { useDispatch } from 'react-redux'
 import { setAuth } from '../lib/redux/authSlice.ts'
-import { type RootState } from '../lib/redux/store.ts'
 import { useSelector } from 'react-redux'
+import { type RootState } from '../lib/redux/store.ts'
+//import axios from 'axios'
+import axiosInstance from '../lib/interceptors/axios.ts'
 
 export function Createpage() {
   const [redirect, setRedirect] = useState(false)
@@ -20,16 +21,22 @@ export function Createpage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get('/authentication/user')
-        dispatch(setAuth(true))
+        const response = await axiosInstance.get('/authentication/user')
+        if (response.status === 200 && response.data) {
+          dispatch(setAuth(true))
+        } else {
+          setRedirect(true)
+          dispatch(setAuth(false))
+        }
       } catch (error) {
+        console.error('Authentication failed:', error)
         setRedirect(true)
         dispatch(setAuth(false))
       }
     }
 
     fetchData()
-  }, [])
+  }, [dispatch])
 
   if (redirect) {
     return <Navigate to="/login" />
