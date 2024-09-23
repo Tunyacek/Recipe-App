@@ -114,7 +114,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
             mx: '0px',
           },
           '@media screen and (max-width: 1140px)': {
-            width: '475px',
+            width: '445px',
             height: '500px',
           },
           '@media screen and (max-width: 960px)': {
@@ -241,7 +241,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 variant="solid"
                 bg="#9acc9c"
                 _hover={{ background: '#8cb88d' }}
-                marginBottom="5px"
+                margin="5px"
                 sx={{
                   '@media screen and (max-width: 1850px)': {
                     width: '150px',
