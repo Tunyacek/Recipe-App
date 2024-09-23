@@ -43,7 +43,7 @@ interface TimeInputProps {
 export const PrepTimeInput: React.FC<TimeInputProps> = ({ value, onChange }) => (
   <Box pr="15px" mr="15px">
     <FormControl isRequired>
-      <FormLabel fontWeight="semibold">Čas přípravy</FormLabel>
+      <FormLabel fontWeight="semibold">Čas přípravy (min)</FormLabel>
       <NumberInput bg="white" name="prep_time" onChange={onChange} value={value}>
         <NumberInputField />
       </NumberInput>
@@ -54,7 +54,7 @@ export const PrepTimeInput: React.FC<TimeInputProps> = ({ value, onChange }) => 
 export const CookTimeInput: React.FC<TimeInputProps> = ({ value, onChange }) => (
   <Box pl="15px" mr="15px">
     <FormControl isRequired>
-      <FormLabel fontWeight="semibold">Čas vaření</FormLabel>
+      <FormLabel fontWeight="semibold">Čas vaření (min)</FormLabel>
       <NumberInput bg="white" name="cook_time" onChange={onChange} value={value}>
         <NumberInputField />
       </NumberInput>

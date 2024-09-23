@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import { Box, Flex, FormControl, FormLabel, HStack, useToast } from '@chakra-ui/react'
 import { SubmitRecipeButton } from '../Shared/Buttons/Button'
 import { InstructionList, IngredientList, CategoryList } from './ListInputs'
@@ -59,6 +60,7 @@ export const SubmitForm: React.FC = () => {
   const [instructionList, setInstructionList] = useState<string[]>([])
   const [categoryList, setCategoryList] = useState<string[]>([])
   const toast = useToast()
+  const navigate = useNavigate()
 
   const handlePrepTimeChange = (_valueAsString: string, valueAsNumber: number) => {
     setValues((prevValues) => ({
@@ -178,7 +180,6 @@ export const SubmitForm: React.FC = () => {
 
     try {
       const imageUrl = await handleImageUpload()
-      console.log('Image URL:', imageUrl)
 
       const data = {
         ...values,
@@ -191,13 +192,13 @@ export const SubmitForm: React.FC = () => {
 
       const token = localStorage.getItem('token')
 
-      const response = await axios.post(`${url}/recipes`, data, {
+      await axios.post(`${url}/recipes`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       })
-      console.log('Response:', response)
+
       toast({
         title: 'Recept úspěšně přidán.',
         status: 'success',
@@ -222,6 +223,8 @@ export const SubmitForm: React.FC = () => {
       setIngredientList([])
       setInstructionList([])
       setCategoryList([])
+
+      navigate('/recipes')
     } catch (err) {
       const error = err as Error
       toast({
@@ -254,7 +257,7 @@ export const SubmitForm: React.FC = () => {
               <Rating count={5} value={rating} edit={true} onChange={(value) => setRating(value)} />
             </FormControl>
           </Box>
-          <Box pb="5" mr="15px">
+          <Box pb="5" mr="15px" width="250px">
             <PortionsInput value={values.portions} onChange={handlePortionsChange} />
           </Box>
           <CategoryList categoryList={categoryList} setCategoryList={setCategoryList} />
