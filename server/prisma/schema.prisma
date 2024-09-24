@@ -31,12 +31,14 @@ model Recipe {
 
 model Category {
   id         String           @id @default(cuid())
-  title      String           @unique
+  title      String
   created_at DateTime         @default(now())
   updated_at DateTime         @updatedAt
   recipes    RecipeCategory[]
   userId     String
   user       Users            @relation(fields: [userId], references: [id])
+
+  @@unique([title, userId])
 }
 
 model RecipeCategory {

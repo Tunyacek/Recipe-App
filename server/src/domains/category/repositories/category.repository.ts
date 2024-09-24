@@ -18,14 +18,24 @@ export const categoryRepositoryFactory = () => {
   }
 
   const createCategory = async (category: CategorySchema, userId: string) => {
+    const existingCategory = await prisma.category.findFirst({
+      where: {
+        title: category.title,
+        userId: userId,
+      },
+    })
+
+    if (existingCategory) {
+      return existingCategory
+    }
+
     const createdCategory = await prisma.category.create({
       data: {
         ...category,
-        user: {
-          connect: { id: userId },
-        },
+        userId: userId,
       },
     })
+
     return createdCategory
   }
 

@@ -2,8 +2,28 @@ import { prisma } from '../../../lib/prisma'
 import { RecipeSchema } from '../schemas/recipe.schema'
 
 export const recipeRepositoryFactory = () => {
+  const sanitizeRecipeResponse = (recipe: any) => {
+    return {
+      ...recipe,
+      user: {
+        id: recipe.user.id,
+        username: recipe.user.username,
+      },
+
+      categoryId: recipe.categoryId.map((category: any) => ({
+        ...category,
+        category: {
+          id: category.category.id,
+          title: category.category.title,
+          created_at: category.category.created_at,
+          updated_at: category.category.updated_at,
+        },
+      })),
+    }
+  }
+
   const getAllRecipes = async (userId: string) => {
-    return await prisma.recipe.findMany({
+    const recipes = await prisma.recipe.findMany({
       where: { userId },
       include: {
         categoryId: {
@@ -14,11 +34,16 @@ export const recipeRepositoryFactory = () => {
         user: true,
       },
     })
+
+    return recipes.map(sanitizeRecipeResponse)
   }
 
   const getRecipeById = async (id: string, userId: string) => {
-    return await prisma.recipe.findUnique({
-      where: { id, userId },
+    const recipe = await prisma.recipe.findFirst({
+      where: {
+        id: id,
+        userId: userId,
+      },
       include: {
         categoryId: {
           include: {
@@ -28,6 +53,12 @@ export const recipeRepositoryFactory = () => {
         user: true,
       },
     })
+
+    if (recipe) {
+      return sanitizeRecipeResponse(recipe)
+    } else {
+      return null
+    }
   }
 
   const createRecipe = async (recipe: RecipeSchema) => {

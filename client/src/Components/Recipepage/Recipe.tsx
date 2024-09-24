@@ -1,7 +1,5 @@
 import {
   Box,
-  Button,
-  ButtonGroup,
   Flex,
   Heading,
   Icon,
@@ -13,6 +11,7 @@ import {
   Divider,
   UnorderedList,
   useToast,
+  Tag,
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { CookingPot, Salad } from 'lucide-react'
@@ -79,7 +78,21 @@ export function Recipe() {
 
   const deleteRecipe = async () => {
     try {
-      await axios.delete(`${url}/recipes/${id}`)
+      const token = localStorage.getItem('token')
+      if (!token) {
+        throw new Error('No token found')
+      }
+      await axios.delete(`${url}/recipes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      toast({
+        title: 'Recept úspěšně smazán.',
+        status: 'success',
+        duration: THREE_THOUSAND,
+        isClosable: true,
+      })
       navigate('/recipes')
     } catch (err) {
       const error = err as Error
@@ -231,8 +244,8 @@ export function Recipe() {
           <Text fontWeight="bold" mb="10px">
             Kategorie
           </Text>
-          <ButtonGroup
-            spacing="2"
+          <Box
+            margin="5px"
             mb="50px"
             display="flex"
             flexWrap="wrap"
@@ -240,20 +253,14 @@ export function Recipe() {
             alignItems="center"
           >
             {recipe.categoryId.map((categories, index) => (
-              <Button
+              <Tag
                 m="5px"
                 color="#f8fae5"
                 key={index}
                 variant="solid"
                 bg="#9acc9c"
-                _hover={{ background: '#8cb88d' }}
                 sx={{
-                  '@media screen and (max-width: 1200px)': {
-                    width: '200px',
-                    height: '40px',
-                    fontSize: '15px',
-                  },
-                  '@media screen and (max-width: 840px)': {
+                  '@media screen and (max-width: 3040px)': {
                     width: '190px',
                     height: '35px',
                     fontSize: '14px',
@@ -266,9 +273,9 @@ export function Recipe() {
                 }}
               >
                 {categories.category.title}
-              </Button>
+              </Tag>
             ))}
-          </ButtonGroup>
+          </Box>
         </Box>
       </Flex>
       <Box></Box>
