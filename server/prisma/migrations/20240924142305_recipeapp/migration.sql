@@ -61,7 +61,7 @@ CREATE TABLE "Token" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Category_title_key" ON "Category"("title");
+CREATE UNIQUE INDEX "Category_title_userId_key" ON "Category"("title", "userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
