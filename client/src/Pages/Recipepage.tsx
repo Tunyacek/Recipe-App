@@ -1,8 +1,8 @@
-import { Box, Flex, Spacer } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { Footer } from '../Components/Shared/Footer/Footer'
 import { Recipe } from '../Components/Recipepage/Recipe'
 import { Header } from '../Components/Shared/Header/Header'
-import { BackButton, CreateButton } from '../Components/Shared/Buttons/Button'
+import { BackButton } from '../Components/Shared/Buttons/Button'
 import { Link, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -48,17 +48,9 @@ export function Recipepage() {
   return (
     <Flex direction="column" minHeight="100vh" bg="#f3fff4">
       <Box bg="#d0ffd5">
-        <Flex direction="row" alignItems="center" height="100%">
-          <Box ml="5px">
-            <Header />
-          </Box>
-          <Spacer />
-          <Box mr="5px" mt="30px">
-            <Link to="/add-recipe">
-              <CreateButton />
-            </Link>
-          </Box>
-        </Flex>
+        <Box ml="5px">
+          <Header />
+        </Box>
         <Box bg="#B0EBB4" height="80px" mt="10px">
           <Link to={`/recipes`}>
             <BackButton />

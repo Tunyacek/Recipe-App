@@ -240,18 +240,14 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
                 key={index}
                 variant="solid"
                 bg="#9acc9c"
-                _hover={{ background: '#8cb88d' }}
-                margin="5px"
+                margin="1px"
                 sx={{
                   '@media screen and (max-width: 1850px)': {
-                    width: '150px',
-                    fontSize: '14px',
-                  },
-                  '@media screen and (max-width: 1600px)': {
-                    width: '140px',
-                    height: '30px',
+                    width: '120px',
+                    height: '25px',
                     fontSize: '12px',
                   },
+
                   '@media screen and (max-width: 1440px)': {
                     width: '150px',
                     fontSize: '14px',
