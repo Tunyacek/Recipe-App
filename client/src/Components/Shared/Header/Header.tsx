@@ -62,7 +62,7 @@ export function Header() {
 export function HeaderLogo() {
   return (
     <Box>
-      <Image src={logo} width="110px" height="110px" />
+      <Image src={logo} width="110px" height="110px" borderRadius="100%" />
     </Box>
   )
 }

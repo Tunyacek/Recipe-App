@@ -131,22 +131,22 @@ export function LoginRedirect() {
   return (
     <Button
       variant="outline"
-      borderColor="#9acc9c"
-      color="#9acc9c"
-      _hover={{ background: '#8cb88d' }}
+      borderColor="#575757"
+      color="#575757"
+      _hover={{ background: '#9acc9c', color: 'white' }}
     >
       Přihlásit
     </Button>
   )
 }
 
-export function RegisterRedirect() {
+export function RegisterRedirect({ isDarker = false }) {
   return (
     <Button
-      color="#8cb88d"
+      color={isDarker ? 'black' : '#8cb88d'}
       variant="outline"
-      _hover={{ background: '#9dcc9d85' }}
-      borderColor="#9acc9c"
+      _hover={{ background: isDarker ? '#9dcc9d85' : '#4e4e4e', color: 'gray' }}
+      borderColor={isDarker ? 'black' : '#9acc9c'}
     >
       Vytvořit nový účet
     </Button>
@@ -180,7 +180,7 @@ export function Logout({ onClick }: LogoutProps) {
       borderColor="#9acc9c"
       color="#9acc9c"
       _hover={{ background: '#8cb88d' }}
-      onClick={onClick} // Attach onClick handler
+      onClick={onClick}
     >
       Odhlásit
     </Button>
