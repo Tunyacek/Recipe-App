@@ -29,24 +29,104 @@ export function Titlepage() {
             textAlign="left"
             pl="100px"
           >
-            <Heading fontSize="70px" ml="40px" mb="70px">
+            <Heading
+              fontSize="70px"
+              ml="40px"
+              mb="70px"
+              sx={{
+                '@media screen and (max-width: 699px)': {
+                  fontSize: '50px',
+                  ml: '25px',
+                  mb: '50px',
+                },
+                '@media screen and (max-width: 509px)': {
+                  fontSize: '35px',
+                  ml: '25px',
+                  mb: '50px',
+                },
+              }}
+            >
               Nom Nom Nation
             </Heading>
-            <Text fontSize="19px" ml="40px" mb="30px">
+            <Text
+              fontSize="19px"
+              ml="40px"
+              mb="30px"
+              sx={{
+                '@media screen and (max-width: 699px)': {
+                  fontSize: '15px',
+                  ml: '25px',
+                  mb: '45px',
+                },
+                '@media screen and (max-width: 509px)': {
+                  fontSize: '15px',
+                  ml: '25px',
+                  mb: '45px',
+                },
+              }}
+            >
               Vaše osobní kuchařka na dosah ruky.
             </Text>
-            <Text fontSize="19px" ml="40px" mb="30px">
+            <Text
+              fontSize="19px"
+              ml="40px"
+              mb="30px"
+              sx={{
+                '@media screen and (max-width: 699px)': {
+                  fontSize: '15px',
+                  ml: '25px',
+                  mb: '45px',
+                },
+                '@media screen and (max-width: 509px)': {
+                  fontSize: '15px',
+                  ml: '25px',
+                  mb: '45px',
+                },
+              }}
+            >
               Ukládejte, sdílejte a objevujte chutné recepty na jednom místě!
             </Text>
 
-            <Flex direction="row" my="30px" ml="35px">
+            <Flex
+              direction="row"
+              my="30px"
+              ml="35px"
+              fontSize="19px"
+              mb="30px"
+              sx={{
+                '@media screen and (max-width: 699px)': {
+                  fontSize: '15px',
+                  ml: '25px',
+                  mb: '45px',
+                },
+                '@media screen and (max-width: 509px)': {
+                  fontSize: '15px',
+                  ml: '25px',
+                  mb: '45px',
+                },
+              }}
+            >
               <Text>Nemáte účet? Zaregistrujte se zde</Text>
               <Box>
                 <CornerRightDown />
               </Box>
             </Flex>
-            <ButtonGroup ml="125px">
-              <LoginRedirect isDarker={true} />
+            <ButtonGroup
+              ml="125px"
+              sx={{
+                '@media screen and (max-width: 699px)': {
+                  fontSize: '15px',
+                  ml: '110px',
+                  width: '250px',
+                },
+                '@media screen and (max-width: 509px)': {
+                  fontSize: '15px',
+                  ml: '90px',
+                  width: '250px',
+                },
+              }}
+            >
+              <LoginRedirect />
               <RegisterRedirect isDarker={true} />
             </ButtonGroup>
           </Flex>

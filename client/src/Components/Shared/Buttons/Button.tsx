@@ -127,13 +127,13 @@ export function UpdateRecipe() {
   )
 }
 
-export function LoginRedirect({ isDarker = false }) {
+export function LoginRedirect() {
   return (
     <Button
       variant="outline"
-      borderColor={isDarker ? '#4e4e4e' : '#9acc9c'}
-      color={isDarker ? '#4e4e4e' : '#9acc9c'}
-      _hover={{ background: isDarker ? '#8cb88d' : '#4e4e4e', color: 'white' }}
+      borderColor="#575757"
+      color="#575757"
+      _hover={{ background: '#9acc9c', color: 'white' }}
     >
       Přihlásit
     </Button>
