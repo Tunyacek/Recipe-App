@@ -71,13 +71,13 @@ export function LoginForm() {
       <Box ml="5px">
         <HeaderLogo />
       </Box>
-      <Box bg="#B0EBB4" height="80px" mt="10px">
+      <Box bg="#B0EBB4" height="80px">
         <Link to={`/`}>
           <BackButton />
         </Link>
       </Box>
       <Box
-        minHeight="75.7vh"
+        minHeight="83.2vh"
         bg="#f3fff4"
         display="flex"
         justifyContent="center"

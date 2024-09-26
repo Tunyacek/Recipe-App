@@ -93,16 +93,14 @@ export function RegisterForm() {
 
   return (
     <Box bg="#d0ffd5">
-      <Box ml="5px">
-        <Header />
-      </Box>
-      <Box bg="#B0EBB4" height="80px" mt="10px">
+      <Header />
+      <Box bg="#B0EBB4" height="80px">
         <Link to={`/login`}>
           <BackButton />
         </Link>
       </Box>
       <Box
-        minHeight="75.7vh"
+        minHeight="83.2vh"
         bg="#f3fff4"
         display="flex"
         justifyContent="center"

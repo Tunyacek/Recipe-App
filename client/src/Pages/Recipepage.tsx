@@ -48,10 +48,9 @@ export function Recipepage() {
   return (
     <Flex direction="column" minHeight="100vh" bg="#f3fff4">
       <Box bg="#d0ffd5">
-        <Box ml="5px">
-          <Header />
-        </Box>
-        <Box bg="#B0EBB4" height="80px" mt="10px">
+        <Header />
+
+        <Box bg="#B0EBB4" height="80px">
           <Link to={`/recipes`}>
             <BackButton />
           </Link>

@@ -49,7 +49,7 @@ export function Createpage() {
   return (
     <Flex direction="column" minHeight="100vh" bg="#f3fff4">
       <Box bg="#d0ffd5">
-        <Box ml="5px" mb="10px">
+        <Box ml="10px">
           <Header />
         </Box>
       </Box>

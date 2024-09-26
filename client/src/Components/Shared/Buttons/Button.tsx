@@ -127,13 +127,14 @@ export function UpdateRecipe() {
   )
 }
 
-export function LoginRedirect() {
+export function LoginRedirect({ isHeader = true }) {
   return (
     <Button
       variant="outline"
       borderColor="#575757"
       color="#575757"
       _hover={{ background: '#9acc9c', color: 'white' }}
+      mr={isHeader ? '10px' : '0px'}
     >
       Přihlásit
     </Button>
