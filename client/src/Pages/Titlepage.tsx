@@ -4,14 +4,12 @@ import { Footer } from '../Components/Shared/Footer/Footer'
 import potImage from '../assets/onder-ortel-rpMvlIvT9hM-unsplash.jpg'
 import { CornerRightDown } from 'lucide-react'
 import { LoginRedirect, RegisterRedirect } from '../Components/Shared/Buttons/Button'
+import { Link } from 'react-router-dom'
 
 export function Titlepage() {
   return (
     <Box bg="#d0ffd5">
-      <Box ml="5px">
-        <Header />
-      </Box>
-
+      <Header />
       <Box minHeight="83.2vh" bg="#f3fff4">
         <Box position="relative" w="100%" h="83.2vh">
           <Image src={potImage} h="100%" w="100%" objectFit="cover" />
@@ -112,7 +110,7 @@ export function Titlepage() {
               </Box>
             </Flex>
             <ButtonGroup
-              ml="125px"
+              ml="175px"
               sx={{
                 '@media screen and (max-width: 699px)': {
                   fontSize: '15px',
@@ -126,8 +124,12 @@ export function Titlepage() {
                 },
               }}
             >
-              <LoginRedirect />
-              <RegisterRedirect isDarker={true} />
+              <Link to="/login">
+                <LoginRedirect isHeader={false} />
+              </Link>
+              <Link to="/register">
+                <RegisterRedirect isDarker={true} />
+              </Link>
             </ButtonGroup>
           </Flex>
         </Box>

@@ -8,6 +8,7 @@ import {
   InputRightElement,
   Button,
   useToast,
+  FormControl,
 } from '@chakra-ui/react'
 import { HeaderLogo } from '../Components/Shared/Header/Header'
 import { Footer } from '../Components/Shared/Footer/Footer'
@@ -70,13 +71,13 @@ export function LoginForm() {
       <Box ml="5px">
         <HeaderLogo />
       </Box>
-      <Box bg="#B0EBB4" height="80px" mt="10px">
+      <Box bg="#B0EBB4" height="80px">
         <Link to={`/`}>
           <BackButton />
         </Link>
       </Box>
       <Box
-        minHeight="75.7vh"
+        minHeight="83.2vh"
         bg="#f3fff4"
         display="flex"
         justifyContent="center"
@@ -91,39 +92,43 @@ export function LoginForm() {
         <form onSubmit={handleSubmit}>
           <Flex direction="column" gap="3" m="20px">
             <Box>
-              <FormLabel>Uživatelské jméno</FormLabel>
-              <Input
-                width="400px"
-                borderColor="#9acc9c"
-                bg="white"
-                focusBorderColor="#9acc9c"
-                onChange={(e) => setUsername(e.target.value)}
-              />
+              <FormControl isRequired>
+                <FormLabel>Uživatelské jméno</FormLabel>
+                <Input
+                  width="400px"
+                  borderColor="#9acc9c"
+                  bg="white"
+                  focusBorderColor="#9acc9c"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </FormControl>
             </Box>
             <Box>
-              <FormLabel>Heslo</FormLabel>
-              <InputGroup size="md" width="400px">
-                <Input
-                  pr="4.5rem"
-                  type={show ? 'text' : 'password'}
-                  borderColor="#9acc9c"
-                  focusBorderColor="#9acc9c"
-                  bg="white"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <InputRightElement>
-                  <Button
-                    h="1.75rem"
-                    width="30px"
-                    size="xl"
-                    onClick={handleClick}
-                    bg="#9acc9c"
-                    _hover={{ background: '#8cb88d' }}
-                  >
-                    {show ? <EyeOff /> : <Eye />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
+              <FormControl isRequired>
+                <FormLabel>Heslo</FormLabel>
+                <InputGroup size="md" width="400px">
+                  <Input
+                    pr="4.5rem"
+                    type={show ? 'text' : 'password'}
+                    borderColor="#9acc9c"
+                    focusBorderColor="#9acc9c"
+                    bg="white"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <Button
+                      h="1.75rem"
+                      width="30px"
+                      size="xl"
+                      onClick={handleClick}
+                      bg="#9acc9c"
+                      _hover={{ background: '#8cb88d' }}
+                    >
+                      {show ? <EyeOff /> : <Eye />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
             </Box>
           </Flex>
           <Box ml="175px" mt="30px">

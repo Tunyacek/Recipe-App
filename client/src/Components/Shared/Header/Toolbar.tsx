@@ -19,7 +19,7 @@ export function Toolbar({ onCategoryChange, onSearchChange }: HeaderProps) {
     <Box bg="#B0EBB4" height={['130px', '130px', '80px']}>
       <Flex direction={flexDisplayDirection} alignItems="center" height="100%">
         <Box
-          pl="15px"
+          ml="15px"
           flex="1"
           sx={{
             '@media screen and (max-width: 767px)': {
@@ -30,7 +30,7 @@ export function Toolbar({ onCategoryChange, onSearchChange }: HeaderProps) {
           <Searchbar onSearchChange={onSearchChange} />
         </Box>
         <Spacer />
-        <Box pr="15px">
+        <Box mr="15px">
           <Dropdown onCategoryChange={onCategoryChange} />
         </Box>
       </Flex>

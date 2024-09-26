@@ -47,7 +47,7 @@ export function Header() {
   return (
     <Box as="header">
       <Box>
-        <Flex pl="5px" pb="10px" bg="#d0ffd5" align="center" pr="10px">
+        <Flex ml="5px" bg="#d0ffd5" align="center">
           <Link to="/recipes">
             <HeaderLogo />
           </Link>
@@ -61,7 +61,7 @@ export function Header() {
 
 export function HeaderLogo() {
   return (
-    <Box>
+    <Box ml="10px">
       <Image src={logo} width="110px" height="110px" borderRadius="100%" />
     </Box>
   )

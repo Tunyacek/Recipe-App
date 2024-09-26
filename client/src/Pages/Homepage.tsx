@@ -61,7 +61,10 @@ export function Homepage() {
   return (
     <Flex direction="column" minHeight="100vh" bg="#f3fff4">
       <Header />
-      <Toolbar onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
+
+      <Box>
+        <Toolbar onCategoryChange={handleCategoryChange} onSearchChange={handleSearchChange} />
+      </Box>
       <Box flex="1">
         <RecipeList selectedCategories={selectedCategories} searchRecipe={searchRecipe} />
       </Box>
