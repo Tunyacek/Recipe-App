@@ -145,7 +145,7 @@ export function RegisterRedirect({ isDarker = false }) {
     <Button
       color={isDarker ? 'black' : '#8cb88d'}
       variant="outline"
-      _hover={{ background: isDarker ? '#9dcc9d85' : '#4e4e4e', color: 'gray' }}
+      _hover={{ background: isDarker ? '#9dcc9d85' : '#9dcc9d85', color: 'white' }}
       borderColor={isDarker ? 'black' : '#9acc9c'}
     >
       Vytvořit nový účet

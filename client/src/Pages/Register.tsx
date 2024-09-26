@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Flex,
+  FormControl,
   FormLabel,
   Input,
   InputGroup,
@@ -116,75 +117,83 @@ export function RegisterForm() {
         <form onSubmit={handleSubmit}>
           <Flex direction="column" gap="3" m="20px">
             <Box>
-              <FormLabel>Emailová adresa</FormLabel>
-              <Input
-                type="email"
-                borderColor="#9acc9c"
-                width="400px"
-                bg="white"
-                focusBorderColor="#9acc9c"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Box>
-            <Box>
-              <FormLabel>Uživatelské jméno</FormLabel>
-              <Input
-                borderColor="#9acc9c"
-                width="400px"
-                bg="white"
-                focusBorderColor="#9acc9c"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </Box>
-            <Box>
-              <FormLabel>Heslo</FormLabel>
-              <InputGroup size="md" width="400px">
+              <FormControl isRequired>
+                <FormLabel>Emailová adresa</FormLabel>
                 <Input
-                  pr="4.5rem"
-                  type={showPassword ? 'text' : 'password'}
+                  type="email"
                   borderColor="#9acc9c"
-                  focusBorderColor="#9acc9c"
+                  width="400px"
                   bg="white"
-                  onChange={(e) => setPassword(e.target.value)}
+                  focusBorderColor="#9acc9c"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <InputRightElement>
-                  <Button
-                    h="1.75rem"
-                    width="30px"
-                    size="xl"
-                    onClick={handleClickPassword}
-                    bg="#9acc9c"
-                    _hover={{ background: '#8cb88d' }}
-                  >
-                    {showPassword ? <EyeOff /> : <Eye />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
+              </FormControl>
             </Box>
             <Box>
-              <FormLabel>Kontrola hesla</FormLabel>
-              <InputGroup size="md" width="400px">
+              <FormControl isRequired>
+                <FormLabel>Uživatelské jméno</FormLabel>
                 <Input
-                  pr="4.5rem"
-                  type={showPasswordConfirm ? 'text' : 'password'}
                   borderColor="#9acc9c"
-                  focusBorderColor="#9acc9c"
+                  width="400px"
                   bg="white"
-                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  focusBorderColor="#9acc9c"
+                  onChange={(e) => setUsername(e.target.value)}
                 />
-                <InputRightElement>
-                  <Button
-                    h="1.75rem"
-                    width="30px"
-                    size="xl"
-                    onClick={handleClickPasswordConfirm}
-                    bg="#9acc9c"
-                    _hover={{ background: '#8cb88d' }}
-                  >
-                    {showPasswordConfirm ? <EyeOff /> : <Eye />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
+              </FormControl>
+            </Box>
+            <Box>
+              <FormControl isRequired>
+                <FormLabel>Heslo</FormLabel>
+                <InputGroup size="md" width="400px">
+                  <Input
+                    pr="4.5rem"
+                    type={showPassword ? 'text' : 'password'}
+                    borderColor="#9acc9c"
+                    focusBorderColor="#9acc9c"
+                    bg="white"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <Button
+                      h="1.75rem"
+                      width="30px"
+                      size="xl"
+                      onClick={handleClickPassword}
+                      bg="#9acc9c"
+                      _hover={{ background: '#8cb88d' }}
+                    >
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+            </Box>
+            <Box>
+              <FormControl isRequired>
+                <FormLabel>Kontrola hesla</FormLabel>
+                <InputGroup size="md" width="400px">
+                  <Input
+                    pr="4.5rem"
+                    type={showPasswordConfirm ? 'text' : 'password'}
+                    borderColor="#9acc9c"
+                    focusBorderColor="#9acc9c"
+                    bg="white"
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <Button
+                      h="1.75rem"
+                      width="30px"
+                      size="xl"
+                      onClick={handleClickPasswordConfirm}
+                      bg="#9acc9c"
+                      _hover={{ background: '#8cb88d' }}
+                    >
+                      {showPasswordConfirm ? <EyeOff /> : <Eye />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
             </Box>
           </Flex>
           <Box ml="160px" mt="30px">
