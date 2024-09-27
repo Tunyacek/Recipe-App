@@ -90,7 +90,6 @@ export function Titlepage() {
               my="30px"
               ml="35px"
               fontSize="19px"
-              mb="30px"
               sx={{
                 '@media screen and (max-width: 699px)': {
                   fontSize: '15px',
@@ -134,7 +133,6 @@ export function Titlepage() {
           </Flex>
         </Box>
       </Box>
-
       <Footer />
     </Box>
   )
