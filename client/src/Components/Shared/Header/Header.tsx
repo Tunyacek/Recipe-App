@@ -48,9 +48,7 @@ export function Header() {
     <Box as="header">
       <Box>
         <Flex ml="5px" bg="#d0ffd5" align="center">
-          <Link to="/recipes">
-            <HeaderLogo />
-          </Link>
+          <HeaderLogo />
           <Spacer />
           {links}
         </Flex>
