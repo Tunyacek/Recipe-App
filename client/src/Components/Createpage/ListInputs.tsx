@@ -34,6 +34,13 @@ export function IngredientList({ ingredientList, setIngredientList }: ListProps)
     setIngredientInput('')
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addIngredient()
+    }
+  }
+
   const deleteIngredient = (index: number) => {
     const newIngredientList = [...ingredientList]
     newIngredientList.splice(index, ONE)
@@ -47,6 +54,7 @@ export function IngredientList({ ingredientList, setIngredientList }: ListProps)
         <Input
           bg={'white'}
           onChange={(e) => setIngredientInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={ingredientInput}
           minLength={ONE}
         />
@@ -98,6 +106,13 @@ export function InstructionList({ instructionList, setInstructionList }: Instruc
     setInstructionInput('')
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addInstruction()
+    }
+  }
+
   const deleteInstruction = (index: number) => {
     const newInstructionList = [...instructionList]
     newInstructionList.splice(index, ONE)
@@ -111,6 +126,7 @@ export function InstructionList({ instructionList, setInstructionList }: Instruc
         <Input
           bg={'white'}
           onChange={(e) => setInstructionInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={instructionInput}
           minLength={ONE}
         />
@@ -175,6 +191,13 @@ export function CategoryList({ categoryList, setCategoryList }: CategoryInputPro
     setCategoryInput('')
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addCategory()
+    }
+  }
+
   const deleteCategory = (index: number) => {
     const newCategoryList = [...categoryList]
     newCategoryList.splice(index, ONE)
@@ -188,6 +211,7 @@ export function CategoryList({ categoryList, setCategoryList }: CategoryInputPro
         <Input
           bg={'white'}
           onChange={(e) => setCategoryInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={categoryInput}
           minLength={ONE}
         />
