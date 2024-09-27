@@ -233,6 +233,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
           <Box mb="50px" display="flex" flexWrap="wrap" justifyContent="center" alignItems="center">
             {recipe.categoryId?.map((categoryRel, index) => (
               <Tag
+                justifyContent={'center'}
                 width="160px"
                 height="35px"
                 fontSize="15px"
