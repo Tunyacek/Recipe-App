@@ -8,10 +8,12 @@ import {
   InputRightElement,
   ListItem,
   UnorderedList,
+  useToast,
 } from '@chakra-ui/react'
 import { Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
 
+const THREE_THOUSAND = 3000
 const ZERO = 0
 const ONE = 1
 
@@ -149,9 +151,20 @@ interface CategoryInputProps {
 }
 
 export function CategoryList({ categoryList, setCategoryList }: CategoryInputProps) {
+  const toast = useToast()
   const [categoryInput, setCategoryInput] = useState('')
 
   const addCategory = () => {
+    if (categoryInput.length > 25) {
+      toast({
+        title: 'Kategorie je moc dlouhá.',
+        status: 'error',
+        duration: THREE_THOUSAND,
+        isClosable: true,
+      })
+      return
+    }
+
     if (!categoryInput.trim()) {
       return
     }
