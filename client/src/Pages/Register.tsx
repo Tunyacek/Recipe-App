@@ -21,6 +21,10 @@ import { Header } from '../Components/Shared/Header/Header'
 
 const THREE_THOUSAND = 3000
 
+const cleanInput = (input: string): string => {
+  return input.trim().replace(/\s+/g, ' ')
+}
+
 export function RegisterForm() {
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
@@ -123,7 +127,7 @@ export function RegisterForm() {
                   width="400px"
                   bg="white"
                   focusBorderColor="#9acc9c"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(cleanInput(e.target.value))}
                 />
               </FormControl>
             </Box>
@@ -135,7 +139,7 @@ export function RegisterForm() {
                   width="400px"
                   bg="white"
                   focusBorderColor="#9acc9c"
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(cleanInput(e.target.value))}
                 />
               </FormControl>
             </Box>
@@ -149,7 +153,7 @@ export function RegisterForm() {
                     borderColor="#9acc9c"
                     focusBorderColor="#9acc9c"
                     bg="white"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(cleanInput(e.target.value))}
                   />
                   <InputRightElement>
                     <Button
@@ -176,7 +180,7 @@ export function RegisterForm() {
                     borderColor="#9acc9c"
                     focusBorderColor="#9acc9c"
                     bg="white"
-                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    onChange={(e) => setPasswordConfirm(cleanInput(e.target.value))}
                   />
                   <InputRightElement>
                     <Button
