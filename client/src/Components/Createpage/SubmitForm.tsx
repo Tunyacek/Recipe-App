@@ -144,7 +144,7 @@ export const SubmitForm: React.FC = () => {
         case FIVE:
           return 'FIVE'
         default:
-          throw new Error(`Invalid rating value: ${rating}`)
+          throw new Error(`Hodnocení receptu je povinné.`)
       }
     }
 

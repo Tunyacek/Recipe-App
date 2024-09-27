@@ -6,7 +6,7 @@ export function Footer() {
     <Box bg="#d0ffd5">
       <Divider />
       <Box>
-        <Text pt="10px" pl="15px">
+        <Text pt="10px" pb="10px" pl="15px">
           © {year} Niky 🦕
         </Text>
       </Box>

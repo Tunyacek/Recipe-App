@@ -18,7 +18,7 @@ import { CookingPot, Salad } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Rating, { FullStar, EmptyStar } from '../Createpage/Rating'
-import { DeleteRecipe, UpdateRecipe } from '../Shared/Buttons/Button'
+import { DeleteRecipe } from '../Shared/Buttons/Button'
 import { useNavigate } from 'react-router-dom'
 
 interface Category {
@@ -144,7 +144,6 @@ export function Recipe() {
   return (
     <Box>
       <Box display="flex" gap="2" justifyContent="flex-end" pr="10px" py="10px">
-        <UpdateRecipe />
         <DeleteRecipe onClick={deleteRecipe} />
       </Box>
 

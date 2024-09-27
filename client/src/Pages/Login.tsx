@@ -22,6 +22,10 @@ import { type RootState } from '../lib/redux/store'
 
 const THREE_THOUSAND = 3000
 
+const cleanInput = (input: string): string => {
+  return input.trim().replace(/\s+/g, ' ')
+}
+
 export function LoginForm() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -99,7 +103,7 @@ export function LoginForm() {
                   borderColor="#9acc9c"
                   bg="white"
                   focusBorderColor="#9acc9c"
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => setUsername(cleanInput(e.target.value))}
                 />
               </FormControl>
             </Box>
@@ -113,7 +117,7 @@ export function LoginForm() {
                     borderColor="#9acc9c"
                     focusBorderColor="#9acc9c"
                     bg="white"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(cleanInput(e.target.value))}
                   />
                   <InputRightElement>
                     <Button

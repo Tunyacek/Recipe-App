@@ -8,10 +8,12 @@ import {
   InputRightElement,
   ListItem,
   UnorderedList,
+  useToast,
 } from '@chakra-ui/react'
 import { Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
 
+const THREE_THOUSAND = 3000
 const ZERO = 0
 const ONE = 1
 
@@ -32,6 +34,13 @@ export function IngredientList({ ingredientList, setIngredientList }: ListProps)
     setIngredientInput('')
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addIngredient()
+    }
+  }
+
   const deleteIngredient = (index: number) => {
     const newIngredientList = [...ingredientList]
     newIngredientList.splice(index, ONE)
@@ -45,6 +54,7 @@ export function IngredientList({ ingredientList, setIngredientList }: ListProps)
         <Input
           bg={'white'}
           onChange={(e) => setIngredientInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={ingredientInput}
           minLength={ONE}
         />
@@ -96,6 +106,13 @@ export function InstructionList({ instructionList, setInstructionList }: Instruc
     setInstructionInput('')
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addInstruction()
+    }
+  }
+
   const deleteInstruction = (index: number) => {
     const newInstructionList = [...instructionList]
     newInstructionList.splice(index, ONE)
@@ -109,6 +126,7 @@ export function InstructionList({ instructionList, setInstructionList }: Instruc
         <Input
           bg={'white'}
           onChange={(e) => setInstructionInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={instructionInput}
           minLength={ONE}
         />
@@ -149,9 +167,20 @@ interface CategoryInputProps {
 }
 
 export function CategoryList({ categoryList, setCategoryList }: CategoryInputProps) {
+  const toast = useToast()
   const [categoryInput, setCategoryInput] = useState('')
 
   const addCategory = () => {
+    if (categoryInput.length > 25) {
+      toast({
+        title: 'Kategorie je moc dlouhá.',
+        status: 'error',
+        duration: THREE_THOUSAND,
+        isClosable: true,
+      })
+      return
+    }
+
     if (!categoryInput.trim()) {
       return
     }
@@ -160,6 +189,13 @@ export function CategoryList({ categoryList, setCategoryList }: CategoryInputPro
 
     setCategoryList([...categoryList, newCategory])
     setCategoryInput('')
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      addCategory()
+    }
   }
 
   const deleteCategory = (index: number) => {
@@ -175,6 +211,7 @@ export function CategoryList({ categoryList, setCategoryList }: CategoryInputPro
         <Input
           bg={'white'}
           onChange={(e) => setCategoryInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           value={categoryInput}
           minLength={ONE}
         />
