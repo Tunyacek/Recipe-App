@@ -24,7 +24,7 @@ export function Header() {
 
   if (auth) {
     links = (
-      <Flex direction="column">
+      <Flex direction="column" mr="30px">
         <Box py="10px" display="flex" justifyContent="center">
           <Logout onClick={logout} />
         </Box>

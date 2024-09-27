@@ -134,7 +134,7 @@ export function LoginRedirect({ isHeader = true }) {
       borderColor="#575757"
       color="#575757"
       _hover={{ background: '#9acc9c', color: 'white' }}
-      mr={isHeader ? '10px' : '0px'}
+      mr={isHeader ? '30px' : '0px'}
     >
       Přihlásit
     </Button>
