@@ -14,7 +14,7 @@ import {
   Tag,
 } from '@chakra-ui/react'
 import axios from 'axios'
-import { CookingPot, Salad } from 'lucide-react'
+import { CookingPot, Salad, Utensils } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Rating, { FullStar, EmptyStar } from '../Createpage/Rating'
@@ -167,16 +167,20 @@ export function Recipe() {
           }}
         />
 
-        <Heading m="10px">{recipe.title}</Heading>
-        <Text as="i">Počet porcí: {recipe.portions}</Text>
+        <Heading my="30px">{recipe.title}</Heading>
         <Flex justifyContent="center" alignItems="center" m="15px" mb="30px">
           <Icon as={Salad} />
-          <Text pl="5px" pr="15px">
+          <Text ml="5px" mr="15px">
             : {recipe.prep_time} min
           </Text>
           <Spacer width="10px" />
           <Icon as={CookingPot} />
-          <Text pl="5px">: {recipe.cook_time} min</Text>
+          <Text ml="5px" mr="15px">
+            : {recipe.cook_time} min
+          </Text>
+          <Spacer width="10px" />
+          <Icon as={Utensils} />
+          <Text ml="5px">: {recipe.portions}</Text>
         </Flex>
         <Box textAlign="center" mb="40px">
           <Text fontWeight="bold" m="5px">
@@ -253,6 +257,7 @@ export function Recipe() {
           >
             {recipe.categoryId.map((categories, index) => (
               <Tag
+                justifyContent={'center'}
                 m="5px"
                 color="#f8fae5"
                 key={index}
