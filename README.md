@@ -1,6 +1,6 @@
 # Nom Nom Nation
 
-A full-stack recipe management application built using **React (TypeScript)**, **Express**, **Prisma**, and **Supabase**. This app allows users to register, log in, create, view, search, and delete their recipes. It leverages **bcrypt** for password hashing and **JWT** for authentication. The UI is built with **Chakra UI**, and it ensures code quality with **ESLint** and **Husky**.
+A full-stack recipe management application built using **React (TypeScript)**, **Express**, **Prisma**, and **Supabase**. This app allows users to register, log in, create, view, search, and delete their recipes. It leverages **bcrypt** for password hashing and **JWT** for authentication. The UI is built using **Chakra UI**, and it ensures code quality with **ESLint** and **Husky**.
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@ A full-stack recipe management application built using **React (TypeScript)**, *
 
 ## Features
 
-- User registration, login, and logout functionality.
+- User registration and login.
 - View all personal recipes with the ability to filter by name and category.
 - Ability to create, update, delete, and view recipes with detailed information such as:
   - Title
@@ -34,15 +34,15 @@ A full-stack recipe management application built using **React (TypeScript)**, *
 
 ### Frontend
 
-- **React (TypeScript)** – UI framework.
+- **React (TypeScript)** – Frontend framework.
 - **Chakra UI** – UI components and styling.
-- **Axios** – For making API requests.
-- **React Router** – For client-side routing.
+- **Axios** – Networking.
+- **React Router** – Client-side routing.
 
 ### Backend
 
-- **Express** – Web framework for the API.
-- **Prisma** – ORM for database interaction.
+- **Express** – Express – Backend framework.
+- **Prisma** – Database.
 - **Supabase** – For storage and database management.
 - **bcrypt** – For password hashing.
 - **JWT** – For user authentication.
@@ -53,7 +53,7 @@ A full-stack recipe management application built using **React (TypeScript)**, *
 
 ## Getting Started
 
-To run this application locally, ensure you have **Node.js**, **npm**, and a compatible database (e.g., **PostgreSQL** or **Supabase**) installed.
+To run this application locally, ensure you have [**Node.js**](https://nodejs.org/en/download/package-manager),[ **npm**](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm), and [**Supabase**](https://supabase.com/).
 
 ### Prerequisites
 
@@ -87,17 +87,17 @@ cd Recipe-App
 3. Set up your `.env` file by creating it in the `server` directory with the following variables:
 
 ```
-PORT="your_port_be"
-FE_URL="http://localhost:your_port_fe"
-DATABASE_URL="your_database_connection_string"
-DIRECT_URL="your_direct_database_url"
+PORT= Express server port
+FE_URL= Frontend server URL
+DATABASE_URL= Connection string for your Supabase database.
+DIRECT_URL= Direct connection string for Supabase.
 
-STORAGE_URL="your_supabase_storage_url"
-SERVICE_KEY="your_supabase_service_key"
+STORAGE_URL= Supabase storage URL
+SERVICE_KEY=Supabase service authentication key.
 
-SALT_ROUNDS=10
-JWT_ACCESS_SECRET="your_jwt_access_secret"
-JWT_REFRESH_SECRET="your_jwt_refresh_secret"
+SALT_ROUNDS= Number of salt rounds for bcrypt hashing.
+JWT_ACCESS_SECRET= Secret key for JWT access tokens.
+JWT_REFRESH_SECRET= Secret key for JWT refresh tokens.
 ```
 
 4. Run Prisma migrations to set up your database schema:
@@ -135,7 +135,7 @@ npm install
 3. Create a `.env` file in the `client` directory and configure the backend API URL:
 
 ```
-VITE_BE_URL="http://localhost:"your_port_be"/api"
+VITE_BE_URL= Backend server URL
 ```
 
 4. Start the frontend development server:
@@ -199,7 +199,7 @@ npm run dev
 
 ## API Endpoints
 
-Here are some of the key API endpoints for the application:
+Here are API endpoints for the application::
 
 ### Authentication
 
