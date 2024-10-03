@@ -22,6 +22,7 @@ A full-stack recipe management application built using **React (TypeScript)**, *
 - View all personal recipes with the ability to filter by name and category.
 - Ability to create, update, delete, and view recipes with detailed information such as:
   - Title
+  - Summary
   - Portions
   - Preparation/Cooking time
   - Rating
