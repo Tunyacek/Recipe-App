@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "heroku-postbuild": "cd server && npm install && npm run build"
+
   },
   "repository": {
     "type": "git",
