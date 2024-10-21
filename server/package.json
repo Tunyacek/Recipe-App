@@ -8,6 +8,7 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
+    "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
     "db:studio": "npx prisma studio",
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "npx prisma db seed"
