@@ -4,8 +4,7 @@
   "description": "App for recipes",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install",
-    "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src"
+    "prepare": "husky install"
 
   },
   "repository": {
