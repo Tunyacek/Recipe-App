@@ -4,8 +4,7 @@
   "description": "App for recipes",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky install",
-    "heroku-postbuild": "cd server && npm install && npm run build"
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
