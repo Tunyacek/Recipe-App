@@ -285,10 +285,10 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 const url = import.meta.env.VITE_BE_URL
 
 const loadingMessages = [
-  'Server se spouští... asi. Možná. 😬',
-  'Server si dal šlofíčka. Vydržte chvilku. 😪',
-  'Server má právě kreativní pauzu, vydržte chvilku. ✨',
-  'Server si dopřává trochu kávy. ☕',
+  'Chvilinku, recepty si dávají kafe. ☕',
+  'Trpělivost, recepty mají pauzu na svačinu. 🌮',
+  'Prosím počkejte, recepty právě hledají správnou cestu. 🚦',
+  'Vydržte chvilku, recepty se ještě pečou v troubě. 🍰',
 ]
 
 export const RecipeList: React.FC<RecipeListProps> = ({ selectedCategories, searchRecipe }) => {
