@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install"
+
   },
   "repository": {
     "type": "git",
