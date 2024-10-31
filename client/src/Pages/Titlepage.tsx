@@ -21,11 +21,16 @@ export function Titlepage() {
             top="0"
             left="0"
             width="100%"
-            height="100%"
+            mt="150px"
             zIndex="1"
             color="black"
             textAlign="left"
             pl="100px"
+            sx={{
+              '@media screen and (max-width: 509px)': {
+                pl: '30px',
+              },
+            }}
           >
             <Heading
               fontSize="70px"
@@ -39,7 +44,7 @@ export function Titlepage() {
                 },
                 '@media screen and (max-width: 509px)': {
                   fontSize: '35px',
-                  ml: '8px',
+                  ml: '0px',
                   mb: '50px',
                 },
               }}
@@ -58,7 +63,7 @@ export function Titlepage() {
                 },
                 '@media screen and (max-width: 509px)': {
                   fontSize: '15px',
-                  ml: '10px',
+                  ml: '0px',
                   mb: '45px',
                 },
               }}
@@ -77,7 +82,7 @@ export function Titlepage() {
                 },
                 '@media screen and (max-width: 509px)': {
                   fontSize: '15px',
-                  ml: '10px',
+                  ml: '0px',
                   mb: '45px',
                 },
               }}
@@ -98,7 +103,7 @@ export function Titlepage() {
                 },
                 '@media screen and (max-width: 509px)': {
                   fontSize: '15px',
-                  ml: '10px',
+                  ml: '0px',
                   mb: '45px',
                 },
               }}
@@ -118,9 +123,8 @@ export function Titlepage() {
                 },
                 '@media screen and (max-width: 509px)': {
                   fontSize: '15px',
-                  ml: '10px',
+                  ml: '0px',
                   width: '250px',
-                  flexDirection: 'column',
                 },
               }}
             >
