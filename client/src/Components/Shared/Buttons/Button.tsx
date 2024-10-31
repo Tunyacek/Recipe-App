@@ -3,6 +3,7 @@
 import { Box, Button, ButtonGroup, Input } from '@chakra-ui/react'
 import { ArrowLeft, ArrowRight, Pen, Trash2 } from 'lucide-react'
 import { type ChangeEvent } from 'react'
+import { Link } from 'react-router-dom'
 
 const ZERO = 0
 
@@ -121,9 +122,11 @@ export function DeleteRecipe({ onClick }: { onClick: () => void }) {
 
 export function UpdateRecipe() {
   return (
-    <Button colorScheme="yellow" variant="outline">
-      <Pen />
-    </Button>
+    <Link to="/update-recipe/:id">
+      <Button colorScheme="yellow" variant="outline">
+        <Pen />
+      </Button>
+    </Link>
   )
 }
 

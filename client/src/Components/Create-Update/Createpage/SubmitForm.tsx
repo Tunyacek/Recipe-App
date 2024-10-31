@@ -13,17 +13,17 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { SubmitRecipeButton } from '../Shared/Buttons/Button'
-import { InstructionList, IngredientList, CategoryList } from './ListInputs'
-import Rating from './Rating'
+import { SubmitRecipeButton } from '../../Shared/Buttons/Button'
+import { InstructionList, IngredientList, CategoryList } from '../Shared/ListInputs'
+import Rating from '../Shared/Rating'
 import {
   CookTimeInput,
   PortionsInput,
   PrepTimeInput,
   SummaryInput,
   TitleInput,
-} from './SingleInputs'
-import { ImageInput } from './ImageInput'
+} from '../Shared/SingleInputs'
+import { ImageInput } from '../Shared/ImageInput'
 
 interface FormValues {
   title: string
