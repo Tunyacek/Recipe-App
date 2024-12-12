@@ -3,7 +3,6 @@
 import { Box, Button, ButtonGroup, Input } from '@chakra-ui/react'
 import { ArrowLeft, ArrowRight, Pen, Trash2 } from 'lucide-react'
 import { type ChangeEvent } from 'react'
-import { Link } from 'react-router-dom'
 
 const ZERO = 0
 
@@ -36,6 +35,20 @@ export function SubmitRecipeButton() {
       type="submit"
     >
       Vytvořit recept
+    </Button>
+  )
+}
+
+export function UpdateRecipeButton() {
+  return (
+    <Button
+      bg="#9acc9c"
+      _hover={{ background: '#8cb88d' }}
+      borderRadius="lg"
+      width="200px"
+      type="submit"
+    >
+      Aktualizovat recept
     </Button>
   )
 }
@@ -122,11 +135,9 @@ export function DeleteRecipe({ onClick }: { onClick: () => void }) {
 
 export function UpdateRecipe() {
   return (
-    <Link to="/update-recipe/:id">
-      <Button colorScheme="yellow" variant="outline">
-        <Pen />
-      </Button>
-    </Link>
+    <Button colorScheme="yellow" variant="outline">
+      <Pen />
+    </Button>
   )
 }
 
