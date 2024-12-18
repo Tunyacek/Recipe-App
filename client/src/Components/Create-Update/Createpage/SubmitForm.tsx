@@ -277,7 +277,16 @@ export const SubmitForm: React.FC = () => {
           <Flex direction="column" maxW="600px" pt="15px" pl="15px">
             <TitleInput value={values.title} onChange={handleInputChange} />
             <SummaryInput value={values.summary} onChange={handleInputChange} />
-            <Flex direction="row" gap="90px">
+            <Flex
+              direction={{ base: 'column', md: 'row' }}
+              gap="90px"
+              sx={{
+                '@media screen and (max-width: 767px)': {
+                  gap: '0px',
+                  pb: '40px',
+                },
+              }}
+            >
               <Box pb="5" mr="15px">
                 <ImageInput onChange={handleFileChange} />
               </Box>
