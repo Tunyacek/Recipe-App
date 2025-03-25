@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer, Image } from '@chakra-ui/react'
+import { Box, Flex, Spacer, Image, Divider } from '@chakra-ui/react'
 import { CreateButton, LoginRedirect, Logout } from '../Buttons/Button.tsx'
 import logo from '../../../assets/NomNomNew.png'
 import { Link } from 'react-router-dom'
@@ -53,6 +53,7 @@ export function Header() {
           {links}
         </Flex>
       </Box>
+      <Divider />
     </Box>
   )
 }
