@@ -45,7 +45,7 @@ export function Titlepage() {
                 '@media screen and (max-width: 509px)': {
                   fontSize: '35px',
                   ml: '0px',
-                  mb: '50px',
+                  mb: '30px',
                 },
               }}
             >
@@ -64,7 +64,7 @@ export function Titlepage() {
                 '@media screen and (max-width: 509px)': {
                   fontSize: '15px',
                   ml: '0px',
-                  mb: '45px',
+                  mb: '10px',
                 },
               }}
             >
@@ -83,7 +83,7 @@ export function Titlepage() {
                 '@media screen and (max-width: 509px)': {
                   fontSize: '15px',
                   ml: '0px',
-                  mb: '45px',
+                  mb: '10px',
                 },
               }}
             >
@@ -104,7 +104,7 @@ export function Titlepage() {
                 '@media screen and (max-width: 509px)': {
                   fontSize: '15px',
                   ml: '0px',
-                  mb: '45px',
+                  mb: '20px',
                 },
               }}
             >

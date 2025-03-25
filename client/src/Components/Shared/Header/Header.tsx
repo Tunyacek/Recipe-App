@@ -1,6 +1,6 @@
 import { Box, Flex, Spacer, Image } from '@chakra-ui/react'
 import { CreateButton, LoginRedirect, Logout } from '../Buttons/Button.tsx'
-import logo from '../../../assets/logo_cream.jpeg'
+import logo from '../../../assets/NomNomNew.png'
 import { Link } from 'react-router-dom'
 //import axios from 'axios'
 import axiosInstance from '../../../lib/interceptors/axios.ts'
@@ -60,7 +60,19 @@ export function Header() {
 export function HeaderLogo() {
   return (
     <Box ml="10px">
-      <Image src={logo} width="110px" height="110px" borderRadius="100%" />
+      <Image
+        src={logo}
+        width="100px"
+        height="100px"
+        my="5px"
+        sx={{
+          '@media screen and (max-width: 509px)': {
+            width: '70px',
+            height: '70px',
+            my: '5px',
+          },
+        }}
+      />
     </Box>
   )
 }
