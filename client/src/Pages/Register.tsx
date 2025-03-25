@@ -104,7 +104,7 @@ export function RegisterForm() {
         </Link>
       </Box>
       <Box
-        minHeight="83.2vh"
+        minHeight="72.8vh"
         bg="#f3fff4"
         display="flex"
         justifyContent="center"

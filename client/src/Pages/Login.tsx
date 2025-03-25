@@ -71,22 +71,23 @@ export function LoginForm() {
   }
 
   return (
-    <Box bg="#d0ffd5">
+    <Box bg="#d0ffd5" pt="5px">
       <Box ml="5px">
         <HeaderLogo />
       </Box>
       <Box bg="#B0EBB4" height="80px">
-        <Link to={`/`}>
+        <Link to={`/home`}>
           <BackButton />
         </Link>
       </Box>
       <Box
-        minHeight="83.2vh"
+        minHeight="72.3vh"
         bg="#f3fff4"
         display="flex"
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
+        sx={{ '@media screen and (max-width: 509px)': { minHeight: '74.2vh' } }}
       >
         <Flex>
           <Text as="b" fontSize="30px" m="20px">
