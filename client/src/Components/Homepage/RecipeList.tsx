@@ -50,7 +50,26 @@ interface RecipeListProps {
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
   return (
     <Box>
-      <Card my="5px" mx="5px" maxW="400px" maxH="650px">
+      <Card
+        my="5px"
+        mx="5px"
+        maxW="400px"
+        maxH="650px"
+        sx={{
+          '@media screen and (min-width: 900px) and (max-width: 1140px)': {
+            maxW: '600px',
+            ml: '30px',
+          },
+
+          '@media screen and (min-width: 515px) and (max-width: 699px)': {
+            maxW: '600px',
+            ml: '30px',
+          },
+          '@media screen and (max-width: 509px)': {
+            ml: '30px',
+          },
+        }}
+      >
         <Link to={`/recipes/${recipe.id}`}>
           <CardBody>
             <Box>
