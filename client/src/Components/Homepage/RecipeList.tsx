@@ -63,7 +63,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 
           '@media screen and (min-width: 515px) and (max-width: 699px)': {
             maxW: '600px',
-            ml: '30px',
           },
           '@media screen and (max-width: 509px)': {
             ml: '30px',
