@@ -105,7 +105,7 @@ export function LoginForm() {
                   bg="white"
                   focusBorderColor="#9acc9c"
                   onChange={(e) => setUsername(cleanInput(e.target.value))}
-                  sx={{ '@media screen and (max-width: 509px)': { maxW: '250px' } }}
+                  sx={{ '@media screen and (max-width: 650px)': { maxW: '250px' } }}
                 />
               </FormControl>
             </Box>
@@ -115,7 +115,7 @@ export function LoginForm() {
                 <InputGroup
                   size="md"
                   maxW="400px"
-                  sx={{ '@media screen and (max-width: 509px)': { maxW: '250px' } }}
+                  sx={{ '@media screen and (max-width: 650px)': { maxW: '250px' } }}
                 >
                   <Input
                     pr="4.5rem"
@@ -144,7 +144,7 @@ export function LoginForm() {
           <Box
             ml="175px"
             mt="30px"
-            sx={{ '@media screen and (max-width: 509px)': { ml: '100px' } }}
+            sx={{ '@media screen and (max-width: 650px)': { ml: '100px' } }}
           >
             <LoginSubmit />
           </Box>
