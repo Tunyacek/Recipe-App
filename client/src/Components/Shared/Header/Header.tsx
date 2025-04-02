@@ -1,4 +1,4 @@
-import { Box, Flex, Spacer, Image, Divider } from '@chakra-ui/react'
+import { Box, Flex, Spacer, Image } from '@chakra-ui/react'
 import { CreateButton, LoginRedirect, Logout } from '../Buttons/Button.tsx'
 import logo from '../../../assets/NomNomNew.png'
 import { Link } from 'react-router-dom'
@@ -24,7 +24,7 @@ export function Header() {
 
   if (auth) {
     links = (
-      <Flex direction="column" mr="30px">
+      <Flex direction="column" mr="10px">
         <Box py="10px" display="flex" justifyContent="center">
           <Logout onClick={logout} />
         </Box>
@@ -47,13 +47,12 @@ export function Header() {
   return (
     <Box as="header">
       <Box>
-        <Flex ml="5px" bg="#d0ffd5" align="center">
+        <Flex bg="#d0ffd5" align="center">
           <HeaderLogo />
           <Spacer />
           {links}
         </Flex>
       </Box>
-      <Divider />
     </Box>
   )
 }
