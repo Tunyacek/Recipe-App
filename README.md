@@ -1,6 +1,6 @@
 # Nom Nom Nation
 
-A full-stack recipe management application built using **React (TypeScript)**, **Express**, **Prisma**, and **Supabase**. This app allows users to register, log in, create, view, search, and delete their recipes. It leverages **bcrypt** for password hashing and **JWT** for authentication. The UI is built using **Chakra UI**, and it ensures code quality with **ESLint** and **Husky**.
+A full-stack recipe management application built using **React (TypeScript)**, **Express**, **Prisma**, and **Supabase**. It allows users to register, log in, and create, search, and manage their own recipe collection. It uses **bcrypt** for password hashing and **JWT** for authentication. The UI is built using **Chakra UI**, and it ensures code quality with **ESLint** and **Husky**.
 
 ## Table of Contents
 
@@ -213,7 +213,7 @@ Here are API endpoints for the application::
 - `GET` /api/recipes: Fetch all recipes for the logged-in user(requires authentication).
 - `GET` /api/recipes/:id: Fetch a specific recipe by ID(requires authentication).
 - `POST` /api/recipes: Create a new recipe (requires authentication).
-- `PUT` /api/recipes/:id: Update an existing recipe (requires authentication). (Will be added)
+- `PUT` /api/recipes/:id: Update an existing recipe (requires authentication).
 - `DELETE` /api/recipes/:id: Delete a recipe (requires authentication).
 
 ### Folder Structure
